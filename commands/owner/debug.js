@@ -1,4 +1,4 @@
-import { getUserDataManager } from "../../database.js";
+import { defaultData, getUserDataManager } from "../../database.js";
 
 const TempBan = {
   names: ["ban"],
@@ -24,8 +24,31 @@ const TempBan = {
   },
   description: "Temp bans someone",
   hidden: true,
-  permission: rank=>rank=="Owner" || "Mod"
+  permission: rank => rank == "Owner" || rank == "Mod"
 };
+
+const ResetData = {
+  names: ["resetdata"],
+  func: async ({ chat, args: [userid] }) => {
+    if (userid == "6154f0d0a8d6d106c5b869b6") return;
+    if (userid === "@me") {
+      userid = chat.user.id;
+    }
+    const data = await getUserDataManager(userid);
+
+    // deep clone defaultData
+    data.value = JSON.parse(JSON.stringify(defaultData));
+    data.applyRanks();
+
+    setTimeout(function() {
+      data.update();
+      chat.reply("I reset their data!")
+    }, 1500)
+  },
+  hidden: true,
+  description: "Resets a specific substat of a user to its default value. Note: Ranks are hard coded and cannot be reset.",
+  permission: rank => rank == "Owner" || rank == "Mod",
+}
 
 const SetMoney = {
   names: ["setmoney"],
@@ -39,7 +62,7 @@ const SetMoney = {
     chat.reply(`I set ${userid}'s money to ${data.value.money}`)
   },
   hidden: true,
-  permission: rank=>rank=="Owner" || "Mod",
+  permission: rank=>rank == "Owner" || rank == "Mod",
   description: "Sets your money."
 };
 
@@ -52,10 +75,10 @@ const SetWorker = {
     const data = await getUserDataManager(userid);
     data.value.workers = parseFloat(amount) || 0;
     data.update();
-    chat.reply(`I set ${userid}'s money to ${data.value.workers}`)
+    chat.reply(`I set ${userid}'s workers to ${data.value.workers}`)
   },
   hidden: true,
-  permission: rank=>rank=="Owner" || "Mod",
+  permission: rank=>rank == "Owner" || rank == "Mod",
   description: "Sets your money."
 };
 
@@ -68,11 +91,11 @@ const SetCustoms = {
     const data = await getUserDataManager(userid);
     data.value.customers = parseFloat(amount) || 0;
     data.update();
-    chat.reply(`I set ${userid}'s money to ${data.value.customers}`)
+    chat.reply(`I set ${userid}'s customers to ${data.value.customers}`)
   },
   hidden: true,
-  permission: rank=>rank=="Owner" || "Mod",
+  permission: rank=>rank == "Owner" || rank == "Mod",
   description: "Sets your money."
 };
 
-export {SetMoney, TempBan, SetCustoms, SetWorker}
+export {SetMoney, TempBan, SetCustoms, SetWorker, ResetData}

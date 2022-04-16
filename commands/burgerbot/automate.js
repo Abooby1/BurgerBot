@@ -1,7 +1,7 @@
 const Auto = {
   names: ["auto"],
   func: ({chat, body, userData})=>{
-    if (body && body <= 50) {
+    if (body && body <= 7) {
       var Times = 0
       
       if (userData.value.workers >= 1) {
@@ -11,9 +11,9 @@ const Auto = {
             if (Times != body) {
               Times += 1
               userData.value.money -= userData.value.wage
-              var Earned = userData.value.workers * userData.value.prestige * userData.value.customers * 0.001
+              var Earned = userData.value.workers * userData.value.prestige * 0.01 * userData.value.customers
               userData.value.money += Earned
-              chat.reply(`One day has passed (Earned $${Earned.toFixed(3)})`)
+              chat.reply(`One day has passed (Earned $${Earned.toFixed(2)})`)
               setTimeout(function( ) {
                 userData.update()
               }, 2500)
@@ -26,7 +26,7 @@ const Auto = {
         chat.reply(`You need to have at least one worker... (b!hire <stays empty if single person/say bulk if 5 people>)`)
       }
     } else {
-      chat.reply(`Please say how many days you want your workers to work (b!auto <days> | has to be less than 50)`)
+      chat.reply(`Please say how many days you want your workers to work (b!auto <days> | has to be less than 7)`)
     }
   },
   description: "Automate and earn",

@@ -1,7 +1,8 @@
 const Work = {
   names: ["work"],
   func: ({chat, body, userData})=>{
-    if (body && body <= 24) {
+    if (body && body * 1 <= 24 && body > 0) {
+      if (body == "-Infinity") return;
       chat.reply(`You started working for ${body} hours (time: ${body} seconds)`)
       
       setTimeout(function( ) {

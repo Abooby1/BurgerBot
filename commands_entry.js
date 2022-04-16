@@ -16,6 +16,7 @@ function registerCommand(command) {
 Commands.forEach(registerCommand)
 
 export async function onChat(client, chat) {
+  if (chat.text.match("b!constructor")) return;
   if (chat.text.startsWith(PREFIX)) {
     const match = chat.text.substring(PREFIX.length).match(/([a-z0-9\.]+)(.*)/i);
     if (match) {
@@ -29,7 +30,7 @@ export async function onChat(client, chat) {
         if (command.permission) {
           let valid;
           switch (typeof command.permission) {
-            case "string": valid = context.userData.value.rank == command.permission; break;
+            case "string": valid = command.permission == context.userData.value.rank; break;
             case "function": valid = command.permission(context.userData.value.rank); break;
             default: console.log("command.permission is not a string or a function"); return;
           }

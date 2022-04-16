@@ -8,7 +8,7 @@ const Claim = {
         userData.value.daily = Day
         if (body.toLowerCase() == "normal") {
           if (userData.value.prestige >= 2 || userData.value.customers >= 100) {
-            if (await containsObject("Normal", userData.value.rank) == true) {
+            if (userData.value.rank == "Normal") {
               userData.value.money += 0.001
               chat.reply("You earned your rank reward ($0.001)")
               setTimeout(function( ) {
@@ -22,7 +22,7 @@ const Claim = {
           }
         }
         if (body.toLowerCase() == "special") {
-          if (await containsObject("Special", userData.value.rank) == true) {
+          if (userData.value.rank == "Special") {
             userData.value.money += 0.5
             userData.value.prestige += 0.01
             chat.reply("You earned your rank reward ($0.5 and 0.01 prestige)")
@@ -34,7 +34,7 @@ const Claim = {
           }
         }
         if (body.toLowerCase() == "mod") {
-          if (await containsObject("Mod", userData.value.rank) == true) {
+          if (userData.value.rank == "Mod") {
             userData.value.money += 0.3
             userData.value.prestige += 0.01
             chat.reply("You earned your rank reward ($0.3 and 0.01 prestige)")
