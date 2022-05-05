@@ -1,7 +1,5 @@
-import Database from "@replit/database";
+import db from "quick.db";
 import {DATABASE_PREFIX} from "./constants.js";
-
-const db = new Database();
 
 /*
 ranks: 
@@ -17,6 +15,7 @@ const specialRanks = {
   
   "61f9afa941a9e239b62ec6f5": "Bot",
   "624884d0a95b113f10356a47": "Bot",
+  "61e49357dc6a3f617a7fe736": "Bot",
   
   "621cf9c163790d5ac3c2f938": "Mod",//2
   "61998d154ef0457408274fd6": "Mod",
@@ -24,6 +23,7 @@ const specialRanks = {
   "6231fe600c9eb906137b6d98": "Mod",
   "6203c9db3f99d655b9aa81cb": "Mod",
   "61dc68a1d1975678cc267bc6": "Mod",
+  "61eef62462d52f0c8410dd1d": "Mod",
 
   "61fd694edf4668762c1c8fbc": "Special",
   "621e5255aa5d4a6b281e9387": "Special",
@@ -37,7 +37,8 @@ const specialRanks = {
 
 export const defaultData = {
   rankshow: true,
-  
+  postuse: false,
+
   rank: "Normal",
   daily: 0,
 
@@ -46,6 +47,11 @@ export const defaultData = {
   workers: 0,
   wage: 0, 
   prestige: 1,
+
+  autow: false,
+  autoa: false,
+  working: false,
+  normad: "flier"
 };
 
 export async function getDataForUserId(userid) {

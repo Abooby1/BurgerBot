@@ -1,18 +1,23 @@
-function getRandomInt (max) {
-  return Math.floor(Math.random() * max)
-}
+import {getRandomInt, getStuff} from "../../utils.js"
 
 const Advertise = {
   names: ["advert"],
-  func: ({chat, userData})=>{    
-    if (userData.value.money >= 2) {
-      var Earned = getRandomInt(50)
-      chat.reply(`You advertised and got ${Earned} customers!`)
-      userData.value.customers += Earned
-      userData.value.money -= 2
-      setTimeout(function( ) {
-        userData.update()
-      }, 2500)
+  func: ({chat, args: [item], userData})=>{  
+    if (item && getStuff(item) != "false") {
+      const d = getStuff(item)
+      if (userData.value.money >= d.cost) {
+        var Earned = getRandomInt(d.earn)
+        userData.value.money -= d.cost
+        userData.value.customers += Earned
+        chat.reply(`You earned ${Earned} customers with ${d.name}! (cost: $${d.cost})`)
+        setTimeout(function() {
+          userData.update()
+        }, 2500)
+      } else {
+        chat.reply(`You dont have enough to advertise with ${d.name}... (cost: $${d.cost})`)
+      }
+    } else {
+      chat.reply(`Please finish the command... (b!advert <item>)`)
     }
   },
   description: "Advertise",

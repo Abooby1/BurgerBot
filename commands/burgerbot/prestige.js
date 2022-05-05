@@ -8,6 +8,7 @@ const Prestige = {
           userData.value.money = 10
           userData.value.workers = 0
           userData.value.customers = 1
+          userData.value.normad = "flier"
           userData.value.wage = 0
           chat.reply(`You have prestiged! You will now earn more money!`)
           setTimeout(function( ) {

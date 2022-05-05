@@ -17,7 +17,7 @@ Commands.forEach(registerCommand)
 
 export async function onChat(client, chat) {
   if (chat.text.match("b!constructor")) return;
-  if (chat.text.startsWith(PREFIX)) {
+  if (chat.text.toLowerCase().startsWith(PREFIX)) {
     const match = chat.text.substring(PREFIX.length).match(/([a-z0-9\.]+)(.*)/i);
     if (match) {
       const [_, commandName, _body] = match;
@@ -39,11 +39,19 @@ export async function onChat(client, chat) {
             return;
           }
         }
-        await command.func(context);
+        
+        const data = await getUserDataManager(chat.post.author.id)
+        if (data.value.postuse == false) {
+          if (chat.author.id != chat.post.author.id) {
+            chat.reply(`This person has their postuse to false (you cant use commands on their connected post) try connecting your own post!`)
+            return;
+          }
+        }
 
+        await command.func(context);
         //extras
         if (Started == false) {
-          if (containsObject("Special", context.userData.value.rank) == true) {
+          if (context.userData.value.rank == "Special") {
             Started = true
             setInterval(async function( ) {
             const post = await client.groups["62535105a95b113f103c2d57"].post("$connect");

@@ -1,3 +1,5 @@
+import {getStuff} from "../../utils.js"
+
 const Change = {
   names: ["change"],
   func: ({chat, args: [item, value], userData})=>{
@@ -21,8 +23,38 @@ const Change = {
           }
         }
       }
+
+      if (item == "postuse") {
+        if (value == "true") {
+          userData.value.postuse = true
+          chat.reply(`Other people can now use commands on your connected post!`)
+          setTimeout(function( ) {
+            userData.update()
+          }, 2500)
+        } else {
+          if (value == "false") {
+            userData.value.postuse = false
+            chat.reply(`Other people can now not use commands on your connected post!`)
+            setTimeout(function( ) {
+              userData.update()
+            }, 2500)
+          }
+        }
+      }
+
+      if (item == "normad" && getStuff(value.toLowerCase()) != false) {
+        if (userData.value.money >= getStuff(value.toLowerCase()).cost) {
+          userData.value.normad = getStuff(value.toLowerCase()).id
+          chat.reply(`Your workers will now use ${getStuff(value.toLowerCase()).name} to advertise!`)
+          setTimeout(function( ) {
+            userData.update()
+          }, 2500)
+        } else [
+          chat.reply(`You cant use this advertisement... (cost ${getStuff(value.toLowerCase()).name}`)
+        ]
+      }
     } else {
-      chat.reply("You need to have something to change... | b!change <what you want to change> <value>")
+      chat.reply("Please complete the command | b!change <item> <value>")
     }
   },
   description: "Change something about your stats"
