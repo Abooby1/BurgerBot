@@ -51,7 +51,7 @@ const Auto = {
             chat.reply(`You need to have at least one worker... (b!hire <stays empty if single person/say bulk if 5 people>)`)
           }
         } else {
-          if (AutoW.include(chat.author.id)) {
+          if (AutoW.includes(chat.author.id)) {
             chat.reply(`Your workers are already working...`)
           } else {
             userData.value.autow = false
