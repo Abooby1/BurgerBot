@@ -45,7 +45,7 @@ const Auto = {
                 }
               }, 24000)
             } else {
-              chat.reply(`You dont have enough money to pay your workers... (cost: $${getLet(c * body, 2)})`)
+              chat.reply(`You dont have enough money to pay your workers... (cost: $${getLet(s * body, 2)})`)
             }
           } else {
             chat.reply(`You need to have at least one worker... (b!hire <stays empty if single person/say bulk if 5 people>)`)
