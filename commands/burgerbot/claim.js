@@ -15,7 +15,7 @@ const Claim = {
                 userData.update()
               }, 2500)
             } else {
-              chat.reply("You dont have normal rank...")
+              chat.reply("You dont have the normal rank...")
             }
           } else {
             chat.reply("You dont have the requirements to use this command...")
@@ -24,25 +24,23 @@ const Claim = {
         if (body.toLowerCase() == "special") {
           if (userData.value.rank == "Special") {
             userData.value.money += 0.5
-            userData.value.prestige += 0.01
-            chat.reply("You earned your rank reward ($0.5 and 0.01 prestige)")
+            chat.reply("You earned your rank reward! ($0.5)")
             setTimeout(function( ) {
               userData.update()
             }, 2500)
           } else {
-            chat.reply("You dont have special rank...")
+            chat.reply("You dont have the special rank...")
           }
         }
         if (body.toLowerCase() == "mod") {
           if (userData.value.rank == "Mod") {
             userData.value.money += 0.3
-            userData.value.prestige += 0.01
-            chat.reply("You earned your rank reward ($0.3 and 0.01 prestige)")
+            chat.reply("You earned your rank reward! ($0.3)")
             setTimeout(function( ) {
               userData.update()
             }, 2500)
           } else {
-            chat.reply("You dont have mod rank...")
+            chat.reply("You dont have the mod rank...")
           }
         }
       } else {

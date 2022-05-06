@@ -1,5 +1,8 @@
 import {getLet, getStuff, getRandomInt} from "../../utils.js"
 
+var AutoA = []
+var AutoW = []
+
 const Auto = {
   names: ["auto"],
   func: ({chat, args: [item, body], userData})=>{
@@ -14,6 +17,7 @@ const Auto = {
             if (userData.value.money >= s * body) {
               chat.reply(`Your workers are now working! (every 24 hours (24 seconds) you will earn money!)`)
               userData.value.autow = true
+              AutoW.push(chat.author.id)
               setTimeout(function( ) {
                 userData.update()
               }, 1500)
@@ -28,6 +32,7 @@ const Auto = {
                   if (Times == body) {
                     chat.reply(`Your workers are done working! (total earning: $${getLet(Total, 2)})`)
                     userData.value.autow = false
+                    AutoW.splice(AutoW.indexOf(chat.author.id), 1)
                     setTimeout(function( ) {
                       userData.update()
                     }, 2500)
@@ -46,7 +51,15 @@ const Auto = {
             chat.reply(`You need to have at least one worker... (b!hire <stays empty if single person/say bulk if 5 people>)`)
           }
         } else {
-          chat.reply(`Your workers are already working...`)
+          if (AutoW.include(chat.author.id)) {
+            chat.reply(`Your workers are already working...`)
+          } else {
+            userData.value.autow = false
+            chat.reply(`Please try the command again!`)
+            setTimeout(function( ) {
+              userData.update()
+            }, 2500)
+          }
         }
       }
 
@@ -60,6 +73,7 @@ const Auto = {
             if (userData.value.money >= s * body) {
               chat.reply(`Your workers are now advertising! (every 24 hours (24 seconds) you will earn customers!)`)
               userData.value.autoa = true
+              AutoA.push(chat.author.id)
               setTimeout(function( ) {
                 userData.update()
               }, 1500)
@@ -78,6 +92,7 @@ const Auto = {
                   if (Times == body) {
                     chat.reply(`Your workers are done advertising! (total cost: $${getLet(Total, 2)})`)
                     userData.value.autoa = false
+                    AutoA.splice(AutoA.indexOf(chat.author.id), 1)
                     setTimeout(function( ) {
                       userData.update()
                     }, 2500)
@@ -96,7 +111,15 @@ const Auto = {
             chat.reply(`You need to have at least one worker... (b!hire <stays empty if single person/say bulk if 5 people>)`)
           }
         } else {
-          chat.reply(`Your workers are already advertising...`)
+          if (AutoA.includes(chat.author.id)) {
+            chat.reply(`Your workers are already advertising...`)
+          } else {
+            userData.value.autoa = false
+            chat.reply(`Please try the command again!`)
+            setTimeout(function( ) {
+              userData.update()
+            }, 2500)
+          }
         }
       }
     } else {

@@ -49,9 +49,9 @@ const Change = {
           setTimeout(function( ) {
             userData.update()
           }, 2500)
-        } else [
-          chat.reply(`You cant use this advertisement... (cost ${getStuff(value.toLowerCase()).name}`)
-        ]
+        } else {
+          chat.reply(`You cant use this advertisement... (cost $${getStuff(value.toLowerCase()).cost})`)
+        }
       }
     } else {
       chat.reply("Please complete the command | b!change <item> <value>")

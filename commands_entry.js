@@ -4,7 +4,6 @@ import { PREFIX } from "./constants.js";
 import {containsObject} from "./utils.js"
 
 var Started = false
-
 const commands = {};
 
 function registerCommand(command) {

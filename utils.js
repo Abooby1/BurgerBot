@@ -1,3 +1,5 @@
+import db from "quick.db"
+
 export function containsObject(obj, list) {
     var i;
     for (i = 0; i < list.length; i++) {
@@ -30,6 +32,8 @@ export function getLet(num, other) {
     }
   } 
 }
+
+
 
 const flier = {
   name: 'fliers',
@@ -108,3 +112,11 @@ const date = new Date()
 date.toLocaleString( "en-US", { timeZone: "America/New_York" });
 
 export var Day = date.getDate()
+
+export var Frans = []
+
+setTimeout(async function( ) {
+  if (db.get('Frans') != undefined) {
+    Frans = await db.get('Frans')
+  }
+}, 1000)
