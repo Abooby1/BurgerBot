@@ -7,7 +7,7 @@ const Work = {
   func: ({chat, body, userData})=>{
     if (userData.value.working == false) {
       if (body && body * 1 <= 24 && body > 0) {
-        if (body == "-Infinity") return;
+        body = parseFloat(body) || 0;
         userData.value.working = true
         working.push(chat.author.id)
         setTimeout(function( ) {

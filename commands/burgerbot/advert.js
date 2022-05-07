@@ -9,12 +9,12 @@ const Advertise = {
         var Earned = getRandomInt(d.earn)
         userData.value.money -= d.cost
         userData.value.customers += Earned
-        chat.reply(`You earned ${Earned} customers with ${d.name}! (cost: $${d.cost})`)
+        chat.reply(`You earned ${Earned} customers with ${d.name}! (cost: $${d.costshow})`)
         setTimeout(function() {
           userData.update()
         }, 2500)
       } else {
-        chat.reply(`You dont have enough to advertise with ${d.name}... (cost: $${d.cost})`)
+        chat.reply(`You dont have enough to advertise with ${d.name}... (cost: $${d.costshow})`)
       }
     } else {
       chat.reply(`Please finish the command... (b!advert <item>)`)

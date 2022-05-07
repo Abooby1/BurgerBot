@@ -6,6 +6,7 @@ import {Prestige} from "./prestige.js"
 import {Stats} from "./stats.js"
 import {Claim} from "./claim.js"
 import {Change} from "./change.js"
+import {Donate, Inbox, Collect} from "./donate.js"
 
 export const Coms = [
   Hire,
@@ -15,5 +16,8 @@ export const Coms = [
   Prestige,
   Stats,
   Claim,
-  Change
+  Change,
+  Donate,
+  Inbox,
+  Collect
 ]

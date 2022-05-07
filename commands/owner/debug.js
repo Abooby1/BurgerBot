@@ -123,9 +123,7 @@ const SetStuff = {
 const Test = {
   names: ["test"],
   func: async ({chat, client, userData, body}) => {
-    userData.value.autoa = false
-    userData.value.autow = false
-    userData.value.working = false
+    userData.value.inbox = 0
     setTimeout(function( ) {
       userData.update()
     }, 2500)

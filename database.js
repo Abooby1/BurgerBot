@@ -12,6 +12,7 @@ ranks:
 
 const specialRanks = {
   "6154f0d0a8d6d106c5b869b6": "Owner",//3
+  "60ca4bc6f6bf2c044d2c11e6": "Owner",
   
   "61f9afa941a9e239b62ec6f5": "Bot",
   "624884d0a95b113f10356a47": "Bot",
@@ -32,7 +33,9 @@ const specialRanks = {
   "62465bdda95b113f103322d2": "Special",
   "62221daff1c22c29f8629977": "Special",
   "6255aa3c434000065016fb6f": "Special",
-  "61c875e360fe4c7b88a8d071": "Special"
+  "61c875e360fe4c7b88a8d071": "Special",
+
+  "624bbe3fa95b113f1038140c": "Banned"
 }
 
 export const defaultData = {
@@ -51,7 +54,9 @@ export const defaultData = {
   autow: false,
   autoa: false,
   working: false,
-  normad: "flier"
+  normad: "flier",
+
+  inbox: 0
 };
 
 export async function getDataForUserId(userid) {

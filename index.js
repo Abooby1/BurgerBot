@@ -24,7 +24,7 @@ client.onPost = async (post) => {
     resetTimeout();
     onChat(client, chat);
   }
-  }
+}
 
 client.onReady = () => {
   console.log("Bot is ready!")

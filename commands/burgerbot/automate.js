@@ -21,7 +21,7 @@ const Auto = {
               setTimeout(function( ) {
                 userData.update()
               }, 1500)
-              setInterval(function( ) {
+              var ss = setInterval(function( ) {
                 if (Times != body) {
                   Times += 1
                   userData.value.money -= userData.value.wage
@@ -77,7 +77,7 @@ const Auto = {
               setTimeout(function( ) {
                 userData.update()
               }, 1500)
-              setInterval(function( ) {
+              var ss = setInterval(function( ) {
                 if (Times != body) {
                   Times += 1
                   
