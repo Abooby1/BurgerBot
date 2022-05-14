@@ -1,49 +1,37 @@
-import {getUserDataManager} from "../../database.js";
-import {getLet, getStuff} from "../../utils.js"
-import db from "quick.db"
+import {getUserDataManager, db} from "../../database.js";
+import {getLet, getStuff, f} from "../../utils.js"
 
 const Stats = {
   names: ["stats", "stat"],
-  func: async ({chat, client , args: [name]})=>{
-    if (!name || name == "@me") {
-      name = chat.author.username
+  func: async ({chat, client, userData})=>{
+    const earn = await f("workcity", chat.author.id)
+    const earn2 = await f("advertcity", chat.author.id)
+    const earn3 = await f("workbeach", chat.author.id)
+    const earn4 = await f('advertbeach', chat.author.id)
+
+    const c1 = userData.value.wage
+    const c2 = userData.value.wagebeach
+    var Say = ``
+
+    switch (userData.value.spot.toLowerCase()) {
+      case "city":
+        Say = `City | Money: $${getLet(userData.value.money, 2)} | Workers: ${getLet(userData.value.workers)} | Wage: $${getLet(c1, 2)} | Customers: ${getLet(userData.value.customers)} | Earn (b!auto w): $${getLet(earn, 2)} | Cost (b!auto a): $${getLet(earn2, 2)}`
+        break;
+
+      case "beach":
+        Say = `Beach | Money: $${getLet(userData.value.moneybeach, 2)} | Workers: ${getLet(userData.value.workersbeach)} | Wage: $${getLet(c2, 2)} | Customers: ${getLet(userData.value.customsbeach)} | Earn (b!auto w): $${getLet(earn3, 2)} | Cost (b!auto a): $${getLet(earn4, 2)}`
+        break;
     }
-    const user = await client.getUserFromUsername(name)
-    if (user != undefined) {
-      const userid = user.id
+
+    var Say2 = `Main | Current Spot: ${userData.value.spot} Credits: ${getLet(userData.value.credits)} | Prestige: ${userData.value.prestige} | Rank: ${userData.value.rank} (for event help use: <b!help event>)`
+
     
-      const check = await db.get("v1/" + userid)
-      var data = await getUserDataManager(userid)
-      if (check) {
-        if (data.value.rank != "Banned") {
-          if (userid != chat.author.id) {
-            if (data.value.rankshow == false) {
-              var Say = `Money: $${getLet(data.value.money, 2)} | Workers: ${data.value.workers} | Wage: $${getLet(data.value.wage, 2)} | Customers: ${getLet(data.value.customers)} | Prestige: ${data.value.prestige.toFixed(2)}`
-            } else {
-              Say = `Money: $${getLet(data.value.money, 2)} | Workers: ${data.value.workers} | Wage: $${getLet(data.value.wage, 2)} | Customers: ${getLet(data.value.customers)} | Prestige: ${data.value.prestige.toFixed(2)}`
-            }
-          } else {
-            const s = 2.16 * data.value.workers
-            var earn = data.value.workers * data.value.prestige * 0.01 * data.value.customers - data.value.wage - s
-  
-            const c = 1.50 * data.value.workers + data.value.wage
-            var earn2 = data.value.workers * getStuff(data.value.normad).cost * 2 + c
-            
-            Say = `Money: $${getLet(data.value.money, 2)} | Workers: ${data.value.workers} | Wage: $${getLet(data.value.wage, 2)} | Customers: ${getLet(data.value.customers)} | Prestige: ${data.value.prestige.toFixed(2)} | Earning (b!auto w): $${getLet(earn, 2)} | Cost (b!auto a): $${getLet(earn2, 2)} | Rank: ${data.value.rank}`
-          }
-        } else {
-          chat.reply(`${name} is banned...`)
-        }
-    
-        setTimeout(function( ) {
-          chat.reply(Say)
-        }, 500)
-      } else {
-        chat.reply(`${name} hasnt used BurgerBot yet...`)
-      }
-    } else {
-      chat.reply(`Thats not a username...`)
-    }
+    setTimeout(function( ) {
+      chat.reply(Say)
+      setTimeout(function( ) {
+        chat.post.chat(Say2)
+      }, 100)
+    }, 500)
   },
   description: "Check your stats!",
   permission: rank => rank != "Banned"

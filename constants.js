@@ -1,5 +1,5 @@
 const PREFIX = "b!";
-const START = "@BurgerBot"
+const START = "startburger"
 const DATABASE_PREFIX = "v1/";
 const LOG_SOCKET_MESSAGES = true;
 

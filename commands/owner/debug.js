@@ -1,5 +1,10 @@
 import { defaultData, getUserDataManager } from "../../database.js";
 
+const isNaN = function(value) {
+    const n = Number(value);
+    return n !== n;
+};
+
 const TempBan = {
   names: ["ban"],
   func: async ({chat, client, args: [name, time]})=>{
@@ -54,12 +59,19 @@ const ResetData = {
 
 const SetMoney = {
   names: ["setmoney"],
-  func: async ({ chat, args: [userid, money] }) => {
+  func: async ({ chat, args: [userid, type, money] }) => {
     if (userid === "@me") {
       userid = chat.user.id;
     }
     const data = await getUserDataManager(userid);
-    data.value.money = parseFloat(money) || 0;
+    switch (type.toLowerCase()) {
+      case "city":
+        data.value.money = parseFloat(money) || 0;
+        break;
+      case "beach":
+        data.value.moneybeach = parseFloat(money) || 0;
+        break;
+    }
     data.update();
     chat.reply(`I set ${userid}'s money to ${data.value.money}`)
   },
@@ -68,15 +80,39 @@ const SetMoney = {
   description: "Sets your money."
 };
 
-const SetWorker = {
-  names: ["setworkers"],
-  func: async ({ chat, args: [userid, amount] }) => {
+const SetPrestige = {
+  names: ["setprest"],
+  func: async ({ chat, args: [userid, money] }) => {
     if (userid === "@me") {
       userid = chat.user.id;
     }
     const data = await getUserDataManager(userid);
-    data.value.workers = parseFloat(amount) || 0;
-    data.value.wage = parseFloat(amount * 10.23) || 0;
+    data.value.prestige = parseFloat(money) || 0;
+    data.update();
+    chat.reply(`I set ${userid}'s prestige to ${data.value.prestige}`)
+  },
+  hidden: true,
+  permission: rank=>rank == "Owner" || rank == "Mod",
+  description: "Sets your prestige."
+};
+
+const SetWorker = {
+  names: ["setworkers"],
+  func: async ({ chat, args: [userid, type, amount] }) => {
+    if (userid === "@me") {
+      userid = chat.user.id;
+    }
+    const data = await getUserDataManager(userid);
+    switch (type.toLowerCase()) {
+      case "city":
+        data.value.workers = parseFloat(amount) || 0;
+        data.value.wage = parseFloat(amount * 10.23) || 0;
+        break;
+      case "beach":
+        data.value.workersbeach = parseFloat(amount) || 0;
+        data.value.wagebeach = parseFloat(amount * 20.46) || 0;
+        break;
+    }
     data.update();
     chat.reply(`I set ${userid}'s workers to ${data.value.workers}`)
   },
@@ -87,14 +123,37 @@ const SetWorker = {
 
 const SetCustoms = {
   names: ["setcustoms"],
+  func: async ({ chat, args: [userid, type, amount] }) => {
+    if (userid === "@me") {
+      userid = chat.user.id;
+    }
+    const data = await getUserDataManager(userid);
+    switch (type.toLowerCase()) {
+      case "city":
+        data.value.customers = parseFloat(amount) || 0;
+        break;
+      case "beach":
+        data.value.customsbeach = parseFloat(amount) || 0;
+        break;
+    }
+    data.update();
+    chat.reply(`I set ${userid}'s customers to ${data.value.customers}`)
+  },
+  hidden: true,
+  permission: rank=>rank == "Owner" || rank == "Mod",
+  description: "Sets your money."
+};
+
+const SetCredit = {
+  names: ["setcredits"],
   func: async ({ chat, args: [userid, amount] }) => {
     if (userid === "@me") {
       userid = chat.user.id;
     }
     const data = await getUserDataManager(userid);
-    data.value.customers = parseFloat(amount) || 0;
+    data.value.credits = parseFloat(amount) || 0;
     data.update();
-    chat.reply(`I set ${userid}'s customers to ${data.value.customers}`)
+    chat.reply(`I set ${userid}'s credits to ${data.value.credits}`)
   },
   hidden: true,
   permission: rank=>rank == "Owner" || rank == "Mod",
@@ -104,33 +163,10 @@ const SetCustoms = {
 const SetStuff = {
   names: ["stuff"],
   func: async ({chat, body})=>{
-    const data = await getUserDataManager(body)
-
-    if (data != undefined) {
-      data.value.autoa = false
-      data.value.autow = false
-      data.value.working = false
-      chat.reply(`All done!`)
-      setTimeout(function( ) {
-        data.update()
-      }, 2500)
-    }
+     
   },
   description: "Change stuff",
   permission: "Owner"
 };
 
-const Test = {
-  names: ["test"],
-  func: async ({chat, client, userData, body}) => {
-    userData.value.inbox = 0
-    setTimeout(function( ) {
-      userData.update()
-    }, 2500)
-  },
-  hidden: true,
-  permission: rank => rank == "Owner" || rank == "Mod",
-  description: "Test"
-}
-
-export {SetMoney, TempBan, SetCustoms, SetWorker, ResetData, Test, SetStuff}
+export {SetMoney, TempBan, SetCustoms, SetWorker, ResetData, SetStuff, SetPrestige, SetCredit}

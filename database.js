@@ -1,4 +1,5 @@
-import db from "quick.db";
+import JSONdb from 'simple-json-db'
+export const db = new JSONdb('storage.json');
 import {DATABASE_PREFIX} from "./constants.js";
 
 /*
@@ -45,18 +46,30 @@ export const defaultData = {
   rank: "Normal",
   daily: 0,
 
+  credits: 0,
+
   money: 5, 
+  moneybeach: 0,
   customers: 1,
+  customsbeach: 1,
   workers: 0,
+  workersbeach: 0,
   wage: 0, 
+  wagebeach: 0,
   prestige: 1,
-
-  autow: false,
-  autoa: false,
-  working: false,
+  
+  troph: false,
+  
   normad: "flier",
+  normadbeach: "facebook",
+  normstove: "stove1",
+  normstovebeach: "stove1",
+  normwater: "water1",
+  normwaterbeach: "water1",
 
-  inbox: 0
+  inbox: 0,
+  spot: "city",
+  spots: ["city"]
 };
 
 export async function getDataForUserId(userid) {

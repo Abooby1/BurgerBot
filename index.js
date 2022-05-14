@@ -9,11 +9,11 @@ const noop = () => { };
 client.onPost = async (post) => {
   const resetTimeout = await post.connect(60000, () => {
     post.onChat = noop; //replace post.onChat to free up memory
-    if (post.text.match(START)) {
+    if (post.text == START) {
       post.chat("Bot has disconnected... Reason: inactivity")
     }
   })
-  if (post.text.match(START)) {
+  if (post.text == START) {
     setTimeout(function( ) {
       resetTimeout()
       post.chat(`Im now connected to ${post.author.username}'s post!`)
@@ -21,8 +21,11 @@ client.onPost = async (post) => {
   }
 
   post.onChat = (chat) => {
-    resetTimeout();
-    onChat(client, chat);
+    if (post.text == START) {
+      if (chat.text.startsWith('pls')) {setTimeout(function() {chat.reply(`Really?! This aint @DankMemer...`)}, 3000)}
+      resetTimeout();
+      onChat(client, chat);
+    }
   }
 }
 

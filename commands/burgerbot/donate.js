@@ -11,8 +11,8 @@ const Donate = {
           const d = await getUserDataManager(user.id)
           const u = await getUserDataManager(chat.author.id)
 
-          if (u.value.money >= amount) {
-            u.value.money -= parseInt(amount)
+          if (u.value.credits >= amount) {
+            u.value.credits -= parseInt(amount)
             d.value.inbox += parseInt(amount)
             chat.reply(`You donated $${amount} to ${id}!`)
           } else {
@@ -34,11 +34,11 @@ const Donate = {
         const u = await getUserDataManager(chat.author.id)
 
         if (u.value.money >= amount) {
-          u.value.money -= parseInt(amount)
+          u.value.credits -= parseInt(amount)
           d.value.inbox += parseInt(amount)
-          chat.reply(`You donated $${amount} to ${id}!`)
+          chat.reply(`You donated ${amount} credits to ${id}!`)
         } else {
-          chat.reply(`You dont have the money to donate that much...`)
+          chat.reply(`You dont have the credits to donate that much...`)
         }
 
         setTimeout(function( ) {
@@ -57,7 +57,7 @@ const Donate = {
 const Inbox = {
   names: ["inbox"],
   func: ({chat, userData})=>{
-    chat.reply(`You have $${userData.value.inbox} in your inbox!`)
+    chat.reply(`You have ${userData.value.inbox} credits in your inbox!`)
   },
   description: "Check your inbox",
   permission: rank => rank != "Banned"
@@ -66,9 +66,12 @@ const Inbox = {
 const Collect = {
   names: ["collect"],
   func: ({chat, userData})=>{
-    userData.value.money += userData.value.inbox
+    userData.value.credits += userData.value.inbox
     userData.value.inbox = 0
     chat.reply(`You collected everything from your inbox!`)
+    setTimeout(function( ) {
+      userData.update()
+    }, 2500)
   },
   description: "Collect your inbox money",
   permission: rank => rank != "Banned"

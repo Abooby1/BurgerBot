@@ -1,32 +1,47 @@
+import {getStuff} from "../../utils.js"
+
 const Hire = {
   names: ["hire"],
   func: ({chat, body, userData})=>{
-    if (!body) {
-      if (userData.value.money >= 100) {
-        userData.value.workers += 1
-        userData.value.money -= 100
-        userData.value.wage += 10.23
-        chat.reply(`You hired 1 person!`)
-        setTimeout(function( ) {
-          userData.update()
-        }, 2500)
-      } else {
-        chat.reply(`You dont have enough to hire 1 person...`)
-      }
-    } else {
-      if (body == "bulk") {
-        if (userData.value.money >= 300) {
-          userData.value.workers += 5
-          userData.value.money -= 300
-          userData.value.wage += 51.15 * 5
-          chat.reply(`You hired 5 people!`)
-          setTimeout(function( ) {
-            userData.update()
-          }, 2500)
+    if (value == undefined) {
+      chat.reply(`Please complete the command... (b!hire <amount>)`); 
+      return;
+    }
+    switch (userData.value.spot.toLowerCase()) {
+      case "city":
+        if (userData.value.workers + parseInt(body) <= getStuff(userData.value.normstove).max) {
+          if (userData.value.money >= 100 * parseInt(body)) {
+            userData.value.workers += parseInt(body)
+            userData.value.money -= 100 * parseInt(body)
+            userData.value.wage += 10.23 * parseInt(body)
+            chat.reply(`You hired ${body} people!`)
+            setTimeout(function( ) {
+              userData.update()
+            }, 2500)
+          } else {
+            chat.reply(`You dont have enough to hire ${body} people...`)
+          }
         } else {
-          chat.reply(`You dont have enough to 5 people...`)
+          chat.reply(`You cant hire right now... (upgrade your stove to hire more people!)`)
         }
-      }
+        break;
+      case "beach":
+        if (userData.value.workersbeach + parseInt(body) <= getStuff(userData.value.normstovebeach).max) {
+          if (userData.value.moneybeach >= 200 * parseInt(body)) {
+            userData.value.workersbeach += parseInt(body)
+            userData.value.moneybeach -= 200 * parseInt(body)
+            userData.value.wagebeach += 20.46 * parseInt(body)
+            chat.reply(`You hired ${body} people!`)
+            setTimeout(function( ) {
+              userData.update()
+            }, 2500)
+          } else {
+            chat.reply(`You dont have enough to hire ${body} people...`)
+          }
+        } else {
+          chat.reply(`You cant hire right now... (upgrade your stove to hire more people!)`)
+        }
+        break;
     }
   },
   description: "Hire more workers to automate your business",

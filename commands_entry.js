@@ -1,7 +1,9 @@
 import { Commands } from "./commands/index.js";
 import { getUserDataManager } from "./database.js"
 import { PREFIX } from "./constants.js";
-import {containsObject} from "./utils.js"
+import {containsObject, event, getRandomInt} from "./utils.js"
+
+import {Client} from "photop-client"
 
 var Started = false
 const commands = {};
@@ -16,6 +18,7 @@ Commands.forEach(registerCommand)
 
 export async function onChat(client, chat) {
   if (chat.text.match("b!constructor")) return;
+  if (chat.author.id == "6244e8a4a95b113f10314747") return;
   if (chat.text.toLowerCase().startsWith(PREFIX)) {
     const match = chat.text.substring(PREFIX.length).match(/([a-z0-9\.]+)(.*)/i);
     if (match) {
@@ -47,7 +50,6 @@ export async function onChat(client, chat) {
           }
         }
 
-        await command.func(context);
         //extras
         if (Started == false) {
           if (context.userData.value.rank == "Special") {
@@ -60,8 +62,53 @@ export async function onChat(client, chat) {
             }, 600000)
           }
         }
-      } else {
+
+        if (context.userData.value.troph == false) {
+          if (context.userData.value.money >= 100000000000000) {
+            context.userData.value.troph = true
+            const post = await client.groups["62535105a95b113f103c2d57"].post("cappy")
+            setTimeout(async function( ) {
+              const something = await post.chat(`c!bot ${chat.author.id} burgerbotmoney`)
+              chat.reply(`Congrats! You got $100t! (You got the BurgerBot money trophy collectable in CapBot!)`)
+            }, 3000)
+          }
+        }
+
+        if (event.name == "Reward Event") {
+          if (getRandomInt(1, 50) <= 5) {
+            switch (event.earn[getRandomInt(event.earn.length)]) {
+              case "money":
+                const m1 = getRandomInt(10, 100)
+                context.userData.value.money += m1
+                setTimeout(function( ) {
+                  context.userData.update()
+                }, 2500)
+                chat.reply(`You earned $${m1} from the Reward Event!`)
+                break;
+              case "customs":
+                const m2 = getRandomInt(10, 20)
+                context.userData.value.customers += m2
+                setTimeout(function( ) {
+                  context.userData.update()
+                }, 2500)
+                chat.reply(`You earned ${m2} customers from the Reward Event!`)
+                break;
+              case "worker":
+                const m3 = getRandomInt(1, 5)
+                context.userData.value.workers += m3
+                context.userData.value.wage += m3 * 5.12
+                setTimeout(function( ) {
+                  context.userData.update()
+                }, 2500)
+                chat.reply(`You earned ${m3} workers from the Reward Event! (wage added: $${m3 * 5.12})`)
+                break;
+            }
+          }
+        }
+
+        await command.func(context);
         // command not found
+      } else {
         chat.reply("Hmmm, please try that command again... (Most likely its not a command)")
       }
     } else {

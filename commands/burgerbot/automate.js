@@ -1,129 +1,171 @@
-import {getLet, getStuff, getRandomInt} from "../../utils.js"
+import {getLet, getStuff, getRandomInt, event, f} from "../../utils.js"
 
 var AutoA = []
 var AutoW = []
 
 const Auto = {
   names: ["auto"],
-  func: ({chat, args: [item, body], userData})=>{
-    if (body && body <= 7 && item && body > 0) {
-      if (item.toLowerCase() == "work") {
-        if (userData.value.autow == false) {
-          var Times = 0
-          var Total = 0
-          
-          if (userData.value.workers >= 1) {
-            const s = userData.value.wage + 2.16 * userData.value.workers
-            if (userData.value.money >= s * body) {
-              chat.reply(`Your workers are now working! (every 24 hours (24 seconds) you will earn money!)`)
-              userData.value.autow = true
-              AutoW.push(chat.author.id)
-              setTimeout(function( ) {
-                userData.update()
-              }, 1500)
-              var ss = setInterval(function( ) {
-                if (Times != body) {
-                  Times += 1
-                  userData.value.money -= userData.value.wage
-                  const c = 2.16 * userData.value.workers
-                  var Earned = userData.value.workers * userData.value.prestige * 0.01 * userData.value.customers - c
-                  userData.value.money += Earned
-                  Total += Earned - userData.value.wage
-                  if (Times == body) {
-                    chat.reply(`Your workers are done working! (total earning: $${getLet(Total, 2)})`)
-                    userData.value.autow = false
-                    AutoW.splice(AutoW.indexOf(chat.author.id), 1)
-                    setTimeout(function( ) {
-                      userData.update()
-                    }, 2500)
-                  } else {
-                    chat.reply(`One day has passed...`)
-                    setTimeout(function( ) {
-                      userData.update()
-                    }, 2500)
-                  }
-                }
-              }, 24000)
-            } else {
-              chat.reply(`You dont have enough money to pay your workers... (cost: $${getLet(s * body, 2)})`)
-            }
-          } else {
-            chat.reply(`You need to have at least one worker... (b!hire <stays empty if single person/say bulk if 5 people>)`)
-          }
-        } else {
-          if (AutoW.includes(chat.author.id)) {
-            chat.reply(`Your workers are already working...`)
-          } else {
-            userData.value.autow = false
-            chat.reply(`Please try the command again!`)
-            setTimeout(function( ) {
-              userData.update()
-            }, 2500)
-          }
-        }
-      }
-
-      if (item.toLowerCase() == "advert") {
-        if (userData.value.autoa == false) {
-          var Times = 0
-          var Total = 0
-          
-          if (userData.value.workers >= 1) {
-            const s = userData.value.wage + 1.50 * userData.value.workers + getStuff(userData.value.normad).cost * 2
-            if (userData.value.money >= s * body) {
-              chat.reply(`Your workers are now advertising! (every 24 hours (24 seconds) you will earn customers!)`)
-              userData.value.autoa = true
-              AutoA.push(chat.author.id)
-              setTimeout(function( ) {
-                userData.update()
-              }, 1500)
-              var ss = setInterval(function( ) {
-                if (Times != body) {
-                  Times += 1
-                  
-                  const c = 1.50 * userData.value.workers
-                  var Earned = userData.value.workers * getStuff(userData.value.normad).cost * 2 - c
-  
-                  userData.value.money -= userData.value.wage + Earned
-                  
-                  userData.value.customers += getRandomInt(getStuff(userData.value.normad).earn) * userData.value.workers
-                  
-                  Total += Earned
-                  if (Times == body) {
-                    chat.reply(`Your workers are done advertising! (total cost: $${getLet(Total, 2)})`)
-                    userData.value.autoa = false
-                    AutoA.splice(AutoA.indexOf(chat.author.id), 1)
-                    setTimeout(function( ) {
-                      userData.update()
-                    }, 2500)
-                  } else {
-                    chat.reply(`One day has passed...`)
-                    setTimeout(function( ) {
-                      userData.update()
-                    }, 2500)
-                  }
-                }
-              }, 24000)
-            } else {
-              chat.reply(`You dont have enough money to pay your workers... (cost: $${getLet(s * body, 2)})`)
-            }
-          } else {
-            chat.reply(`You need to have at least one worker... (b!hire <stays empty if single person/say bulk if 5 people>)`)
-          }
-        } else {
-          if (AutoA.includes(chat.author.id)) {
-            chat.reply(`Your workers are already advertising...`)
-          } else {
-            userData.value.autoa = false
-            chat.reply(`Please try the command again!`)
-            setTimeout(function( ) {
-              userData.update()
-            }, 2500)
-          }
-        }
+  func: async ({chat, args: [item, body], userData})=>{
+    if (item.toLowerCase() == "work") {
+      if (AutoW.includes(chat.author.id)) {
+        chat.reply(`Your workers are already working...`)
+        return;
       }
     } else {
-      chat.reply(`Please complete the command... (b!auto <item> <days>)`)
+      if (AutoA.includes(chat.author.id)) {
+        chat.reply(`Your workers are already advertising...`)
+        return;
+      }
+    }
+    switch (item.toLowerCase()) {
+      case "work":
+        switch (userData.value.spot.toLowerCase()) {
+          case "city":
+            if (userData.value.workers >= 1) {
+              if (parseInt(body) >= 1 && parseInt(body) <= 5) {
+                AutoW.push(chat.author.id)
+                
+                var earn = await f("workcity", chat.author.id)
+                var t = 0
+                var t1 = 0
+      
+                chat.reply(`Your workers started working in the city! (please wait ${24 * parseInt(body)} seconds to see your total earning!)`)
+      
+                var i = setInterval(function( ) {
+                  if (t1 != parseInt(body)) {
+                    t1 += 1
+                    t += earn
+                    chat.reply(`One day has passed...`)
+                    userData.value.money += earn
+                    setTimeout(function( ) {
+                      userData.update()
+                    }, 2500)
+                  } else {
+                    chat.reply(`Your workers are done working! (total: $${getLet(t, 2)})`)
+                    AutoW.splice(AutoW.indexOf(chat.author.id), 1)
+                    clearInterval(i)
+                  }
+                }, 24000)
+              } else {
+                chat.reply(`You didnt specify how many days you want your workers to work... (b!auto work <days> | max: 5)`)
+              }
+            } else {
+              chat.reply(`You need at least one worker to do this...`)
+            }
+            break;
+          case "beach":
+            if (userData.value.workersbeach >= 1) {
+              if (parseInt(body) >= 1 && parseInt(body) <= 5) {
+                AutoW.push(chat.author.id)
+                
+                var earn = await f("workbeach", chat.author.id)
+                var tt = 0
+                var t2 = 0
+      
+                chat.reply(`Your workers started working on the beach! (please wait ${12 * parseInt(body)} seconds to see your total earning!)`)
+      
+                var o = setInterval(function( ) {
+                  if (t2 != parseInt(body)) {
+                    tt += earn
+                    t2 += 1
+                    chat.reply(`One day has passed...`)
+                    userData.value.moneybeach += earn
+                    setTimeout(function( ) {
+                      userData.update()
+                    }, 2500)
+                  } else {
+                    chat.reply(`Your workers are done working! (total: $${getLet(tt, 2)})`)
+                    AutoW.splice(AutoW.indexOf(chat.author.id), 1)
+                    clearInterval(o)
+                  }
+                }, 12000)
+              } else {
+                chat.reply(`You didnt specify how many days you want your workers to work... (b!auto work <days> | max: 5)`)
+              }
+            } else {
+              chat.reply(`You need at least 1 worker to do this...`)
+            }
+        }
+        break;
+      case "advert":
+        switch (userData.value.spot.toLowerCase()) {
+          case "city":
+            if (userData.value.workers >= 1) {
+              if (parseInt(body) >= 1 && parseInt(body) <= 5) {
+                AutoA.push(chat.author.id)
+                
+                var earn = await f("advertcity", chat.author.id)
+                var ttt = 0
+                var t3 = 0
+                var EarnedW = 0
+      
+                chat.reply(`Your workers started working in the city! (please wait ${24 * parseInt(body)} seconds to see your total earning!)`)
+      
+                setInterval(function( ) {
+                  if (t3 != parseInt(body)) {
+                    ttt += earn
+                    t3 += 1
+                    const Earned = getRandomInt(0, getStuff(userData.value.normad).earn)
+                    if (getRandomInt(1, getStuff(userData.value.normad).chance) == 1) {
+                      EarnedW = getRandomInt(1, 2)
+                    }
+                    chat.reply(`One day has passed...`)
+                    userData.value.customers += Earned
+                    userData.value.workers += EarnedW
+                    setTimeout(function( ) {
+                      userData.update()
+                    }, 2500)
+                  } else {
+                    chat.reply(`Your workers are done working! (total cost: $${getLet(ttt, 2)})`)
+                    AutoA.splice(AutoA.indexOf(chat.author.id), 1)
+                  }
+                }, 24000)
+              } else {
+                chat.reply(`You didnt specify how many days you want your workers to work... (b!auto advert <days> | max: 5)`)
+              }
+            } else {
+              chat.reply(`You need at least 1 worker to do this...`)
+            }
+            break;
+          case "beach":
+            if (userData.value.workersbeach >= 1) {
+              if (parseInt(body) >= 1 && parseInt(body) <= 5) {
+                AutoA.push(chat.author.id)
+                
+                var earn = await f("advertbeach", chat.author.id)
+                var tttt = 0
+                var t4 = 0
+                var EarnedW = 0
+      
+                chat.reply(`Your workers started working in the city! (please wait ${12 * parseInt(body)} seconds to see your total earning!)`)
+      
+                setInterval(function( ) {
+                  if (t4 != parseInt(body)) {
+                    tttt += earn
+                    t4 += 1
+                    const Earned = getRandomInt(0, getStuff(userData.value.normadbeach).earn)
+                    if (getRandomInt(1, getStuff(userData.value.normadbeach).chance) == 1) {
+                      EarnedW = getRandomInt(1, 2)
+                    }
+                    chat.reply(`One day has passed...`)
+                    userData.value.customsbeach += Earned
+                    userData.value.workersbeach += EarnedW
+                    setTimeout(function( ) {
+                      userData.update()
+                    }, 2500)
+                  } else {
+                    chat.reply(`Your workers are done working! (total cost: $${getLet(tttt, 2)})`)
+                    AutoA.splice(AutoA.indexOf(chat.author.id), 1)
+                  }
+                }, 12000)
+              } else {
+                chat.reply(`You didnt specify how many days you want your workers to work... (b!auto advert <days> | max: 5)`)
+              }
+            } else {
+              chat.reply(`You need at least 1 worker to do this...`)
+            }
+            break;
+        }
     }
   },
   description: "Automate and earn",

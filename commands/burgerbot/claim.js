@@ -1,16 +1,23 @@
-import {containsObject, Day} from "../../utils.js"
+import {containsObject, Day, event} from "../../utils.js"
+
+var y1 = {}
 
 const Claim = {
   names: ["claim"],
   func: async ({chat, body, userData})=>{
-    if (body) {
-      if (userData.value.daily < Day) {
-        userData.value.daily = Day
-        if (body.toLowerCase() == "normal") {
-          if (userData.value.prestige >= 2 || userData.value.customers >= 100) {
+    if (userData.value.daily < Day) {
+      switch (body.toLowerCase()) {
+        case "normal":
+          if (userData.value.prestige >= 2) {
             if (userData.value.rank == "Normal") {
-              userData.value.money += 0.001
-              chat.reply("You earned your rank reward ($0.001)")
+              if (event.name != "Claim Event") {
+                userData.value.credits += 10
+                chat.reply("You earned your rank reward (10 credits)")
+              } else {
+                userData.value.credits += 25
+                chat.reply("You earned your rank reward! (25 credits)")
+              }
+              userData.value.daily = Day
               setTimeout(function( ) {
                 userData.update()
               }, 2500)
@@ -20,34 +27,77 @@ const Claim = {
           } else {
             chat.reply("You dont have the requirements to use this command...")
           }
-        }
-        if (body.toLowerCase() == "special") {
+          break;
+        case "special":
           if (userData.value.rank == "Special") {
-            userData.value.money += 0.5
-            chat.reply("You earned your rank reward! ($0.5)")
+            if (event.name != "Claim Event") {
+              userData.value.credits += 250
+              chat.reply("You earned your rank reward! (250 credits)")
+            } else {
+              userData.value.credits += 300
+              chat.reply("You earned your rank reward! (300 credits)")
+            }
+            userData.value.daily = Day
             setTimeout(function( ) {
               userData.update()
             }, 2500)
           } else {
             chat.reply("You dont have the special rank...")
           }
-        }
-        if (body.toLowerCase() == "mod") {
-          if (userData.value.rank == "Mod") {
-            userData.value.money += 0.3
-            chat.reply("You earned your rank reward! ($0.3)")
+          break;
+        case "owner":
+        case "mod":
+          if (userData.value.rank == "Mod" || userData.value.rank == "Owner") {
+            if (event.name != "Claim Event") {
+              userData.value.credits += 100
+              chat.reply("You earned your rank reward! (100 credits)")
+            } else {
+              userData.value.credits += 150
+              chat.reply("You earned your rank reward! (150 credits)")
+            }
+            userData.value.daily = Day
             setTimeout(function( ) {
               userData.update()
             }, 2500)
           } else {
-            chat.reply("You dont have the mod rank...")
+            chat.reply("You dont have the mod/owner rank...")
           }
-        }
-      } else {
-        chat.reply("You already claimed the rewards of this command today...")
+          break;
+        case "event":
+          if (y1[chat.author.id] == undefined) {
+            y1[chat.author.id] == null
+          }
+          if (event.name == "Command Event") {
+            if (y1[chat.author.id] == null) {
+              userData.value.credits += 10
+              userData.value.money += 100
+              userData.value.moneybeach += 10
+              userData.value.daily = Day
+              
+              setTimeout(function( ) {
+                userData.update()
+              }, 2500)
+
+              y1[chat.author.id] = 120
+              var o = setInterval(function( ) {
+                if (y1[chat.author.id] > 0) {
+                  y1[chat.author.id] -= 1
+                } else {
+                  chat.reply(`You are ready to use <b!claim event> again!`)
+                  y1[chat.author.id] = null
+                  clearInterval(o)
+                }
+              }, 1000)
+            }
+          } else {
+            chat.reply(`The command event isnt active right now...`)
+          }
+          break;
+        default:
+          chat.reply(`Thats not an available claim...`)
       }
     } else {
-      chat.reply(`Please send the command with the claim rank (b!claim <rank>)`)
+      chat.reply(`You cant use this command yet... (last claimed (day of month): ${userData.value.daily})`)
     }
   },
   description: "Claim rank rewards",

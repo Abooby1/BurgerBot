@@ -7,6 +7,7 @@ import {Stats} from "./stats.js"
 import {Claim} from "./claim.js"
 import {Change} from "./change.js"
 import {Donate, Inbox, Collect} from "./donate.js"
+import {Help} from "./help.js"
 
 export const Coms = [
   Hire,
@@ -19,5 +20,6 @@ export const Coms = [
   Change,
   Donate,
   Inbox,
-  Collect
+  Collect,
+  Help
 ]
