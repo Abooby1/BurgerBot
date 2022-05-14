@@ -23,7 +23,7 @@ const Stats = {
         break;
     }
 
-    var Say2 = `Main | Current Spot: ${userData.value.spot} Credits: ${getLet(userData.value.credits)} | Prestige: ${userData.value.prestige} | Rank: ${userData.value.rank} (for event help use: <b!help event>)`
+    var Say2 = `Main | Credits: ${getLet(userData.value.credits)} | Prestige: ${userData.value.prestige} | Rank: ${userData.value.rank} (for event help use: <b!help event>)`
 
     
     setTimeout(function( ) {

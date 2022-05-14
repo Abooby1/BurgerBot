@@ -99,9 +99,9 @@ const Auto = {
                 var t3 = 0
                 var EarnedW = 0
       
-                chat.reply(`Your workers started working in the city! (please wait ${24 * parseInt(body)} seconds to see your total earning!)`)
+                chat.reply(`Your workers started advertising in the city! (please wait ${24 * parseInt(body)} seconds to see your total earning!)`)
       
-                setInterval(function( ) {
+                var oo = setInterval(function( ) {
                   if (t3 != parseInt(body)) {
                     ttt += earn
                     t3 += 1
@@ -116,8 +116,9 @@ const Auto = {
                       userData.update()
                     }, 2500)
                   } else {
-                    chat.reply(`Your workers are done working! (total cost: $${getLet(ttt, 2)})`)
+                    chat.reply(`Your workers are done advertising! (total cost: $${getLet(ttt, 2)})`)
                     AutoA.splice(AutoA.indexOf(chat.author.id), 1)
+                    clearInterval(oo)
                   }
                 }, 24000)
               } else {
@@ -137,9 +138,9 @@ const Auto = {
                 var t4 = 0
                 var EarnedW = 0
       
-                chat.reply(`Your workers started working in the city! (please wait ${12 * parseInt(body)} seconds to see your total earning!)`)
+                chat.reply(`Your workers started advertising on the beach! (please wait ${12 * parseInt(body)} seconds to see your total earning!)`)
       
-                setInterval(function( ) {
+                var ooo = setInterval(function( ) {
                   if (t4 != parseInt(body)) {
                     tttt += earn
                     t4 += 1
@@ -154,8 +155,9 @@ const Auto = {
                       userData.update()
                     }, 2500)
                   } else {
-                    chat.reply(`Your workers are done working! (total cost: $${getLet(tttt, 2)})`)
+                    chat.reply(`Your workers are done advertising! (total cost: $${getLet(tttt, 2)})`)
                     AutoA.splice(AutoA.indexOf(chat.author.id), 1)
+                    clearInterval(ooo)
                   }
                 }, 12000)
               } else {

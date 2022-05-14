@@ -187,11 +187,14 @@ const Change = {
               case "beach":
                 if (userData.value.credits >= 10000) {
                   chat.reply(`You bought a spot at the beach! Have fun!`)
+                  userData.value.credits -= 10000
                   userData.value.spot = "beach"
                   userData.value.spots.push("beach")
                   setTimeout(function( ) {
                     userData.update()
                   }, 2500)
+                } else {
+                  chat.reply(`You dont have enough credits to buy a spot at a beach... (cost: 10k)`)
                 }
                 break;
 

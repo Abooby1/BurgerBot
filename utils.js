@@ -11,19 +11,19 @@ const RewardEvent = {
   name: "Reward Event",
   desc: "The reward event gives you rewards for using BurgerBot!",
 
-  earn: ["worker", "customs", "money"]
+  earn: ["worker", "customs", "credits"]
 }
 
 const ClaimEvent = {
   name: "Claim Event",
-  desc: "The claim event adds to the money earned in b!claim <rank>!",
+  desc: "The claim event adds to the credits earned in b!claim <rank>!",
 
   earn: null
 }
 
 const AdvertEvent = {
   name: "Advert Event",
-  desc: "The advert event cuts the price of adverts by half!",
+  desc: "The advert event cuts the price of adverts by half! (during the event)",
 
   earn: null
 }
@@ -502,25 +502,57 @@ export async function f (type, uid) {
   const userData = await getUserDataManager(uid)
   switch(type) {
     case "workcity":
-      const w = userData.value.wage
+      var w = 0
+      if (event.name == "Worker Event") {
+        w = userData.value.wage / 2
+      } else {
+        w = userData.value.wage
+      }
       const f1 = getStuff(userData.value.normstove).c * userData.value.workers
       return userData.value.workers * userData.value.prestige * 0.01 * userData.value.customers - w - f1
       break;
 
     case "advertcity":
-      const w1 = userData.value.wage
+      var w1 = 0
+      var a = 0
+      if (event.name == "Advert Event") {
+        a = getStuff(userData.value.normad).cost / 2
+      } else {
+        a = getStuff(userData.value.normad).cost
+      }
+      if (event.name == "Worker Event") {
+        w1 = userData.value.wage / 2
+      } else {
+        w1 = userData.value.wage
+      }
       const c = getStuff(userData.value.normwater).cost * userData.value.workers + w1
-      return userData.value.workers * getStuff(userData.value.normad).cost * 3 + c
+      return userData.value.workers * a * 3 + c
       break;
 
     case "workbeach":
-      const w3 = userData.value.wagebeach
+      var w3 = 0
+      if (event.name == "Worker Event") {
+        w3 = userData.value.wagebeach / 2
+      } else {
+        w3 = userData.value.wagebeach
+      }
       const s1 = getStuff(userData.value.normstovebeach).c * userData.value.workersbeach
       return userData.value.workersbeach * userData.value.prestige * 0.01 * userData.value.customsbeach - w3 - s1
       break;
 
     case "advertbeach":
-      const w4 = userData.value.wagebeach
+      var w4 = 0
+      var a = 0
+      if (event.name == "Advert Event") {
+        a = getStuff(userData.value.normadbeach).cost / 2
+      } else {
+        a = getStuff(userData.value.normadbeach).cost
+      }
+      if (event.name == "Worker Event") {
+        w4 = userData.value.wagebeach / 2
+      } else {
+        w4 = userData.value.wagebeach
+      }
       const c3 = getStuff(userData.value.normwaterbeach).cost * userData.value.workersbeach + w4
       return userData.value.workersbeach * getStuff(userData.value.normadbeach).cost * 5 + c3
       break;

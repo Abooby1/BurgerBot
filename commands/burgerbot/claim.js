@@ -69,10 +69,10 @@ const Claim = {
           }
           if (event.name == "Command Event") {
             if (y1[chat.author.id] == null) {
-              userData.value.credits += 10
-              userData.value.money += 100
-              userData.value.moneybeach += 10
-              userData.value.daily = Day
+              userData.value.credits += 1
+              userData.value.money += 10
+              userData.value.moneybeach += 0.03
+              chat.reply(`You claimed your event rewards! (you can claim them again in 2 minutes! | $0.03 (beach), $10 (city), 1 credit)`)
               
               setTimeout(function( ) {
                 userData.update()
@@ -88,6 +88,8 @@ const Claim = {
                   clearInterval(o)
                 }
               }, 1000)
+            } else {
+              chat.reply(`You cant use the event command yet (time left: ${y1[chat.author.id]})`)
             }
           } else {
             chat.reply(`The command event isnt active right now...`)
