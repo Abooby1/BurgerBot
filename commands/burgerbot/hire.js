@@ -2,41 +2,49 @@ import {getStuff} from "../../utils.js"
 
 const Hire = {
   names: ["hire"],
-  func: ({chat, body, userData})=>{
-    if (value == undefined) {
-      chat.reply(`Please complete the command... (b!hire <amount>)`); 
+  func: ({chat, args: [value], userData})=>{
+    if (value == undefined || parseInt(value) == 0) {
+      chat.reply(`Please complete the command... (b!hire <amount> | at least 1 worker)`); 
       return;
     }
     switch (userData.value.spot.toLowerCase()) {
       case "city":
-        if (userData.value.workers + parseInt(body) <= getStuff(userData.value.normstove).max) {
-          if (userData.value.money >= 100 * parseInt(body)) {
-            userData.value.workers += parseInt(body)
-            userData.value.money -= 100 * parseInt(body)
-            userData.value.wage += 10.23 * parseInt(body)
-            chat.reply(`You hired ${body} people!`)
+        if (userData.value.workers + parseInt(value) <= getStuff(userData.value.normstove).max) {
+          if (userData.value.money >= 100 * parseInt(value)) {
+            userData.value.workers += parseInt(value)
+            userData.value.money -= 100 * parseInt(value)
+            userData.value.wage += 10.23 * parseInt(value)
+            if (parseInt(value) >= 2) {
+              chat.reply(`You hired ${value} people!`)
+            } else {
+              chat.reply(`You hired ${value} person!`)
+            }
             setTimeout(function( ) {
               userData.update()
             }, 2500)
           } else {
-            chat.reply(`You dont have enough to hire ${body} people...`)
+            chat.reply(`You dont have enough to hire ${value} people...`)
           }
         } else {
           chat.reply(`You cant hire right now... (upgrade your stove to hire more people!)`)
         }
         break;
       case "beach":
-        if (userData.value.workersbeach + parseInt(body) <= getStuff(userData.value.normstovebeach).max) {
-          if (userData.value.moneybeach >= 200 * parseInt(body)) {
-            userData.value.workersbeach += parseInt(body)
-            userData.value.moneybeach -= 200 * parseInt(body)
-            userData.value.wagebeach += 20.46 * parseInt(body)
-            chat.reply(`You hired ${body} people!`)
+        if (userData.value.workersbeach + parseInt(value) <= getStuff(userData.value.normstovebeach).max) {
+          if (userData.value.moneybeach >= 200 * parseInt(value)) {
+            userData.value.workersbeach += parseInt(value)
+            userData.value.moneybeach -= 200 * parseInt(value)
+            userData.value.wagebeach += 20.46 * parseInt(value)
+            if (parseInt(value) >= 2) {
+              chat.reply(`You hired ${value} people!`)
+            } else {
+              chat.reply(`You hired ${value} person!`)
+            }
             setTimeout(function( ) {
               userData.update()
             }, 2500)
           } else {
-            chat.reply(`You dont have enough to hire ${body} people...`)
+            chat.reply(`You dont have enough to hire ${value} people...`)
           }
         } else {
           chat.reply(`You cant hire right now... (upgrade your stove to hire more people!)`)

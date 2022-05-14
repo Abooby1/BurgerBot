@@ -207,6 +207,9 @@ const Change = {
           chat.reply(`Thats not a spot you can go to... (spots: 'city' and 'beach')`)
         }
         break;
+
+      default:
+        chat.reply(`Hmm, there was an error, check <b!help b!change> for more help on this command...`)
     }
   },
   description: "Change something about your stats"

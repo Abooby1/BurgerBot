@@ -7,6 +7,10 @@ const Help = {
       case "event":
         chat.reply(`Current event '${event.name}': ${event.desc}`)
         break;
+      case "spots":
+      case "spot":
+        chat.reply(`You can buy spots in b!change spot <spot you want to buy>! Each spot costs more!`)
+        break;
       case "b!work":
         chat.reply(`b!work <hours>: work many hours and get money to upgrade to an industry!`)
         break;
