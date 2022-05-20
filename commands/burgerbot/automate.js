@@ -1,7 +1,7 @@
 import {getLet, getStuff, getRandomInt, event, f} from "../../utils.js"
 
-var AutoA = []
-var AutoW = []
+export var AutoA = []
+export var AutoW = []
 
 const Auto = {
   names: ["auto"],
@@ -19,6 +19,7 @@ const Auto = {
     }
     switch (item.toLowerCase()) {
       case "work":
+      case 'w':
         switch (userData.value.spot.toLowerCase()) {
           case "city":
             if (userData.value.workers >= 1) {
@@ -83,11 +84,83 @@ const Auto = {
                 chat.reply(`You didnt specify how many days you want your workers to work... (b!auto work <days> | max: 5)`)
               }
             } else {
-              chat.reply(`You need at least 1 worker to do this...`)
+              chat.reply(`You need at least one worker to do this...`)
             }
+            break;
+          case "dank":
+            if (userData.value.workersdank >= 1) {
+              if (parseInt(body) >= 1 && parseInt(body) <= 5) {
+                AutoW.push(chat.author.id)
+                
+                var earn = await f("workdank", chat.author.id)
+                var y = 0
+                var y1 = 0
+      
+                chat.reply(`Your workers started working in the city! (please wait ${24 * parseInt(body)} seconds to see your total earning!)`)
+      
+                var ii = setInterval(function( ) {
+                  if (y1 != parseInt(body)) {
+                    y1 += 1
+                    y += earn
+                    chat.reply(`One day has passed...`)
+                    userData.value.money += earn
+                    setTimeout(function( ) {
+                      userData.update()
+                    }, 2500)
+                  } else {
+                    chat.reply(`Your workers are done working! (total: $${getLet(y, 2)})`)
+                    AutoW.splice(AutoW.indexOf(chat.author.id), 1)
+                    clearInterval(ii)
+                  }
+                }, 24000)
+              } else {
+                chat.reply(`You didnt specify how many days you want your workers to work... (b!auto work <days> | max: 5)`)
+              }
+            } else {
+              chat.reply(`You need at least one worker to do this...`)
+            }
+            break;
+
+          case "space":
+            if (userData.value.workersspace >= 1) {
+              if (parseInt(body) >= 1 && parseInt(body) <= 5) {
+                AutoW.push(chat.author.id)
+                
+                var earn = await f("workspace", chat.author.id)
+                var y = 0
+                var y1 = 0
+      
+                chat.reply(`Your workers started working in the Space Center! (please wait ${24 * parseInt(body)} seconds to see your total earning!)`)
+      
+                var ii = setInterval(function( ) {
+                  if (y1 != parseInt(body)) {
+                    y1 += 1
+                    y += earn
+                    chat.reply(`One day has passed...`)
+                    userData.value.money += earn
+                    setTimeout(function( ) {
+                      userData.update()
+                    }, 2500)
+                  } else {
+                    chat.reply(`Your workers are done working! (total: $${getLet(y, 2)})`)
+                    AutoW.splice(AutoW.indexOf(chat.author.id), 1)
+                    clearInterval(ii)
+                  }
+                }, 24000)
+              } else {
+                chat.reply(`You didnt specify how many days you want your workers to work... (b!auto work <days> | max: 5)`)
+              }
+            } else {
+              chat.reply(`You need at least one worker to do this...`)
+            }
+            break;
+
+          default:
+            chat.reply(`Hmm, looks like this spot doesnt support automation...`)
         }
         break;
       case "advert":
+      case 'a':
         switch (userData.value.spot.toLowerCase()) {
           case "city":
             if (userData.value.workers >= 1) {
@@ -125,7 +198,7 @@ const Auto = {
                 chat.reply(`You didnt specify how many days you want your workers to work... (b!auto advert <days> | max: 5)`)
               }
             } else {
-              chat.reply(`You need at least 1 worker to do this...`)
+              chat.reply(`You need at least one worker to do this...`)
             }
             break;
           case "beach":
@@ -164,8 +237,90 @@ const Auto = {
                 chat.reply(`You didnt specify how many days you want your workers to work... (b!auto advert <days> | max: 5)`)
               }
             } else {
-              chat.reply(`You need at least 1 worker to do this...`)
+              chat.reply(`You need at least one worker to do this...`)
             }
+            break;
+          case "dank":
+            if (userData.value.workersdank >= 1) {
+              if (parseInt(body) >= 1 && parseInt(body) <= 5) {
+                AutoA.push(chat.author.id)
+                
+                var earn = await f("advertdank", chat.author.id)
+                var yy = 0
+                var y2 = 0
+                var EarnedW = 0
+      
+                chat.reply(`Your workers started advertising on Danker Land! (please wait ${12 * parseInt(body)} seconds to see your total earning!)`)
+      
+                var iii = setInterval(function( ) {
+                  if (y2 != parseInt(body)) {
+                    yy += earn
+                    y2 += 1
+                    const Earned = getRandomInt(0, getStuff(userData.value.normaddank).earn)
+                    if (getRandomInt(1, getStuff(userData.value.normaddank).chance) == 1) {
+                      EarnedW = getRandomInt(1, 2)
+                    }
+                    chat.reply(`One day has passed...`)
+                    userData.value.customsdank += Earned
+                    userData.value.workersdank += EarnedW
+                    setTimeout(function( ) {
+                      userData.update()
+                    }, 2500)
+                  } else {
+                    chat.reply(`Your workers are done advertising! (total cost: $${getLet(yy, 2)})`)
+                    AutoA.splice(AutoA.indexOf(chat.author.id), 1)
+                    clearInterval(iii)
+                  }
+                }, 12000)
+              } else {
+                chat.reply(`You didnt specify how many days you want your workers to work... (b!auto advert <days> | max: 5)`)
+              }
+            } else {
+              chat.reply(`You need at least one worker to do this...`)
+            }
+            break;
+          case "space":
+            if (userData.value.workersspace >= 1) {
+              if (parseInt(body) >= 1 && parseInt(body) <= 5) {
+                AutoA.push(chat.author.id)
+                
+                var earn = await f("advertspace", chat.author.id)
+                var space = 0
+                var space2 = 0
+                var EarnedW = 0
+      
+                chat.reply(`Your workers started advertising in the Space Center! (please wait ${12 * parseInt(body)} seconds to see your total earning!)`)
+      
+                var iii = setInterval(function( ) {
+                  if (space2 != parseInt(body)) {
+                    space += earn
+                    space2 += 1
+                    const Earned = getRandomInt(0, getStuff(userData.value.normadspace).earn)
+                    if (getRandomInt(1, getStuff(userData.value.normadspace).chance) == 1) {
+                      EarnedW = getRandomInt(1, 2)
+                    }
+                    chat.reply(`One day has passed...`)
+                    userData.value.customsspace += Earned
+                    userData.value.workersspace += EarnedW
+                    setTimeout(function( ) {
+                      userData.update()
+                    }, 2500)
+                  } else {
+                    chat.reply(`Your workers are done advertising! (total cost: $${getLet(space, 2)})`)
+                    AutoA.splice(AutoA.indexOf(chat.author.id), 1)
+                    clearInterval(iii)
+                  }
+                }, 12000)
+              } else {
+                chat.reply(`You didnt specify how many days you want your workers to work... (b!auto advert <days> | max: 5)`)
+              }
+            } else {
+              chat.reply(`You need at least one worker to do this...`)
+            }
+            break;
+
+          default:
+            chat.reply(`Hmm, it looks like this spot doesnt support automation...`)
             break;
         }
     }

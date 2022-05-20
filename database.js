@@ -34,40 +34,64 @@ const specialRanks = {
   "62465bdda95b113f103322d2": "Special",
   "62221daff1c22c29f8629977": "Special",
   "6255aa3c434000065016fb6f": "Special",
-  "61c875e360fe4c7b88a8d071": "Special",
-
-  "624bbe3fa95b113f1038140c": "Banned"
+  "61c875e360fe4c7b88a8d071": "Special"
 }
 
 export const defaultData = {
   rankshow: true,
   postuse: false,
+  version: 1,
 
   rank: "Normal",
   daily: 0,
 
   credits: 0,
+  lvl: 1,
+  lastlvl: 0,
+  exp: 0,
 
+  //city
   money: 5, 
-  moneybeach: 0,
   customers: 1,
-  customsbeach: 1,
   workers: 0,
-  workersbeach: 0,
   wage: 0, 
-  wagebeach: 0,
+  normad: "flier",
+  normwater: "water1",
   prestige: 1,
+  //beach
+  moneybeach: 0,
+  customsbeach: 1,
+  workersbeach: 0,
+  wagebeach: 0,
+  normadbeach: "facebook",
+  normwaterbeach: "water1",
+  prestigebeach: 1,
+  //dank
+  moneydank: 0,
+  customsdank: 1,
+  workersdank: 0,
+  wagedank: 0,
+  normaddank: "facebook",
+  normwaterdank: "water1",
+  prestigedank: 1,
+  //space
+  moneyspace: 0,
+  customsspace: 1,
+  workersspace: 0,
+  wagespace: 0,
+  normadspace: "facebook",
+  normwaterspace: "water1",
+  prestigespace: 1,
+  //event
+  moneyevent: 0,
+  customsevent: 1,
+  workersevent: 0,
+  wageevent: 0,
   
   troph: false,
-  
-  normad: "flier",
-  normadbeach: "facebook",
-  normstove: "stove1",
-  normstovebeach: "stove1",
-  normwater: "water1",
-  normwaterbeach: "water1",
 
   inbox: 0,
+  inbox2: 0,
   spot: "city",
   spots: ["city"]
 };

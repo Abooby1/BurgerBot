@@ -1,58 +1,75 @@
-import {getUserDataManager} from "./database.js"
+import {getUserDataManager, db} from "./database.js"
 
-const PlaceHolder = {
-  name: "None",
-  desc: "There is no active event currently...",
+const date = new Date()
+date.toLocaleString( "en-US", { timeZone: "America/New_York" });
 
-  earn: null
-}
+export const SeasonMulti = 1
+export const Version = 1
+export const SeasonEnd = "June 11"
+export const VersionID = '1.20'
+export var Day = date.getDate()
+export var event = {}
 
-const RewardEvent = {
-  name: "Reward Event",
-  desc: "The reward event gives you rewards for using BurgerBot!",
+function getEvent (n) {
+  switch (n) {
+    case 0:
+      return {
+        name: "Spot Event",
+        desc: "The spot event adds a spot you can freely change to using <b!change spot event>! (when prestiging, you will get the rewards | lasts: 5 days)",
+      
+        last: 5,
+        earn: null
+      }
+    case 1:
+      return {
+        name: "Command Event",
+        desc: "The command event adds to b!claim! To claim rewards use <b!claim event> (lasts: 2 days)",
+      
+        last: 2,
+        earn: null
+      }
+    case 2:
+      return {
+        name: "Worker Event",
+        desc: "The worker event cuts your wage by half! (during the event | lasts: 2 days)",
+      
+        last: 2,
+        earn: null
+      }
+    case 3:
+      return {
+        name: "Advert Event",
+        desc: "The advert event cuts the price of adverts by half! (during the event | lasts: 2 days)",
+      
+        last: 2,
+        earn: null
+      }
+    case 4:
+      return {
+        name: "Claim Event",
+        desc: "The claim event adds to the credits earned in b!claim <rank>! (lasts: 7 days)",
+      
+        last: 7,
+        earn: null
+      }
+    case 5:
+      return {
+        name: "Reward Event",
+        desc: "The reward event gives you rewards for using BurgerBot! (lasts: 3 days)",
+      
+        last: 3,
+        earn: ["worker", "customs", "credits", "exp"]
+      }
 
-  earn: ["worker", "customs", "credits"]
-}
-
-const ClaimEvent = {
-  name: "Claim Event",
-  desc: "The claim event adds to the credits earned in b!claim <rank>!",
-
-  earn: null
-}
-
-const AdvertEvent = {
-  name: "Advert Event",
-  desc: "The advert event cuts the price of adverts by half! (during the event)",
-
-  earn: null
-}
-
-const WorkersEvent = {
-  name: "Worker Event",
-  desc: "The worker event cuts your wage by half! (during the event)",
-
-  earn: null
-}
-
-const CommandEvent = {
-  name: "Command Event",
-  desc: "The command event adds to b!claim! To claim rewards use <b!claim event> (max per user: 10)",
-
-  earn: null
-}
-
-export const event = WorkersEvent
-
-export function containsObject(obj, list) {
-    var i;
-    for (i = 0; i < list.length; i++) {
-        if (list[i] === obj) {
-            return true;
-        }
-    }
-
-    return false;
+    default:
+      return {
+        name: "Claim Event",
+        desc: "The claim event adds to the credits earned in b!claim <rank>! (lasts: 7 days)",
+      
+        last: 7,
+        earn: null
+      }
+  }
 }
 
 export function getRandomInt(min, max) {  
@@ -61,15 +78,42 @@ export function getRandomInt(min, max) {
   )
 }
 
+setInterval(async function( ) {
+  var d = JSON.parse(await db.get('EventDay'))
+  if (Day > d.day) {
+    if (d.last >= 1) {
+      d.last -= 1
+      d.day = Day
+      const d1 = JSON.stringify(d)
+      db.set('EventDay', await d1)
+    } else {
+      const n = await getEvent(getRandomInt(0, 5))
+      event = await n
+      d.last = n.last
+      d.day = Day
+      const d1 = JSON.stringify(d)
+      db.set('EventDay', await d1)
+    }
+  }
+}, 100)
+
 export function getLet(num, other) {
-  if (num >= 1000000000000) {
-    return ((Math.abs(num)/1000000000000).toFixed(1)) + 't'
+  if (num >= 1000000000000000000000000) {
+    return ((Math.abs(num)/1000000000000000000000000).toFixed(1)) + 'Y'
+  } else if (num >= 1000000000000000000000) {
+    return ((Math.abs(num)/1000000000000000000000).toFixed(1)) + 'Z'
+  } else  if (num >= 1000000000000000000) {
+    return ((Math.abs(num)/1000000000000000000).toFixed(1)) + 'E'
+  } else if (num >= 1000000000000000) {
+    return ((Math.abs(num)/1000000000000000).toFixed(1)) + 'P'
+  } else if (num >= 1000000000000) {
+    return ((Math.abs(num)/1000000000000).toFixed(1)) + 'T'
   } else if (num >= 1000000000) {
-    return ((Math.abs(num)/1000000000).toFixed(1)) + 'b'
+    return ((Math.abs(num)/1000000000).toFixed(1)) + 'B'
   } else if (num >= 1000000) {
-    return ((Math.abs(num)/1000000).toFixed(1)) + 'm'
+    return ((Math.abs(num)/1000000).toFixed(1)) + 'M'
   } else if (num >= 1000) {
-    return ((Math.abs(num)/1000).toFixed(1)) + 'k'
+    return ((Math.abs(num)/1000).toFixed(1)) + 'K'
   } else {
     if (other != "none") {
       return num.toFixed(other)
@@ -235,132 +279,17 @@ const dm = {
   chance: 10
 }
 
-const stove1 = {
-  name: "Standard Gas Stoves",
-  id: "stove1",
+const ma = {
+  name: "Movie ADS",
+  id: "movie",
 
-  rank: "stove",
+  rank: "ad",
 
-  costshow: "50",
-  cost: 50,
+  costshow: "15m",
+  cost: 15000000,
+  earn: 15000,
 
-  multi: 1,
-  c: 25,
-
-  max: 100,
-  needed: 0
-}
-
-const stove2 = {
-  name: "Advanced Gas Stoves",
-  id: "stove2",
-
-  rank: "stove",
-
-  costshow: "100",
-  cost: 100,
-
-  multi: 2,
-  c: 50,
-
-  max: 150,
-  needed: 100
-}
-
-const stove3 = {
-  name: "Standard Electeric Stoves",
-  id: "stove3",
-
-  rank: "stove",
-
-  costshow: "500",
-  cost: 500,
-
-  multi: 1,
-  c: 100,
-
-  max: 200,
-  needed: 150
-}
-
-const stove4 = {
-  name: "Advanced Electeric Stoves",
-  id: "stove4",
-
-  rank: "stove",
-
-  costshow: "1k",
-  cost: 1000,
-
-  multi: 2,
-  c: 150,
-
-  max: 250,
-  needed: 150
-}
-
-const stove5 = {
-  name: "Standard Dual Stoves",
-  id: "stove5",
-
-  rank: "stove",
-
-  costshow: "1.5k",
-  cost: 1500,
-
-  multi: 1,
-  c: 200,
-
-  max: 300,
-  needed: 250
-}
-
-const stove6 = {
-  name: "Advanced Dual Stoves",
-  id: "stove6",
-
-  rank: "stove",
-
-  costshow: "2k",
-  cost: 2000,
-
-  multi: 2,
-  c: 250,
-
-  max: 350,
-  needed: 300
-}
-
-const stove7 = {
-  name: "Dank Memer Stoves",
-  id: "stove7",
-
-  rank: "stove",
-
-  costshow: "10k",
-  cost: 10000,
-
-  multi: 3,
-  c: 500,
-
-  max: 400,
-  needed: 350
-}
-
-const stove8 = {
-  name: "Apple Stoves",
-  id: "stove8",
-
-  rank: "stove",
-
-  costshow: "100k",
-  cost: 100000,
-
-  multi: 3,
-  c: 5000,
-
-  max: 500,
-  needed: 400
+  chance: 100
 }
 
 const water1 = {
@@ -457,29 +386,8 @@ export function getStuff (name) {
     case "dank":
       return dm;
 
-    case "stove1":
-      return stove1;
-
-    case "stove2":
-      return stove2;
-
-    case "stove3":
-      return stove3;
-
-    case "stove4":
-      return stove4;
-
-    case "stove5":
-      return stove5;
-
-    case "stove6":
-      return stove6;
-
-    case "stove7":
-      return stove7;
-
-    case "stove8":
-      return stove8;
+    case "movie":
+      return ma;
 
     case "water1":
       return water1;
@@ -508,8 +416,7 @@ export async function f (type, uid) {
       } else {
         w = userData.value.wage
       }
-      const f1 = getStuff(userData.value.normstove).c * userData.value.workers
-      return userData.value.workers * userData.value.prestige * 0.01 * userData.value.customers - w - f1
+      return userData.value.workers * userData.value.prestige * 0.01 * userData.value.customers - w
       break;
 
     case "advertcity":
@@ -518,15 +425,15 @@ export async function f (type, uid) {
       if (event.name == "Advert Event") {
         a = getStuff(userData.value.normad).cost / 2
       } else {
-        a = getStuff(userData.value.normad).cost
+        a = getStuff(userData.value.normad).cost * 2
       }
       if (event.name == "Worker Event") {
         w1 = userData.value.wage / 2
       } else {
         w1 = userData.value.wage
       }
-      const c = getStuff(userData.value.normwater).cost * userData.value.workers + w1
-      return userData.value.workers * a * 3 + c
+      const c = a * userData.value.workers + w1
+      return c
       break;
 
     case "workbeach":
@@ -536,33 +443,81 @@ export async function f (type, uid) {
       } else {
         w3 = userData.value.wagebeach
       }
-      const s1 = getStuff(userData.value.normstovebeach).c * userData.value.workersbeach
-      return userData.value.workersbeach * userData.value.prestige * 0.01 * userData.value.customsbeach - w3 - s1
+      return userData.value.workersbeach * userData.value.prestigebeach * 0.01 * userData.value.customsbeach - w3
       break;
 
     case "advertbeach":
       var w4 = 0
       var a = 0
       if (event.name == "Advert Event") {
-        a = getStuff(userData.value.normadbeach).cost / 2
+        a = getStuff(userData.value.normadbeach).cost * 5 / 2
       } else {
-        a = getStuff(userData.value.normadbeach).cost
+        a = getStuff(userData.value.normadbeach).cost * 5
       }
       if (event.name == "Worker Event") {
         w4 = userData.value.wagebeach / 2
       } else {
         w4 = userData.value.wagebeach
       }
-      const c3 = getStuff(userData.value.normwaterbeach).cost * userData.value.workersbeach + w4
-      return userData.value.workersbeach * getStuff(userData.value.normadbeach).cost * 5 + c3
+      const c3 = a * userData.value.workersbeach + w4
+      return c3
+      break;
+
+    case "workdank":
+      var w5 = 0
+      if (event.name == "Worker Event") {
+        w5 = userData.value.wagedank / 2
+      } else {
+        w5 = userData.value.wagedank
+      }
+      return userData.value.workersdank * userData.value.prestigedank * 0.01 * userData.value.customsdank - w5
+      break;
+
+    case "advertdank":
+      var w6 = 0
+      var a1 = 0
+      if (event.name == "Advert Event") {
+        a1 = getStuff(userData.value.normaddank).cost * 10 / 2
+      } else {
+        a1 = getStuff(userData.value.normaddank).cost * 10
+      }
+      if (event.name == "Worker Event") {
+        w6 = userData.value.wagedank / 2
+      } else {
+        w6 = userData.value.wagedank
+      }
+      const c4 = a1 * userData.value.workersdank + w6
+      return c4
+      break;
+
+    case "workspace":
+      var w7 = 0
+      if (event.name == "Worker Event") {
+        w7 = userData.value.wagespace / 2
+      } else {
+        w7 = userData.value.wagespace
+      }
+      return userData.value.workersspace * userData.value.prestigespace * 0.01 * userData.value.customsspace - w7
+      break;
+
+    case "advertspace":
+      var w8 = 0
+      var a2 = 0
+      if (event.name == "Advert Event") {
+        a2 = getStuff(userData.value.normadspace).cost * 5 / 2
+      } else {
+        a2 = getStuff(userData.value.normadspace).cost * 5
+      }
+      if (event.name == "Worker Event") {
+        w8 = userData.value.wagespace / 2
+      } else {
+        w8 = userData.value.wagespace
+      }
+      const c5 = a2 * userData.value.workersspace + w8
+      return c5
       break;
 
     default: 
       return 0
   }
 }
-
-const date = new Date()
-date.toLocaleString( "en-US", { timeZone: "America/New_York" });
-
-export var Day = date.getDate()

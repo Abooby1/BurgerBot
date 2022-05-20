@@ -1,36 +1,31 @@
-import {getStuff, getLet} from "../../utils.js"
+import {getStuff, getLet, event} from "../../utils.js"
+import {AutoA, AutoW} from "./automate.js"
+import {working} from "./work.js"
 
 const Change = {
   names: ["change"],
   func: async ({chat, args: [item, value], userData})=>{
     if (value == undefined) {
-      chat.reply(`Please complete the command... (b!change <item> <value>)`); 
+      switch (userData.value.spot.toLowerCase()) {
+        case "city":
+          chat.reply(`City | postuse: '${userData.value.postuse}' | normad: '${userData.value.normad}' | normwater: '${userData.value.normwater}'`);
+          break;
+        case "beach":
+          chat.reply(`Beach | postuse: '${userData.value.postuse}' | normad: '${userData.value.normadbeach}' | normwater: '${userData.value.normwaterbeach}'`);
+          break;
+        case "dank":
+          chat.reply(`Danker Land | postuse: '${userData.value.postuse}' | normad: '${userData.value.normaddank}' | normwater: '${userData.value.normwaterdank}'`);
+          break;
+        case "space":
+          chat.reply(`Space Center | postuse: '${userData.value.postuse}' | normad: '${userData.value.normadspace}' | normwater: '${userData.value.normwaterspace}'`);
+          break;
+        case "event":
+          chat.reply(`Event Spot | postuse: '${userData.value.postuse}' | normad: 'not supported...' | normwater: 'not supported...'`);
+          break;
+      }
       return;
     }
     switch (item.toLowerCase()) {
-      case "rankshow":
-        switch(value.toLowerCase()) {
-          case "true":
-            userData.value.rankshow = true
-            chat.reply(`Your ranks will now show when b!stats is called!`)
-            setTimeout(function( ) {
-              userData.update()
-            }, 2500)
-            break;
-          case "false":
-            userData.value.rankshow = false
-            chat.reply(`Your ranks will not show when b!stats is called!`)
-            setTimeout(function( ) {
-              userData.update()
-            }, 2500)
-            break;
-
-          default:
-            chat.reply(`Please complete the command... (b!change rankshow <true/false>)`)
-            break;
-        }
-        break;
-        
       case "postuse":
         switch(value.toLowerCase()) {
           case "true":
@@ -58,14 +53,14 @@ const Change = {
         switch (userData.value.spot.toLowerCase()) {
           case "city":
             if (getStuff(value.toLowerCase()).rank == "ad") {
-              if (userData.value.credits >= getStuff(value.toLowerCase()).cost) {
+              if (userData.value.money >= getStuff(value.toLowerCase()).cost) {
                 userData.value.normad = getStuff(value.toLowerCase()).id
-                chat.reply(`Your city workers will now use ${getStuff(value.toLowerCase()).name} to advertise!`)
+                chat.reply(`Your city workers will now use ${getStuff(value.toLowerCase()).name} to advertise! (spot: City)`)
                 setTimeout(function( ) {
                   userData.update()
                 }, 2500)
               } else {
-                chat.reply(`You cant use this advertisement... (cost ${getStuff(value.toLowerCase()).costshow} credits)`)
+                chat.reply(`You cant use this advertisement... (cost $${getStuff(value.toLowerCase()).costshow})`)
               }
             } else {
               chat.reply(`Thats not an ad...`)
@@ -74,75 +69,55 @@ const Change = {
 
           case "beach":
             if (getStuff(value.toLowerCase()).rank == "ad") {
-              if (userData.value.credits >= getStuff(value.toLowerCase()).cost * 2) {
+              if (userData.value.moneybeach >= getStuff(value.toLowerCase()).cost * 2) {
                 userData.value.normadbeach = getStuff(value.toLowerCase()).id
-                chat.reply(`Your beach workers will now use ${getStuff(value.toLowerCase()).name} to advertise!`)
+                chat.reply(`Your beach workers will now use ${getStuff(value.toLowerCase()).name} to advertise! (spot: Beach)`)
                 setTimeout(function( ) {
                   userData.update()
                 }, 2500)
               } else {
-                chat.reply(`You cant use this advertisement... (cost ${getLet(value.toLowerCase().cost *2, 2)} credits)`)
+                chat.reply(`You cant use this advertisement... (cost $${getLet(value.toLowerCase().cost *2, 2)})`)
               }
             } else {
               chat.reply(`Thats not an ad...`)
             }
             break;
-        }
-        break;
 
-      case "normstove":
-          switch (userData.value.spot.toLowerCase()) {
-            case "city":
-              if (userData.value.credits >= getStuff(value.toLowerCase()).cost) {
-                if (userData.value.workers >= getStuff(value.toLowerCase()).needed) {
-                  if (getStuff(value.toLowerCase()).rank == "stove") {
-                    userData.value.normstove = getStuff(value.toLowerCase()).id
-                    if (userData.value.workers > getStuff(value.toLowerCase()).max) {
-                      var Lost = userData.value.workers - await getStuff(value.toLowerCase()).max
-                      userData.value.workers -= Lost
-                      userData.value.wage = getStuff(value.toLowerCase()).max * 10.23
-                      userData.value.credits -= getStuff(value.toLowerCase().cost)
-                    } else {
-                      var Lost = 0
-                    }
-                    chat.reply(`Your workers will now use ${getStuff(value.toLowerCase()).name} to cook burgers in the city! (You can now get up to ${getStuff(value.toLowerCase()).max} workers! | Lost: ${Lost} workers...)`)
-                    setTimeout(function( ) {
-                      userData.update()
-                    }, 2500)
-                  } else {
-                    chat.reply(`Thats not a stove...`)
-                  }
-                }
+          case "dank":
+            if (getStuff(value.toLowerCase()).rank == "ad") {
+              if (userData.value.moneydank >= getStuff(value.toLowerCase()).cost * 10) {
+                userData.value.normaddank = getStuff(value.toLowerCase()).id
+                chat.reply(`Your danker land workers will now use ${getStuff(value.toLowerCase()).name} to advertise! (spot: Danker Land)`)
+                setTimeout(function( ) {
+                  userData.update()
+                }, 2500)
               } else {
-                chat.reply(`You need ${getLet(getStuff(value.toLowerCase()).cost), 2} credits...`)
+                chat.reply(`You cant use this advertisement... (cost $${getLet(value.toLowerCase().cost * 10, 2)})`)
               }
-              break;
-            case "beach":
-              if (userData.value.credits >= getStuff(value.toLowerCase()).cost * 2) {
-                if (userData.value.workersbeach >= getStuff(value.toLowerCase()).needed) {
-                  if (getStuff(value.toLowerCase()).rank == "stove") {
-                    userData.value.normstovebeach = getStuff(value.toLowerCase()).id
-                    if (userData.value.workersbeach > getStuff(value.toLowerCase()).max) {
-                      var Lost = userData.value.workersbeach - await getStuff(value.toLowerCase()).max
-                      userData.value.workersbeach -= Lost
-                      userData.value.wagebeach = getStuff(value.toLowerCase()).max * 10.23
-                      userData.value.credits -= getStuff(value.toLowerCase().cost * 2)
-                    } else {
-                      var Lost = 0
-                    }
-                    chat.reply(`Your workers will now use ${getStuff(value.toLowerCase()).name} to cook burgers in the beach! (You can now get up to ${getStuff(value.toLowerCase()).max} workers! | Lost: ${Lost} workers...)`)
-                    setTimeout(function( ) {
-                      userData.update()
-                    }, 2500)
-                  } else {
-                    chat.reply(`Thats not a stove...`)
-                  }
-                }
+            } else {
+              chat.reply(`Thats not an ad...`)
+            }
+            break;
+
+          case "space":
+            if (getStuff(value.toLowerCase()).rank == "ad") {
+              if (userData.value.moneyspace >= getStuff(value.toLowerCase()).cost * 10) {
+                userData.value.normadspace = getStuff(value.toLowerCase()).id
+                chat.reply(`Your space center workers will now use ${getStuff(value.toLowerCase()).name} to advertise! (spot: Space Center)`)
+                setTimeout(function( ) {
+                  userData.update()
+                }, 2500)
               } else {
-                chat.reply(`You need ${getLet(getStuff(value.toLowerCase()).cost * 2), 2} credits...`)
+                chat.reply(`You cant use this advertisement... (cost $${getLet(value.toLowerCase().cost * 5, 2)})`)
               }
-              break;
-          }
+            } else {
+              chat.reply(`Thats not an ad...`)
+            }
+            break;
+
+          default:
+            chat.reply(`Hmm, looks like this spot doesnt support ad changes...`)
+        }
         break;
 
       case "normwater":
@@ -155,56 +130,124 @@ const Change = {
                 userData.update()
               }, 2500)
             } else {
-                chat.reply(`You dont have enough customers to have ${getStuff(value.toLowerCase()).name} as your hydrating drink... (needed: ${getStuff(value.toLowerCase()).costshow})`)
+                chat.reply(`You dont have enough customers to have ${getStuff(value.toLowerCase()).name} as your hydrating drink... (needed: ${getStuff(value.toLowerCase()).needed})`)
             }
             break;
           case "beach":
-            if (getStuff(value.toLowerCase()).needed <= userData.value.customsbeach) {
+            if (getStuff(value.toLowerCase()).needed <= userData.value.customsbeach * 2) {
               userData.value.normwaterbeach = getStuff(value.toLowerCase()).id
               chat.reply(`Your workers will now use ${getStuff(value.toLowerCase()).name} to hydrate while advertising in the beach! (multiplier: ×${getStuff(value.toLowerCase()).multi})`)
               setTimeout(function( ) {
                 userData.update()
               }, 2500)
             } else {
-                chat.reply(`You dont have enough customers to have ${getStuff(value.toLowerCase()).name} as your hydrating drink... (needed: ${getLet(getStuff(value.toLowerCase()).cost * 2, 2)})`)
+                chat.reply(`You dont have enough customers to have ${getStuff(value.toLowerCase()).name} as your hydrating drink... (needed: ${getLet(getStuff(value.toLowerCase()).needed * 2, 2)})`)
             }
             break;
-        }
-      case "spot":
-        if (value.toLowerCase() == "city" || value.toLowerCase() == "beach") {
-          if (userData.value.spots.includes(value.toLowerCase())) {
-            if (userData.value.spot != value) {
-              userData.value.spot = value
-              chat.reply(`Your spot has been changed to ${value.toLowerCase()}!`)
+          case "dank":
+            if (getStuff(value.toLowerCase()).needed <= userData.value.customsdank * 10) {
+              userData.value.normwaterdank = getStuff(value.toLowerCase()).id
+              chat.reply(`Your workers will now use ${getStuff(value.toLowerCase()).name} to hydrate while advertising on Danker Land! (multiplier: ×${getStuff(value.toLowerCase()).multi})`)
               setTimeout(function( ) {
                 userData.update()
               }, 2500)
             } else {
-              chat.reply(`Your already at this spot...`)
+                chat.reply(`You dont have enough customers to have ${getStuff(value.toLowerCase()).name} as your hydrating drink... (needed: ${getLet(getStuff(value.toLowerCase()).needed * 10, 2)})`)
+            }
+            break;
+          case "space":
+            if (getStuff(value.toLowerCase()).needed <= userData.value.customsspace * 5) {
+              userData.value.normwaterspace = getStuff(value.toLowerCase()).id
+              chat.reply(`Your workers will now use ${getStuff(value.toLowerCase()).name} to hydrate while advertising on the Space Center! (multiplier: ×${getStuff(value.toLowerCase()).multi})`)
+              setTimeout(function( ) {
+                userData.update()
+              }, 2500)
+            } else {
+                chat.reply(`You dont have enough customers to have ${getStuff(value.toLowerCase()).name} as your hydrating drink... (needed: ${getLet(getStuff(value.toLowerCase()).needed * 5, 2)})`)
+            }
+            break;
+
+          default:
+            chat.reply(`Hmm, looks like this spot doesnt support water changes...`)
+        }
+        break;
+      case "spot":
+        const c = ["city", "beach", "dank", "space", "event"]
+        if (c.includes(value.toLowerCase())) {
+          if (!AutoW.includes(chat.author.id) && !AutoA.includes(chat.author.id) && !working.includes(chat.author.id)) {
+            if (userData.value.spots.includes(value.toLowerCase())) {
+              if (userData.value.spot != value.toLowerCase()) {
+                userData.value.spot = value.toLowerCase()
+                chat.reply(`Your spot has been changed to '${value.toLowerCase()}'!`)
+                setTimeout(function( ) {
+                  userData.update()
+                }, 2500)
+              } else {
+                chat.reply(`Your already at this spot...`)
+              }
+            } else {
+              switch (value.toLowerCase()) {
+                case "beach":
+                  if (userData.value.credits >= 5000) {
+                    chat.reply(`You bought a spot at the beach! Have fun!`)
+                    userData.value.credits -= 5000
+                    userData.value.spot = "beach"
+                    userData.value.spots.push("beach")
+                    setTimeout(function( ) {
+                      userData.update()
+                    }, 2500)
+                  } else {
+                    chat.reply(`You dont have enough credits to buy a spot at a beach... (cost: 5k credits)`)
+                  }
+                  break;
+                case "dank":
+                  if (userData.value.credits >= 25000) {
+                    chat.reply(`You bought a spot at the Danker Land! Have fun!`)
+                    userData.value.credits -= 25000
+                    userData.value.spot = "dank"
+                    userData.value.spots.push("dank")
+                    setTimeout(function( ) {
+                      userData.update()
+                    }, 2500)
+                  } else {
+                    chat.reply(`You dont have enough credits to buy a spot at Danker Land... (cost: 25k credits)`)
+                  }
+                  break;
+                case "space":
+                  if (userData.value.credits >= 50000) {
+                    chat.reply(`You bought a spot on the Space Center! Have fun!`)
+                    userData.value.credits -= 50000
+                    userData.value.spot = "space"
+                    userData.value.spots.push("space")
+                    setTimeout(function( ) {
+                      userData.update()
+                    }, 2500)
+                  } else {
+                    chat.reply(`You dont have enough credits to buy a spot at the Space Center... (cost: 50k credits)`)
+                  }
+                  break;
+                case "event":
+                  if (event.name == "Spot Event") {
+                    userData.value.spot = "event"
+                    chat.reply(`You have your spot to the Event Spot!`)
+                    setTimeout(function( ) {
+                      userData.update()
+                    }, 2500)
+                  } else {
+                    chat.reply(`The spot event already ended...`)
+                  }
+                  break;
+  
+                default:
+                  chat.reply(`Hmm, there was an error...`)
+                  break;
+              }
             }
           } else {
-            switch (value.toLowerCase()) {
-              case "beach":
-                if (userData.value.credits >= 10000) {
-                  chat.reply(`You bought a spot at the beach! Have fun!`)
-                  userData.value.credits -= 10000
-                  userData.value.spot = "beach"
-                  userData.value.spots.push("beach")
-                  setTimeout(function( ) {
-                    userData.update()
-                  }, 2500)
-                } else {
-                  chat.reply(`You dont have enough credits to buy a spot at a beach... (cost: 10k)`)
-                }
-                break;
-
-              default:
-                chat.reply(`Hmm, there was an error...`)
-                break;
-            }
+            chat.reply(`You cant do this action right now... (you are currently autoing/working)`)
           }
         } else {
-          chat.reply(`Thats not a spot you can go to... (spots: 'city' and 'beach')`)
+          chat.reply(`Thats not a spot you can go to... (spots: 'city', 'beach' and 'dank')`)
         }
         break;
 

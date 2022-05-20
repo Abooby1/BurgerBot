@@ -1,7 +1,7 @@
 import { Commands } from "./commands/index.js";
 import { getUserDataManager } from "./database.js"
 import { PREFIX } from "./constants.js";
-import {containsObject, event, getRandomInt} from "./utils.js"
+import { event, getRandomInt, Version} from "./utils.js"
 
 import {Client} from "photop-client"
 
@@ -66,6 +66,9 @@ export async function onChat(client, chat) {
         if (context.userData.value.troph == false) {
           if (context.userData.value.money >= 100000000000000) {
             context.userData.value.troph = true
+            if (!context.userData.value.spots.includes('dank')) {
+              context.userData.value.spots.push('dank')
+            }
             const post = await client.groups["62535105a95b113f103c2d57"].post("cappy")
             setTimeout(async function( ) {
               const something = await post.chat(`c!bot ${chat.author.id} burgerbotmoney`)
@@ -83,7 +86,7 @@ export async function onChat(client, chat) {
                 setTimeout(function( ) {
                   context.userData.update()
                 }, 2500)
-                chat.reply(`You earned $${m1} from the Reward Event!`)
+                chat.reply(`You earned ${m1} credits from the Reward Event!`)
                 break;
               case "customs":
                 const m2 = getRandomInt(10, 20)
@@ -102,7 +105,43 @@ export async function onChat(client, chat) {
                 }, 2500)
                 chat.reply(`You earned ${m3} workers from the Reward Event! (wage added: $${m3 * 5.12})`)
                 break;
+              case "exp":
+                const m4 = getRandomInt(10, 25)
+                context.userData.value.exp += m4
+                setTimeout(function( ) {
+                  context.userData.update()
+                }, 2500)
+                chat.reply(`You earned ${m4} exp from the Reward Event!`)
             }
+          }
+        }
+
+        if (context.userData.value.exp >= 100) {
+          context.userData.value.exp = 0
+          context.userData.value.lvl += 1
+          setTimeout(function( ) {
+            context.userData.update()
+          }, 2500)
+        }
+
+        if (context.userData.value.version != Version) {
+          context.userData.value.exp = 0
+          context.userData.value.lvl = 1
+          context.userData.value.lastlvl = 0
+          context.userData.value.credits += 10
+          chat.reply(`Welcome to Season ${Version}! You got yourself 10 credits! (your level has been refreshed)`)
+          setTimeout(function( ) {
+            context.userData.update()
+          }, 2500)
+        }
+
+        if (context.userData.value.spot == 'event') {
+          if (event.name != 'Spot Event') {
+            context.userData.value.spot = 'city'
+            chat.reply(`Your spot was switched to the city due to the spot event ending...`)
+            setTimeout(async function( ) {
+              context.userData.update()
+            }, 2500)
           }
         }
 
