@@ -138,6 +138,10 @@ export async function onChat(client, chat) {
         if (context.userData.value.spot == 'event') {
           if (event.name != 'Spot Event') {
             context.userData.value.spot = 'city'
+            context.userData.value.moneyevent = 0
+            context.userData.value.customsevent = 1
+            context.userData.value.workersevent = 0
+            context.userData.value.wageevent = 0
             chat.reply(`Your spot was switched to the city due to the spot event ending...`)
             setTimeout(async function( ) {
               context.userData.update()

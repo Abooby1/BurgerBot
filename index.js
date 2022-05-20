@@ -8,7 +8,7 @@ const client = new Client({ username: "BurgerBot", password: process.env["Pass"]
 
 const noop = () => { };
 
-const VersionSay = `1. Added new spot (Event Spot | use <b!change spot event> to change) \n2. Added new event (Spot Event | changed event to the spot event)`
+const VersionSay = `1. When bot refreshed, it would make the event 'undefined' - fixed`
 
 client.onPost = async (post) => {
   const resetTimeout = await post.connect(120000, () => {
@@ -22,7 +22,14 @@ client.onPost = async (post) => {
       resetTimeout()
       const data = await db.get(`v1/${post.author.id}`) 
       if (data != undefined) {
-        post.chat(`Im now connected to your post ${post.author.username}! (use b!help for help!)`)
+        switch (post.author.id) {
+          case "6154f0d0a8d6d106c5b869b6":
+            post.chat(`Welcome king!`)
+            break;
+          default:
+            post.chat(`Im now connected to your post ${post.author.username}! (use b!help for help!)`)
+            break;
+        }
       } else {
         post.chat(`Welcome to BurgerBot Season ${Version} ${post.author.username}! Make sure to use b!help for help!`)
       }

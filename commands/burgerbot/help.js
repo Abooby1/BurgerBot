@@ -1,4 +1,5 @@
 import {event, Version, SeasonEnd} from "../../utils.js"
+import {db} from "../../database.js"
 
 const Help = {
   names: ["help", "about"],
@@ -11,7 +12,7 @@ const Help = {
       case "spot":
         chat.reply(`You can buy spots in b!change spot <spot you want to buy>! Each spot costs more credits!`)
         setTimeout(function( ) {
-          chat.reply(`Spots: city (free starter), beach (5k credits) and dankerland (25k credits)!`)
+          chat.reply(`Spots: city (free starter), beach (5k credits), dank (25k credits), and space (50k credits)!`)
         }, 500)
         break;
       case "season":
@@ -42,7 +43,10 @@ const Help = {
             chat.reply(`Prestiging adds to your money earning (in the spot your prestiging in) | Requirements (Beach): $20K, 10K customers, 1K workers!`)
             break;
           case "dank":
-            chat.reply(`Prestiging adds to your money earning (in the spot your prestiging in) | Requirements (Danker Land): $40k, 20K customers, 2K workers!`)
+            chat.reply(`Prestiging adds to your money earning (in the spot your prestiging in) | Requirements (Danker Land): $40K, 20K customers, 2K workers!`)
+            break;
+          case "space":
+            chat.reply(`Prestiging adds to your money earning (in the spot your prestiging in) | Requirements (Space Center): $100K, 50K customers, 5K workers!`)
             break;
         }
         break;

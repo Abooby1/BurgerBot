@@ -6,7 +6,7 @@ date.toLocaleString( "en-US", { timeZone: "America/New_York" });
 export const SeasonMulti = 1
 export const Version = 1
 export const SeasonEnd = "June 11"
-export const VersionID = '1.20'
+export const VersionID = '1.21'
 export var Day = date.getDate()
 export var event = {}
 
@@ -63,10 +63,10 @@ function getEvent (n) {
 
     default:
       return {
-        name: "Claim Event",
-        desc: "The claim event adds to the credits earned in b!claim <rank>! (lasts: 7 days)",
+        name: "None...",
+        desc: "Theres no event currently...",
       
-        last: 7,
+        last: 0,
         earn: null
       }
   }
@@ -84,16 +84,20 @@ setInterval(async function( ) {
     if (d.last >= 1) {
       d.last -= 1
       d.day = Day
+      event = getEvent(d.num)
       const d1 = JSON.stringify(d)
       db.set('EventDay', await d1)
     } else {
-      const n = await getEvent(getRandomInt(0, 5))
-      event = await n
-      d.last = n.last
+      const n = getRandomInt(0, 5)
+      event = await getEvent(n)
+      d.last = event.last
       d.day = Day
+      d.num = n
       const d1 = JSON.stringify(d)
       db.set('EventDay', await d1)
     }
+  } else {
+    event = getEvent(d.num)
   }
 }, 100)
 
