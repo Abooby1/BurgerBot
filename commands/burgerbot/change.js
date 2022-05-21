@@ -8,16 +8,16 @@ const Change = {
     if (value == undefined) {
       switch (userData.value.spot.toLowerCase()) {
         case "city":
-          chat.reply(`City | postuse: '${userData.value.postuse}' | normad: '${userData.value.normad}' | normwater: '${userData.value.normwater}'`);
+          chat.reply(`Beach | postuse: '${userData.value.postuse}' | normad: '${userData.value.city.normad}' | normwater: '${userData.value.city.normwater}'`);
           break;
         case "beach":
-          chat.reply(`Beach | postuse: '${userData.value.postuse}' | normad: '${userData.value.normadbeach}' | normwater: '${userData.value.normwaterbeach}'`);
+          chat.reply(`Beach | postuse: '${userData.value.postuse}' | normad: '${userData.value.beach.normad}' | normwater: '${userData.value.beach.normwater}'`);
           break;
         case "dank":
-          chat.reply(`Danker Land | postuse: '${userData.value.postuse}' | normad: '${userData.value.normaddank}' | normwater: '${userData.value.normwaterdank}'`);
+          chat.reply(`Danker Land | postuse: '${userData.value.postuse}' | normad: '${userData.value.dank.normad}' | normwater: '${userData.value.dank.normwater}'`);
           break;
         case "space":
-          chat.reply(`Space Center | postuse: '${userData.value.postuse}' | normad: '${userData.value.normadspace}' | normwater: '${userData.value.normwaterspace}'`);
+          chat.reply(`Space Center | postuse: '${userData.value.postuse}' | normad: '${userData.value.space.normad}' | normwater: '${userData.value.space.normwater}'`);
           break;
         case "event":
           chat.reply(`Event Spot | postuse: '${userData.value.postuse}' | normad: 'not supported...' | normwater: 'not supported...'`);
@@ -53,8 +53,8 @@ const Change = {
         switch (userData.value.spot.toLowerCase()) {
           case "city":
             if (getStuff(value.toLowerCase()).rank == "ad") {
-              if (userData.value.money >= getStuff(value.toLowerCase()).cost) {
-                userData.value.normad = getStuff(value.toLowerCase()).id
+              if (userData.value.city.money >= getStuff(value.toLowerCase()).cost) {
+                userData.value.city.normad = getStuff(value.toLowerCase()).id
                 chat.reply(`Your city workers will now use ${getStuff(value.toLowerCase()).name} to advertise! (spot: City)`)
                 setTimeout(function( ) {
                   userData.update()
@@ -69,8 +69,8 @@ const Change = {
 
           case "beach":
             if (getStuff(value.toLowerCase()).rank == "ad") {
-              if (userData.value.moneybeach >= getStuff(value.toLowerCase()).cost * 2) {
-                userData.value.normadbeach = getStuff(value.toLowerCase()).id
+              if (userData.value.beach.money >= getStuff(value.toLowerCase()).cost * 2) {
+                userData.value.beach.normad = getStuff(value.toLowerCase()).id
                 chat.reply(`Your beach workers will now use ${getStuff(value.toLowerCase()).name} to advertise! (spot: Beach)`)
                 setTimeout(function( ) {
                   userData.update()
@@ -85,8 +85,8 @@ const Change = {
 
           case "dank":
             if (getStuff(value.toLowerCase()).rank == "ad") {
-              if (userData.value.moneydank >= getStuff(value.toLowerCase()).cost * 10) {
-                userData.value.normaddank = getStuff(value.toLowerCase()).id
+              if (userData.value.dank.money >= getStuff(value.toLowerCase()).cost * 10) {
+                userData.value.dank.normad = getStuff(value.toLowerCase()).id
                 chat.reply(`Your danker land workers will now use ${getStuff(value.toLowerCase()).name} to advertise! (spot: Danker Land)`)
                 setTimeout(function( ) {
                   userData.update()
@@ -101,8 +101,8 @@ const Change = {
 
           case "space":
             if (getStuff(value.toLowerCase()).rank == "ad") {
-              if (userData.value.moneyspace >= getStuff(value.toLowerCase()).cost * 10) {
-                userData.value.normadspace = getStuff(value.toLowerCase()).id
+              if (userData.value.space.money >= getStuff(value.toLowerCase()).cost * 5) {
+                userData.value.space.normad = getStuff(value.toLowerCase()).id
                 chat.reply(`Your space center workers will now use ${getStuff(value.toLowerCase()).name} to advertise! (spot: Space Center)`)
                 setTimeout(function( ) {
                   userData.update()
@@ -123,8 +123,8 @@ const Change = {
       case "normwater":
         switch(userData.value.spot.toLowerCase()) {
           case "city":
-            if (getStuff(value.toLowerCase()).needed <= userData.value.customers) {
-              userData.value.normwater = getStuff(value.toLowerCase()).id
+            if (getStuff(value.toLowerCase()).needed <= userData.value.city.customers) {
+              userData.value.city.normwater = getStuff(value.toLowerCase()).id
               chat.reply(`Your workers will now use ${getStuff(value.toLowerCase()).name} to hydrate while advertising in the city! (multiplier: ×${getStuff(value.toLowerCase()).multi})`)
               setTimeout(function( ) {
                 userData.update()
@@ -134,8 +134,8 @@ const Change = {
             }
             break;
           case "beach":
-            if (getStuff(value.toLowerCase()).needed <= userData.value.customsbeach * 2) {
-              userData.value.normwaterbeach = getStuff(value.toLowerCase()).id
+            if (getStuff(value.toLowerCase()).needed <= userData.value.beach.customers * 2) {
+              userData.value.beach.normwater = getStuff(value.toLowerCase()).id
               chat.reply(`Your workers will now use ${getStuff(value.toLowerCase()).name} to hydrate while advertising in the beach! (multiplier: ×${getStuff(value.toLowerCase()).multi})`)
               setTimeout(function( ) {
                 userData.update()
@@ -145,8 +145,8 @@ const Change = {
             }
             break;
           case "dank":
-            if (getStuff(value.toLowerCase()).needed <= userData.value.customsdank * 10) {
-              userData.value.normwaterdank = getStuff(value.toLowerCase()).id
+            if (getStuff(value.toLowerCase()).needed <= userData.value.dank.customers * 10) {
+              userData.value.dank.normwater = getStuff(value.toLowerCase()).id
               chat.reply(`Your workers will now use ${getStuff(value.toLowerCase()).name} to hydrate while advertising on Danker Land! (multiplier: ×${getStuff(value.toLowerCase()).multi})`)
               setTimeout(function( ) {
                 userData.update()
@@ -156,8 +156,8 @@ const Change = {
             }
             break;
           case "space":
-            if (getStuff(value.toLowerCase()).needed <= userData.value.customsspace * 5) {
-              userData.value.normwaterspace = getStuff(value.toLowerCase()).id
+            if (getStuff(value.toLowerCase()).needed <= userData.value.space.customers * 5) {
+              userData.value.space.normwater = getStuff(value.toLowerCase()).id
               chat.reply(`Your workers will now use ${getStuff(value.toLowerCase()).name} to hydrate while advertising on the Space Center! (multiplier: ×${getStuff(value.toLowerCase()).multi})`)
               setTimeout(function( ) {
                 userData.update()

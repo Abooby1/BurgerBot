@@ -40,7 +40,7 @@ const specialRanks = {
 export const defaultData = {
   rankshow: true,
   postuse: false,
-  version: 1,
+  version: 2,
 
   rank: "Normal",
   daily: 0,
@@ -50,43 +50,13 @@ export const defaultData = {
   lastlvl: 0,
   exp: 0,
 
-  //city
-  money: 5, 
-  customers: 1,
-  workers: 0,
-  wage: 0, 
-  normad: "flier",
-  normwater: "water1",
-  prestige: 1,
-  //beach
-  moneybeach: 0,
-  customsbeach: 1,
-  workersbeach: 0,
-  wagebeach: 0,
-  normadbeach: "facebook",
-  normwaterbeach: "water1",
-  prestigebeach: 1,
-  //dank
-  moneydank: 0,
-  customsdank: 1,
-  workersdank: 0,
-  wagedank: 0,
-  normaddank: "facebook",
-  normwaterdank: "water1",
-  prestigedank: 1,
-  //space
-  moneyspace: 0,
-  customsspace: 1,
-  workersspace: 0,
-  wagespace: 0,
-  normadspace: "facebook",
-  normwaterspace: "water1",
-  prestigespace: 1,
-  //event
-  moneyevent: 0,
-  customsevent: 1,
-  workersevent: 0,
-  wageevent: 0,
+  //
+  city: {money: 5, customers: 1, workers: 0, wage: 0, prestige: 1, normad: 'facebook', normwater: 'water1'},
+  beach: {money: 0, customers: 1, workers: 0, wage: 0, prestige: 1, normad: 'facebook', normwater: 'water1'},
+  dank: {money: 0, customers: 1, workers: 0, wage: 0, prestige: 1, normad: 'facebook', normwater: 'water1'},
+  space: {money: 0, customers: 1, workers: 0, wage: 0, prestige: 1, normad: 'facebook', normwater: 'water1'},
+  event: {money: 0, customers: 1, workers: 0, wage: 0},
+  //
   
   troph: false,
 

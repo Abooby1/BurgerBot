@@ -9,10 +9,10 @@ const Hire = {
     }
     switch (userData.value.spot.toLowerCase()) {
       case "city":
-        if (userData.value.money >= 100 * parseInt(value)) {
-          userData.value.workers += parseInt(value)
-          userData.value.money -= 100 * parseInt(value)
-          userData.value.wage += 10.23 * parseInt(value)
+        if (userData.value.city.money >= 100 * parseInt(value)) {
+          userData.value.city.workers += parseInt(value)
+          userData.value.city.money -= 100 * parseInt(value)
+          userData.value.city.wage += 10.23 * parseInt(value)
           userData.value.exp += parseInt(value) * 1
           if (parseInt(value) >= 2) {
             chat.reply(`You hired ${getLet(parseInt(value))} people!`)
@@ -27,10 +27,10 @@ const Hire = {
         }
         break;
       case "beach":
-        if (userData.value.moneybeach >= 200 * parseInt(value)) {
-          userData.value.workersbeach += parseInt(value)
-          userData.value.moneybeach -= 200 * parseInt(value)
-          userData.value.wagebeach += 20.46 * parseInt(value)
+        if (userData.value.beach.money >= 200 * parseInt(value)) {
+          userData.value.beach.workers += parseInt(value)
+          userData.value.beach.money -= 200 * parseInt(value)
+          userData.value.beach.wage += 20.46 * parseInt(value)
           userData.value.exp += parseInt(value) * 2
           if (parseInt(value) >= 2) {
             chat.reply(`You hired ${getLet(parseInt(value))} people!`)
@@ -45,10 +45,10 @@ const Hire = {
         }
         break;
       case "dank":
-        if (userData.value.moneydank >= 500 * parseInt(value)) {
-          userData.value.workersdank += parseInt(value)
-          userData.value.moneydank -= 500 * parseInt(value)
-          userData.value.wagedank += 30.69 * parseInt(value)
+        if (userData.value.dank.money >= 500 * parseInt(value)) {
+          userData.value.dank.workers += parseInt(value)
+          userData.value.dank.money -= 500 * parseInt(value)
+          userData.value.dank.wage += 30.69 * parseInt(value)
           userData.value.exp += parseInt(value) * 4
           if (parseInt(value) >= 2) {
             chat.reply(`You hired ${getLet(parseInt(value))} people!`)
@@ -63,10 +63,10 @@ const Hire = {
         }
         break;
       case "space":
-        if (userData.value.moneyspace >= 1000 * parseInt(value)) {
-          userData.value.workersspace += parseInt(value)
-          userData.value.moneyspace -= 1000 * parseInt(value)
-          userData.value.wagespace += 40.92 * parseInt(value)
+        if (userData.value.space.money >= 1000 * parseInt(value)) {
+          userData.value.space.workers += parseInt(value)
+          userData.value.space.money -= 1000 * parseInt(value)
+          userData.value.space.wage += 40.92 * parseInt(value)
           userData.value.exp += parseInt(value) * 5
           if (parseInt(value) >= 2) {
             chat.reply(`You hired ${getLet(parseInt(value))} people!`)
@@ -81,10 +81,10 @@ const Hire = {
         }
         break;
       case "event":
-        if (userData.value.moneyevent >= 50 * parseInt(value)) {
-          userData.value.workersevent += parseInt(value)
-          userData.value.moneyevent -= 50 * parseInt(value)
-          userData.value.wageevent += 5.12 * parseInt(value)
+        if (userData.value.event.money >= 50 * parseInt(value)) {
+          userData.value.event.workers += parseInt(value)
+          userData.value.event.money -= 50 * parseInt(value)
+          userData.value.event.wage += 5.12 * parseInt(value)
           userData.value.exp += parseInt(value) * 3
           if (parseInt(value) >= 2) {
             chat.reply(`You hired ${getLet(parseInt(value))} people!`)

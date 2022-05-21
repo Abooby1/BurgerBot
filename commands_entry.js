@@ -64,7 +64,7 @@ export async function onChat(client, chat) {
         }
 
         if (context.userData.value.troph == false) {
-          if (context.userData.value.money >= 100000000000000) {
+          if (context.userData.value.city.money >= 100000000000000) {
             context.userData.value.troph = true
             if (!context.userData.value.spots.includes('dank')) {
               context.userData.value.spots.push('dank')
@@ -90,7 +90,7 @@ export async function onChat(client, chat) {
                 break;
               case "customs":
                 const m2 = getRandomInt(10, 20)
-                context.userData.value.customers += m2
+                context.userData.value.city.customers += m2
                 setTimeout(function( ) {
                   context.userData.update()
                 }, 2500)
@@ -98,8 +98,8 @@ export async function onChat(client, chat) {
                 break;
               case "worker":
                 const m3 = getRandomInt(1, 5)
-                context.userData.value.workers += m3
-                context.userData.value.wage += m3 * 5.12
+                context.userData.value.city.workers += m3
+                context.userData.value.city.wage += m3 * 5.12
                 setTimeout(function( ) {
                   context.userData.update()
                 }, 2500)
@@ -129,7 +129,8 @@ export async function onChat(client, chat) {
           context.userData.value.lvl = 1
           context.userData.value.lastlvl = 0
           context.userData.value.credits += 10
-          chat.reply(`Welcome to Season ${Version}! You got yourself 10 credits! (your level has been refreshed)`)
+          context.userData.value.version = Version
+          chat.reply(`Welcome to Season ${SeasonNum}! You got yourself 10 credits! (your level has been refreshed)`)
           setTimeout(function( ) {
             context.userData.update()
           }, 2500)
@@ -138,10 +139,10 @@ export async function onChat(client, chat) {
         if (context.userData.value.spot == 'event') {
           if (event.name != 'Spot Event') {
             context.userData.value.spot = 'city'
-            context.userData.value.moneyevent = 0
-            context.userData.value.customsevent = 1
-            context.userData.value.workersevent = 0
-            context.userData.value.wageevent = 0
+            context.userData.value.event.money = 0
+            context.userData.value.event.customers = 1
+            context.userData.value.event.workers = 0
+            context.userData.value.event.wage = 0
             chat.reply(`Your spot was switched to the city due to the spot event ending...`)
             setTimeout(async function( ) {
               context.userData.update()

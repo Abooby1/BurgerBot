@@ -1,14 +1,14 @@
 import { Client } from "photop-client";
 import { onChat } from "./commands_entry.js";
 import { START, PREFIX } from "./constants.js";
-import {db} from "./database.js"
-import {Version, VersionID} from "./utils.js"
+import {db, defaultData} from "./database.js"
+import {Version, VersionID, SeasonNum} from "./utils.js"
 
 const client = new Client({ username: "BurgerBot", password: process.env["Pass"] }, { logSocketMessages: false });
 
 const noop = () => { };
 
-const VersionSay = `1. When bot refreshed, it would make the event 'undefined' - fixed`
+const VersionSay = `1. All spot data has been made more compact (make sure to use a command to convert your data!) \n2. Bug fixes`
 
 client.onPost = async (post) => {
   const resetTimeout = await post.connect(120000, () => {
@@ -31,14 +31,16 @@ client.onPost = async (post) => {
             break;
         }
       } else {
-        post.chat(`Welcome to BurgerBot Season ${Version} ${post.author.username}! Make sure to use b!help for help!`)
+        const d = await JSON.stringify(defaultData)
+        db.set(`v1/${post.author.id}`, d)
+        post.chat(`Welcome to BurgerBot Season ${SeasonNum} ${post.author.username}! Make sure to use b!help for help!`)
       }
     }, 2000)
   }
 
   post.onChat = (chat) => {
     if (post.text == START) {
-      if (chat.text.startsWith('pls')) {setTimeout(function() {chat.reply(`Really?! This aint @DankMemer...`)}, 1500)}
+      if (chat.text.startsWith('pls')) {setTimeout(function() {chat.reply(`Really?! This aint @DankMemer...`)}, 750)}
       resetTimeout();
       onChat(client, chat);
     }

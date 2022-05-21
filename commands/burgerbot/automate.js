@@ -22,7 +22,7 @@ const Auto = {
       case 'w':
         switch (userData.value.spot.toLowerCase()) {
           case "city":
-            if (userData.value.workers >= 1) {
+            if (userData.value.city.workers >= 1) {
               if (parseInt(body) >= 1 && parseInt(body) <= 5) {
                 AutoW.push(chat.author.id)
                 
@@ -37,7 +37,7 @@ const Auto = {
                     t1 += 1
                     t += earn
                     chat.reply(`One day has passed...`)
-                    userData.value.money += earn
+                    userData.value.city.money += earn
                     setTimeout(function( ) {
                       userData.update()
                     }, 2500)
@@ -55,7 +55,7 @@ const Auto = {
             }
             break;
           case "beach":
-            if (userData.value.workersbeach >= 1) {
+            if (userData.value.beach.workers >= 1) {
               if (parseInt(body) >= 1 && parseInt(body) <= 5) {
                 AutoW.push(chat.author.id)
                 
@@ -70,7 +70,7 @@ const Auto = {
                     tt += earn
                     t2 += 1
                     chat.reply(`One day has passed...`)
-                    userData.value.moneybeach += earn
+                    userData.value.beach.money += earn
                     setTimeout(function( ) {
                       userData.update()
                     }, 2500)
@@ -88,7 +88,7 @@ const Auto = {
             }
             break;
           case "dank":
-            if (userData.value.workersdank >= 1) {
+            if (userData.value.dank.workers >= 1) {
               if (parseInt(body) >= 1 && parseInt(body) <= 5) {
                 AutoW.push(chat.author.id)
                 
@@ -103,7 +103,7 @@ const Auto = {
                     y1 += 1
                     y += earn
                     chat.reply(`One day has passed...`)
-                    userData.value.money += earn
+                    userData.value.dank.money += earn
                     setTimeout(function( ) {
                       userData.update()
                     }, 2500)
@@ -122,7 +122,7 @@ const Auto = {
             break;
 
           case "space":
-            if (userData.value.workersspace >= 1) {
+            if (userData.value.space.workers >= 1) {
               if (parseInt(body) >= 1 && parseInt(body) <= 5) {
                 AutoW.push(chat.author.id)
                 
@@ -137,7 +137,7 @@ const Auto = {
                     y1 += 1
                     y += earn
                     chat.reply(`One day has passed...`)
-                    userData.value.money += earn
+                    userData.value.space.money += earn
                     setTimeout(function( ) {
                       userData.update()
                     }, 2500)
@@ -163,7 +163,7 @@ const Auto = {
       case 'a':
         switch (userData.value.spot.toLowerCase()) {
           case "city":
-            if (userData.value.workers >= 1) {
+            if (userData.value.city.workers >= 1) {
               if (parseInt(body) >= 1 && parseInt(body) <= 5) {
                 AutoA.push(chat.author.id)
                 
@@ -178,13 +178,13 @@ const Auto = {
                   if (t3 != parseInt(body)) {
                     ttt += earn
                     t3 += 1
-                    const Earned = getRandomInt(0, getStuff(userData.value.normad).earn)
-                    if (getRandomInt(1, getStuff(userData.value.normad).chance) == 1) {
+                    const Earned = getRandomInt(0, getStuff(userData.value.city.normad).earn)
+                    if (getRandomInt(1, getStuff(userData.value.city.normad).chance) == 1) {
                       EarnedW = getRandomInt(1, 2)
                     }
                     chat.reply(`One day has passed...`)
-                    userData.value.customers += Earned
-                    userData.value.workers += EarnedW
+                    userData.value.city.customers += Earned
+                    userData.value.city.workers += EarnedW
                     setTimeout(function( ) {
                       userData.update()
                     }, 2500)
@@ -202,7 +202,7 @@ const Auto = {
             }
             break;
           case "beach":
-            if (userData.value.workersbeach >= 1) {
+            if (userData.value.beach.workers >= 1) {
               if (parseInt(body) >= 1 && parseInt(body) <= 5) {
                 AutoA.push(chat.author.id)
                 
@@ -217,13 +217,13 @@ const Auto = {
                   if (t4 != parseInt(body)) {
                     tttt += earn
                     t4 += 1
-                    const Earned = getRandomInt(0, getStuff(userData.value.normadbeach).earn)
-                    if (getRandomInt(1, getStuff(userData.value.normadbeach).chance) == 1) {
+                    const Earned = getRandomInt(0, getStuff(userData.value.beach.normad).earn)
+                    if (getRandomInt(1, getStuff(userData.value.beach.normad).chance) == 1) {
                       EarnedW = getRandomInt(1, 2)
                     }
                     chat.reply(`One day has passed...`)
-                    userData.value.customsbeach += Earned
-                    userData.value.workersbeach += EarnedW
+                    userData.value.beach.customers += Earned
+                    userData.value.beach.workers += EarnedW
                     setTimeout(function( ) {
                       userData.update()
                     }, 2500)
@@ -241,7 +241,7 @@ const Auto = {
             }
             break;
           case "dank":
-            if (userData.value.workersdank >= 1) {
+            if (userData.value.dank.workers >= 1) {
               if (parseInt(body) >= 1 && parseInt(body) <= 5) {
                 AutoA.push(chat.author.id)
                 
@@ -256,13 +256,13 @@ const Auto = {
                   if (y2 != parseInt(body)) {
                     yy += earn
                     y2 += 1
-                    const Earned = getRandomInt(0, getStuff(userData.value.normaddank).earn)
-                    if (getRandomInt(1, getStuff(userData.value.normaddank).chance) == 1) {
+                    const Earned = getRandomInt(0, getStuff(userData.value.dank.normad).earn)
+                    if (getRandomInt(1, getStuff(userData.value.dank.normad).chance) == 1) {
                       EarnedW = getRandomInt(1, 2)
                     }
                     chat.reply(`One day has passed...`)
-                    userData.value.customsdank += Earned
-                    userData.value.workersdank += EarnedW
+                    userData.value.dank.customers += Earned
+                    userData.value.dank.workers += EarnedW
                     setTimeout(function( ) {
                       userData.update()
                     }, 2500)
@@ -280,7 +280,7 @@ const Auto = {
             }
             break;
           case "space":
-            if (userData.value.workersspace >= 1) {
+            if (userData.value.space.workers >= 1) {
               if (parseInt(body) >= 1 && parseInt(body) <= 5) {
                 AutoA.push(chat.author.id)
                 
@@ -295,13 +295,13 @@ const Auto = {
                   if (space2 != parseInt(body)) {
                     space += earn
                     space2 += 1
-                    const Earned = getRandomInt(0, getStuff(userData.value.normadspace).earn)
-                    if (getRandomInt(1, getStuff(userData.value.normadspace).chance) == 1) {
+                    const Earned = getRandomInt(0, getStuff(userData.value.space.normad).earn)
+                    if (getRandomInt(1, getStuff(userData.value.space.normad).chance) == 1) {
                       EarnedW = getRandomInt(1, 2)
                     }
                     chat.reply(`One day has passed...`)
-                    userData.value.customsspace += Earned
-                    userData.value.workersspace += EarnedW
+                    userData.value.space.customers += Earned
+                    userData.value.space.workers += EarnedW
                     setTimeout(function( ) {
                       userData.update()
                     }, 2500)

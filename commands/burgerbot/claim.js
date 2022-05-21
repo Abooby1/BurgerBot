@@ -97,18 +97,18 @@ const Claim = {
             switch (userData.value.spot.toLowerCase()) {
               case "beach":
                 userData.value.credits += 1
-                userData.value.moneybeach += 10
+                userData.value.beach.money += 10
                 chat.reply(`You claimed your event rewards! (you can claim them again in 2 minutes! | $10 (beach) and 1 credit)`)
                 break;
               case "space":
                 userData.value.credits += 1
-                userData.value.moneyspace += 10
+                userData.value.space.money += 10
                 chat.reply(`You claimed your event rewards! (you can claim them again in 2 minutes! | $10 (space) and 1 credit)`)
                 break;
 
               default:
                 userData.value.credits += 1
-                userData.value.money += 5
+                userData.value.city.money += 5
                 chat.reply(`You claimed your event rewards! (you can claim them again in 2 minutes! | $5 (city) and 1 credit)`)
                 break;
             }

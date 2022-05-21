@@ -4,9 +4,10 @@ const date = new Date()
 date.toLocaleString( "en-US", { timeZone: "America/New_York" });
 
 export const SeasonMulti = 1
-export const Version = 1
+export const Version = 2
+export const SeasonNum = 1
 export const SeasonEnd = "June 11"
-export const VersionID = '1.21'
+export const VersionID = '1.22'
 export var Day = date.getDate()
 export var event = {}
 
@@ -416,108 +417,108 @@ export async function f (type, uid) {
     case "workcity":
       var w = 0
       if (event.name == "Worker Event") {
-        w = userData.value.wage / 2
+        w = userData.value.city.wage / 2
       } else {
-        w = userData.value.wage
+        w = userData.value.city.wage
       }
-      return userData.value.workers * userData.value.prestige * 0.01 * userData.value.customers - w
+      return userData.value.city.workers * userData.value.city.prestige * 0.01 * userData.value.city.customers - w
       break;
 
     case "advertcity":
       var w1 = 0
       var a = 0
       if (event.name == "Advert Event") {
-        a = getStuff(userData.value.normad).cost / 2
+        a = getStuff(userData.value.city.normad).cost / 2
       } else {
-        a = getStuff(userData.value.normad).cost * 2
+        a = getStuff(userData.value.city.normad).cost * 2
       }
       if (event.name == "Worker Event") {
-        w1 = userData.value.wage / 2
+        w1 = userData.value.city.wage / 2
       } else {
-        w1 = userData.value.wage
+        w1 = userData.value.city.wage
       }
-      const c = a * userData.value.workers + w1
+      const c = a * userData.value.city.workers + w1
       return c
       break;
 
     case "workbeach":
       var w3 = 0
       if (event.name == "Worker Event") {
-        w3 = userData.value.wagebeach / 2
+        w3 = userData.value.beach.wage / 2
       } else {
-        w3 = userData.value.wagebeach
+        w3 = userData.value.beach.wage
       }
-      return userData.value.workersbeach * userData.value.prestigebeach * 0.01 * userData.value.customsbeach - w3
+      return userData.value.beach.workers * userData.value.beach.prestige * 0.01 * userData.value.beach.customers - w3
       break;
 
     case "advertbeach":
       var w4 = 0
       var a = 0
       if (event.name == "Advert Event") {
-        a = getStuff(userData.value.normadbeach).cost * 5 / 2
+        a = getStuff(userData.value.beach.normad).cost * 5 / 2
       } else {
-        a = getStuff(userData.value.normadbeach).cost * 5
+        a = getStuff(userData.value.beach.normad).cost * 5
       }
       if (event.name == "Worker Event") {
-        w4 = userData.value.wagebeach / 2
+        w4 = userData.value.beach.wage / 2
       } else {
-        w4 = userData.value.wagebeach
+        w4 = userData.value.beach.wage
       }
-      const c3 = a * userData.value.workersbeach + w4
+      const c3 = a * userData.value.beach.workers + w4
       return c3
       break;
 
     case "workdank":
       var w5 = 0
       if (event.name == "Worker Event") {
-        w5 = userData.value.wagedank / 2
+        w5 = userData.value.dank.wage / 2
       } else {
-        w5 = userData.value.wagedank
+        w5 = userData.value.dank.wage
       }
-      return userData.value.workersdank * userData.value.prestigedank * 0.01 * userData.value.customsdank - w5
+      return userData.value.dank.workers * userData.value.dank.prestige * 0.01 * userData.value.dank.customers - w5
       break;
 
     case "advertdank":
       var w6 = 0
       var a1 = 0
       if (event.name == "Advert Event") {
-        a1 = getStuff(userData.value.normaddank).cost * 10 / 2
+        a1 = getStuff(userData.value.dank.normad).cost * 10 / 2
       } else {
-        a1 = getStuff(userData.value.normaddank).cost * 10
+        a1 = getStuff(userData.value.dank.normad).cost * 10
       }
       if (event.name == "Worker Event") {
-        w6 = userData.value.wagedank / 2
+        w6 = userData.value.dank.wage / 2
       } else {
-        w6 = userData.value.wagedank
+        w6 = userData.value.dank.wage
       }
-      const c4 = a1 * userData.value.workersdank + w6
+      const c4 = a1 * userData.value.dank.workers + w6
       return c4
       break;
 
     case "workspace":
       var w7 = 0
       if (event.name == "Worker Event") {
-        w7 = userData.value.wagespace / 2
+        w7 = userData.value.space.wage / 2
       } else {
-        w7 = userData.value.wagespace
+        w7 = userData.value.space.wage
       }
-      return userData.value.workersspace * userData.value.prestigespace * 0.01 * userData.value.customsspace - w7
+      return userData.value.space.workers * userData.value.space.prestige * 0.01 * userData.value.space.customers - w7
       break;
 
     case "advertspace":
       var w8 = 0
       var a2 = 0
       if (event.name == "Advert Event") {
-        a2 = getStuff(userData.value.normadspace).cost * 5 / 2
+        a2 = getStuff(userData.value.space.normad).cost * 5 / 2
       } else {
-        a2 = getStuff(userData.value.normadspace).cost * 5
+        a2 = getStuff(userData.value.space.normad).cost * 5
       }
       if (event.name == "Worker Event") {
-        w8 = userData.value.wagespace / 2
+        w8 = userData.value.space.wage / 2
       } else {
-        w8 = userData.value.wagespace
+        w8 = userData.value.space.wage
       }
-      const c5 = a2 * userData.value.workersspace + w8
+      const c5 = a2 * userData.value.space.workers + w8
       return c5
       break;
 

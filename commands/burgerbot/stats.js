@@ -13,30 +13,30 @@ const Stats = {
     const earn7 = await f('workspace', chat.author.id)
     const earn8 = await f('advertspace', chat.author.id)
 
-    const c1 = userData.value.wage
-    const c2 = userData.value.wagebeach
-    const c3 = userData.value.wagedank
-    const c4 = userData.value.wagespace
+    const c1 = userData.value.city.wage
+    const c2 = userData.value.beach.wage
+    const c3 = userData.value.dank.wage
+    const c4 = userData.value.space.wage
     var Say = ``
 
     switch (userData.value.spot.toLowerCase()) {
       case "city":
-        Say = `City | Money: $${getLet(userData.value.money, 2)} | Workers: ${getLet(userData.value.workers)} | Wage: $${getLet(c1, 2)} | Customers: ${getLet(userData.value.customers)} | Prestige: ${userData.value.prestige} | Earn (b!auto w): $${getLet(earn, 2)} | Cost (b!auto a): $${getLet(earn2, 2)}`
+        Say = `City | Money: $${getLet(userData.value.city.money, 2)} | Workers: ${getLet(userData.value.city.workers)} | Wage: $${getLet(c1, 2)} | Customers: ${getLet(userData.value.city.customers)} | Prestige: ${userData.value.city.prestige} | Earn (b!auto w): $${getLet(earn, 2)} | Cost (b!auto a): $${getLet(earn2, 2)}`
         break;
 
       case "beach":
-        Say = `Beach | Money: $${getLet(userData.value.moneybeach, 2)} | Workers: ${getLet(userData.value.workersbeach)} | Wage: $${getLet(c2, 2)} | Customers: ${getLet(userData.value.customsbeach)} | Prestige: ${userData.value.prestigebeach} | Earn (b!auto w): $${getLet(earn3, 2)} | Cost (b!auto a): $${getLet(earn4, 2)}`
+        Say = `Beach | Money: $${getLet(userData.value.beach.money, 2)} | Workers: ${getLet(userData.value.beach.workers)} | Wage: $${getLet(c2, 2)} | Customers: ${getLet(userData.value.beach.customers)} | Prestige: ${userData.value.beach.prestige} | Earn (b!auto w): $${getLet(earn3, 2)} | Cost (b!auto a): $${getLet(earn4, 2)}`
         break;
 
       case "dank":
-        Say = `Danker Land | Money: $${getLet(userData.value.moneydank, 2)} | Workers: ${getLet(userData.value.workersdank)} | Wage: $${getLet(c3, 2)} | Customers: ${getLet(userData.value.customsdank)} | Prestige: ${userData.value.prestigedank} | Earn (b!auto w): $${getLet(earn5, 2)} | Cost (b!auto a): $${getLet(earn6, 2)}`
+        Say = `Danker Land | Money: $${getLet(userData.value.dank.money, 2)} | Workers: ${getLet(userData.value.dank.workers)} | Wage: $${getLet(c3, 2)} | Customers: ${getLet(userData.value.dank.customers)} | Prestige: ${userData.value.dank.prestige} | Earn (b!auto w): $${getLet(earn5, 2)} | Cost (b!auto a): $${getLet(earn6, 2)}`
         break;
 
       case "space":
-        Say = `Space Center | Money: $${getLet(userData.value.moneyspace, 2)} | Workers: ${getLet(userData.value.workersspace)} | Wage: $${getLet(c4, 2)} | Customers: ${getLet(userData.value.customsspace)} | Prestige: ${userData.value.prestigespace} | Earn (b!auto w): $${getLet(earn7, 2)} | Cost (b!auto a): $${getLet(earn8, 2)}`
+        Say = `Space Center | Money: $${getLet(userData.value.space.money, 2)} | Workers: ${getLet(userData.value.space.workers)} | Wage: $${getLet(c4, 2)} | Customers: ${getLet(userData.value.space.customers)} | Prestige: ${userData.value.space.prestige} | Earn (b!auto w): $${getLet(earn7, 2)} | Cost (b!auto a): $${getLet(earn8, 2)}`
         break;
       case "event":
-        Say = `Event Spot | Money: $${getLet(userData.value.moneyevent, 2)} | Workers: ${getLet(userData.value.workersevent)} | Customers: ${getLet(userData.value.customsevent)}`
+        Say = `Event Spot | Money: $${getLet(userData.value.event['money'], 2)} | Workers: ${getLet(userData.value.event['workers'])} | Customers: ${getLet(userData.value.event['customers'])}`
     }
 
     var Say2 = `Main | Credits: ${getLet(userData.value.credits)} | Level: ${userData.value.lvl} | Rank: ${userData.value.rank} | Season ends: '${SeasonEnd}' | (for event help use: <b!help event>)`

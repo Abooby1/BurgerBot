@@ -1,4 +1,4 @@
-import {getLet, getStuff} from "../../utils.js"
+import {getLet, getStuff, SeasonMulti} from "../../utils.js"
 
 export var working = []
 
@@ -20,8 +20,8 @@ const Work = {
           chat.reply(`You started working for ${body} hours (time: ${body} seconds)`)
           
           setTimeout(function( ) {
-            var Earned = body * userData.value.prestige * 0.01 * userData.value.customers
-            userData.value.money += Earned
+            var Earned = body * userData.value.city.prestige * 0.01 * userData.value.city.customers * SeasonMulti
+            userData.value.city.money += Earned
             userData.value.exp += 1
             chat.reply(`You worked for ${body} hours and earned $${getLet(Earned, 2)}!`)
             working.splice(working.indexOf(chat.author.id), 1)
@@ -43,8 +43,8 @@ const Work = {
           chat.reply(`You started working for ${body} hours (time: ${body} seconds)`)
           
           setTimeout(function( ) {
-            var Earned = body * userData.value.prestigebeach * 0.01 * userData.value.customsbeach
-            userData.value.moneybeach += Earned
+            var Earned = body * userData.value.beach.prestige * 0.01 * userData.value.beach.customers * SeasonMulti
+            userData.value.beach.money += Earned
             userData.value.exp += 2
             chat.reply(`You worked for ${body} hours and earned $${getLet(Earned, 2)}!`)
             working.splice(working.indexOf(chat.author.id), 1)
@@ -64,8 +64,8 @@ const Work = {
           chat.reply(`You started working for ${body} hours (time: ${body} seconds)`)
           
           setTimeout(function( ) {
-            var Earned = body * userData.value.prestigedank * 0.01 * userData.value.customsdank
-            userData.value.moneydank += Earned
+            var Earned = body * userData.value.dank.prestige * 0.01 * userData.value.dank.customers *SeasonMulti
+            userData.value.dank.money += Earned
             userData.value.exp += 5
             chat.reply(`You worked for ${body} hours and earned $${getLet(Earned, 2)}!`)
             working.splice(working.indexOf(chat.author.id), 1)
@@ -87,8 +87,8 @@ const Work = {
           chat.reply(`You started working for ${body} hours (time: ${body} seconds)`)
           
           setTimeout(function( ) {
-            var Earned = body * userData.value.prestigespace * 0.01 * userData.value.customsspace
-            userData.value.moneyspace += Earned
+            var Earned = body * userData.value.space.prestige * 0.01 * userData.value.space.customers * SeasonMulti
+            userData.value.space.money += Earned
             userData.value.exp += 5
             chat.reply(`You worked for ${body} hours and earned $${getLet(Earned, 2)}!`)
             working.splice(working.indexOf(chat.author.id), 1)
@@ -110,8 +110,8 @@ const Work = {
           chat.reply(`You started working for ${body} hours (time: ${body} seconds)`)
           
           setTimeout(function( ) {
-            var Earned = body * 0.1 * userData.value.customsevent
-            userData.value.moneyevent += Earned
+            var Earned = body * 0.1 * userData.value.event.customers
+            userData.value.event.money += Earned
             userData.value.exp += 10
             chat.reply(`You worked for ${body} hours and earned $${getLet(Earned, 2)}!`)
             working.splice(working.indexOf(chat.author.id), 1)

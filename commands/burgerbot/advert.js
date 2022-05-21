@@ -13,12 +13,12 @@ const Advertise = {
       }
       switch (userData.value.spot.toLowerCase()) {
         case "city":
-          if (userData.value.money >= y) {
+          if (userData.value.spot.city.money >= y) {
             t = true
           }
           break;
         case "beach":
-          if (userData.value.moneybeach >= y * 2) {
+          if (userData.value.spot.beach.money >= y * 2) {
             t = true
             y = y * 2
           } else {
@@ -26,7 +26,7 @@ const Advertise = {
           }
           break;
         case "dank":
-          if (userData.value.moneyspace >= y * 3) {
+          if (userData.value.spot.dank.money >= y * 3) {
             t = true
             y = y * 3
           } else {
@@ -34,7 +34,7 @@ const Advertise = {
           }
           break;
         case "space":
-          if (userData.value.moneyspace >= y * 4) {
+          if (userData.value.spot.space.money >= y * 4) {
             t = true
             y = y * 4
           } else {
@@ -42,7 +42,7 @@ const Advertise = {
           }
           break;
         case "event":
-          if (userData.value.moneyevent >= y / 2) {
+          if (userData.value.spot.event.money >= y / 2) {
             t = true
             y = y / 2
           } else {
@@ -60,34 +60,34 @@ const Advertise = {
         var Earned = getRandomInt(1, d.earn)
         switch(userData.value.spot.toLowerCase()) {
           case "city":
-            userData.value.money -= y
-            userData.value.customers += Earned
-            userData.value.workers += EarnedW
-            userData.value.wage += EarnedW * 10.23
+            userData.value.city.money -= y
+            userData.value.city.customers += Earned
+            userData.value.city.workers += EarnedW
+            userData.value.city.wage += EarnedW * 10.23
             break;
           case "beach":
-            userData.value.moneybeach -= y
-            userData.value.customsbeach += Earned
-            userData.value.workersbeach += EarnedW
-            userData.value.wagebeach += EarnedW * 20.46
+            userData.value.beach.money -= y
+            userData.value.beach.customers += Earned
+            userData.value.beach.workers += EarnedW
+            userData.value.beach.wage += EarnedW * 20.46
             break;
           case "dank":
-            userData.value.moneydank -= y
-            userData.value.customsdank += Earned
-            userData.value.workersdank += EarnedW
-            userData.value.wagedank += EarnedW * 30.69
+            userData.value.dank.money -= y
+            userData.value.dank.customers += Earned
+            userData.value.dank.workers += EarnedW
+            userData.value.dank.wage += EarnedW * 30.69
             break;
           case "space":
-            userData.value.moneyspace -= y
-            userData.value.customsspace += Earned
-            userData.value.workersspace += EarnedW
-            userData.value.wagespace += EarnedW * 40.92
+            userData.value.space.money -= y
+            userData.value.space.customers += Earned
+            userData.value.space.workers += EarnedW
+            userData.value.space.wage += EarnedW * 40.92
             break;
           case "event":
-            userData.value.moneyevent -= y
-            userData.value.customsevent += Earned
-            userData.value.workersevent += EarnedW
-            userData.value.wageevent += EarnedW * 5.12
+            userData.value.event.money -= y
+            userData.value.event.customers += Earned
+            userData.value.event.workers += EarnedW
+            userData.value.event.wage += EarnedW * 5.12
             break;
         }
         chat.reply(`You earned ${Earned} customer(s) and ${EarnedW} worker(s) by using ${d.name}! (cost: $${getLet(y, 2)} | spot: ${userData.value.spot})`)
