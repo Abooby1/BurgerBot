@@ -257,7 +257,7 @@ const Change = {
             switch (userData.value.spot) {
               case 'city':
                 if (userData.value.city.supervisor == false) {
-                  if (userData.value.city.workers >= 2) {
+                  if (userData.value.city.workers >= 10) {
                     userData.value.city.workers -= 1
                     userData.value.city.wage -= 10.23
                     userData.value.city.supervisor = true
@@ -267,7 +267,7 @@ const Change = {
                       userData.update()
                     }, 2500)
                   } else {
-                    chat.reply(`You need at least 2 workers to do this...`)
+                    chat.reply(`You need at least 10 workers to do this...`)
                   }
                 } else {
                   chat.reply(`You already have a supervisor...`)
@@ -275,7 +275,7 @@ const Change = {
                 break;
               case 'beach':
                 if (userData.value.beach.supervisor == false) {
-                  if (userData.value.beach.workers >= 2) {
+                  if (userData.value.beach.workers >= 10) {
                     userData.value.beach.workers -= 1
                     userData.value.beach.wage -= 20.46
                     userData.value.beach.supervisor = true
@@ -285,7 +285,7 @@ const Change = {
                       userData.update()
                     }, 2500)
                   } else {
-                    chat.reply(`You need at least 2 workers to do this...`)
+                    chat.reply(`You need at least 10 workers to do this...`)
                   }
                 } else {
                   chat.reply(`You already have a supervisor...`)
@@ -293,7 +293,7 @@ const Change = {
                 break;
               case 'dank':
                 if (userData.value.dank.supervisor == false) {
-                  if (userData.value.dank.workers >= 2) {
+                  if (userData.value.dank.workers >= 10) {
                     userData.value.dank.workers -= 1
                     userData.value.dank.wage -= 30.69
                     userData.value.dank.supervisor = true
@@ -303,7 +303,7 @@ const Change = {
                       userData.update()
                     }, 2500)
                   } else {
-                    chat.reply(`You need at least 2 workers to do this...`)
+                    chat.reply(`You need at least 10 workers to do this...`)
                   }
                 } else {
                   chat.reply(`You already have a supervisor...`)
@@ -311,7 +311,7 @@ const Change = {
                 break;
               case 'space':
                 if (userData.value.space.supervisor == false) {
-                  if (userData.value.space.workers >= 2) {
+                  if (userData.value.space.workers >= 10) {
                     userData.value.space.workers -= 1
                     userData.value.space.wage -= 40.92
                     userData.value.space.supervisor = true
@@ -321,7 +321,7 @@ const Change = {
                       userData.update()
                     }, 2500)
                   } else {
-                    chat.reply(`You need at least 2 workers to do this...`)
+                    chat.reply(`You need at least 10 workers to do this...`)
                   }
                 } else {
                   chat.reply(`You already have a supervisor...`)
@@ -333,7 +333,7 @@ const Change = {
             switch (userData.value.spot) {
               case 'city':
                 if (userData.value.city.accountant == false) {
-                  if (userData.value.city.workers >= 2) {
+                  if (userData.value.city.workers >= 20) {
                     userData.value.city.workers -= 1
                     userData.value.city.wage -= 10.23
                     userData.value.city.accountant = true
@@ -343,7 +343,7 @@ const Change = {
                       userData.update()
                     }, 2500)
                   } else {
-                    chat.reply(`You need at least 2 workers to do this...`)
+                    chat.reply(`You need at least 20 workers to do this...`)
                   }
                 } else {
                   chat.reply(`You already have an accountant...`)
@@ -351,7 +351,7 @@ const Change = {
                 break;
               case 'beach':
                 if (userData.value.beach.accountant == false) {
-                  if (userData.value.beach.workers >= 2) {
+                  if (userData.value.beach.workers >= 20) {
                     userData.value.beach.workers -= 1
                     userData.value.beach.wage -= 20.46
                     userData.value.beach.accountant = true
@@ -361,7 +361,7 @@ const Change = {
                       userData.update()
                     }, 2500)
                   } else {
-                    chat.reply(`You need at least 2 workers to do this...`)
+                    chat.reply(`You need at least 20 workers to do this...`)
                   }
                 } else {
                   chat.reply(`You already have an accountant...`)
@@ -369,7 +369,7 @@ const Change = {
                 break;
               case 'dank':
                 if (userData.value.dank.accountant == false) {
-                  if (userData.value.dank.workers >= 2) {
+                  if (userData.value.dank.workers >= 20) {
                     userData.value.dank.workers -= 1
                     userData.value.dank.wage -= 30.69
                     userData.value.dank.accountant = true
@@ -379,7 +379,7 @@ const Change = {
                       userData.update()
                     }, 2500)
                   } else {
-                    chat.reply(`You need at least 2 workers to do this...`)
+                    chat.reply(`You need at least 20 workers to do this...`)
                   }
                 } else {
                   chat.reply(`You already have an accountant...`)
@@ -387,7 +387,7 @@ const Change = {
                 break;
               case 'space':
                 if (userData.value.space.accountant == false) {
-                  if (userData.value.space.workers >= 2) {
+                  if (userData.value.space.workers >= 20) {
                     userData.value.space.workers -= 1
                     userData.value.space.wage -= 40.92
                     userData.value.space.accountant = true
@@ -397,7 +397,7 @@ const Change = {
                       userData.update()
                     }, 2500)
                   } else {
-                    chat.reply(`You need at least 2 workers to do this...`)
+                    chat.reply(`You need at least 20 workers to do this...`)
                   }
                 } else {
                   chat.reply(`You already have an accountant...`)
@@ -409,7 +409,7 @@ const Change = {
             switch (userData.value.spot) {
               case 'city':
                 if (userData.value.city.coowner == false) {
-                  if (userData.value.city.workers >= 2) {
+                  if (userData.value.city.workers >= 50) {
                     userData.value.city.workers -= 1
                     userData.value.city.wage -= 10.23
                     userData.value.city.coowner = true
@@ -419,7 +419,7 @@ const Change = {
                       userData.update()
                     }, 2500)
                   } else {
-                    chat.reply(`You need at least 2 workers to do this...`)
+                    chat.reply(`You need at least 50 workers to do this...`)
                   }
                 } else {
                   chat.reply(`You already have a co-owner...`)
@@ -427,7 +427,7 @@ const Change = {
                 break;
               case 'beach':
                 if (userData.value.beach.coowner == false) {
-                  if (userData.value.beach.workers >= 2) {
+                  if (userData.value.beach.workers >= 50) {
                     userData.value.beach.workers -= 1
                     userData.value.beach.wage -= 20.46
                     userData.value.beach.coowner = true
@@ -437,7 +437,7 @@ const Change = {
                       userData.update()
                     }, 2500)
                   } else {
-                    chat.reply(`You need at least 2 workers to do this...`)
+                    chat.reply(`You need at least 50 workers to do this...`)
                   }
                 } else {
                   chat.reply(`You already have a co-owner...`)
@@ -445,7 +445,7 @@ const Change = {
                 break;
               case 'dank':
                 if (userData.value.dank.coowner == false) {
-                  if (userData.value.dank.workers >= 2) {
+                  if (userData.value.dank.workers >= 50) {
                     userData.value.dank.workers -= 1
                     userData.value.dank.wage -= 30.69
                     userData.value.dank.coowner = true
@@ -455,7 +455,7 @@ const Change = {
                       userData.update()
                     }, 2500)
                   } else {
-                    chat.reply(`You need at least 2 workers to do this...`)
+                    chat.reply(`You need at least 50 workers to do this...`)
                   }
                 } else {
                   chat.reply(`You already have a co-owner...`)
@@ -463,7 +463,7 @@ const Change = {
                 break;
               case 'space':
                 if (userData.value.space.coowner == false) {
-                  if (userData.value.space.workers >= 2) {
+                  if (userData.value.space.workers >= 50) {
                     userData.value.space.workers -= 1
                     userData.value.space.wage -= 40.92
                     userData.value.space.coowner = true
@@ -473,7 +473,7 @@ const Change = {
                       userData.update()
                     }, 2500)
                   } else {
-                    chat.reply(`You need at least 2 workers to do this...`)
+                    chat.reply(`You need at least 50 workers to do this...`)
                   }
                 } else {
                   chat.reply(`You already have a co-owner...`)

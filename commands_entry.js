@@ -79,7 +79,7 @@ export async function onChat(client, chat) {
 
         if (event.name == "Reward Event") {
           if (getRandomInt(1, 50) <= 5) {
-            switch (event.earn[getRandomInt(event.earn.length)]) {
+            switch (event.earn[getRandomInt(0, event.earn.length)]) {
               case "credits":
                 const m1 = getRandomInt(10, 50)
                 context.userData.value.credits += m1

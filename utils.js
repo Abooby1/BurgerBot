@@ -8,77 +8,77 @@ export const SeasonMulti = 1
 export const Version = 2
 export const SeasonNum = 1
 export const SeasonEnd = "June 11"
-export const VersionID = '1.31'
+export const VersionID = '1.32'
 export var Day = date.getDate()
 export var event = {}
 
 function getEvent (n) {
   switch (n) {
-    case 0:
+    case 1:
       return {
         name: "Spot Event",
-        desc: "The spot event adds a spot you can freely change to using <b!change spot event>! (when prestiging, you will get the rewards | lasts: 5 days)",
+        desc: "The spot event adds a spot you can freely change to using <b!change spot event>! (when prestiging, you will get the rewards | lasts for 5 days)",
       
         last: 5,
         earn: null
       }
-    case 1:
-      return {
-        name: "Command Event",
-        desc: "The command event adds to b!claim! To claim rewards use <b!claim event> (lasts: 2 days)",
-      
-        last: 2,
-        earn: null
-      }
     case 2:
       return {
-        name: "Worker Event",
-        desc: "The worker event cuts your wage by half! (during the event | lasts: 2 days)",
+        name: "Command Event",
+        desc: "The command event adds to b!claim! To claim rewards use <b!claim event> (lasts for 2 days)",
       
         last: 2,
         earn: null
       }
     case 3:
       return {
-        name: "Advert Event",
-        desc: "The advert event cuts the price of adverts by half! (during the event | lasts: 2 days)",
+        name: "Worker Event",
+        desc: "The worker event cuts your wage by half! (during the event | lasts for 2 days)",
       
         last: 2,
         earn: null
       }
     case 4:
       return {
-        name: "Claim Event",
-        desc: "The claim event adds to the credits earned in b!claim <rank>! (lasts: 7 days)",
+        name: "Advert Event",
+        desc: "The advert event cuts the price of adverts by half! (during the event | lasts for 2 days)",
       
-        last: 7,
+        last: 2,
         earn: null
       }
     case 5:
       return {
+        name: "Claim Event",
+        desc: "The claim event adds to the credits earned in b!claim <rank>! (lasts for 7 days)",
+      
+        last: 7,
+        earn: null
+      }
+    case 6:
+      return {
         name: "Reward Event",
-        desc: "The reward event gives you rewards for using BurgerBot! (lasts: 3 days)",
+        desc: "The reward event gives you rewards for using BurgerBot! (lasts for 3 days)",
       
         last: 3,
         earn: ["worker", "customs", "credits", "exp"]
       }
 
-    case 6:
+    case 7:
       return {
-        name: '',
-        desc: '',
+        name: 'Co-Owner Event',
+        desc: 'The co-owner event makes the money earned from the co-owner doubled! (lasts for 2 days)',
 
-        last: 4,
-        earn: []
+        last: 2,
+        earn: null
       }
 
     default:
       return {
-        name: "None...",
-        desc: "Theres no event currently...",
-      
-        last: 0,
-        earn: null
+        name: 'Start of Season Event',
+        desc: 'The Start of Season Event (or SSE) gives you rewards every 1 minute of your post being connected! (lasts for 4 days)',
+
+        last: 4,
+        earn: ['credits', 'exp']
       }
   }
 }
@@ -99,7 +99,7 @@ setInterval(async function( ) {
       const d1 = JSON.stringify(d)
       db.set('EventDay', await d1)
     } else {
-      const n = getRandomInt(0, 5)
+      const n = getRandomInt(1, 7)
       event = await getEvent(n)
       d.last = event.last
       d.day = Day

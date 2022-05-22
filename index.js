@@ -2,26 +2,29 @@ import { Client } from "photop-client";
 import { onChat } from "./commands_entry.js";
 import { START, PREFIX } from "./constants.js";
 import {db, defaultData, getUserDataManager} from "./database.js"
-import {Version, VersionID, SeasonNum, f} from "./utils.js"
+import {Version, VersionID, SeasonNum, f, event, getRandomInt} from "./utils.js"
 
 const client = new Client({ username: "BurgerBot", password: process.env["Pass"] }, { logSocketMessages: false });
 
 const noop = () => { };
 
-const VersionSay = `1. Added net into stats (will go up and down when using money (any) | doesnt go down when prestiged)`
+const VersionSay = `1. Changed how many workers needed to promote (supervisor: 2 > 10 | accountant: 2 > 20 | co-owner: 2 > 50) \n2. New event (Co-Owner Event)`
 
 export function d100 (stuff) {
   client.post(stuff)
 }
 
 client.onPost = async (post) => {
+  var Connected = false
   const resetTimeout = await post.connect(120000, () => {
     post.onChat = noop; //replace post.onChat to free up memory
     if (post.text == START) {
       post.chat("Bot has disconnected... Reason: inactivity")
+      Connected = false
     }
   })
   if (post.text == START) {
+    Connected = true
     setTimeout(async function( ) {
       resetTimeout()
       const data = await db.get(`v1/${post.author.id}`) 
@@ -39,12 +42,36 @@ client.onPost = async (post) => {
             break;
         }
         const d1 = await getUserDataManager(post.author.id)
+        if (event.name == 'Start of Season Event') {
+          setInterval(function( ) {
+            switch (event.earn[getRandomInt(0, event.earn.length)]) {
+              case 'credits':
+                d1.value.credits += 1
+                setTimeout(function( ) {
+                  d1.update()
+                }, 2500)
+                break;
+              case 'exp':
+                d1.value.exp += 1
+                setTimeout(function( ) {
+                  d1.update()
+                }, 2500)
+                break;
+            }
+          }, 60000)
+        }
         switch (d1.value.spot) {
           case 'city':
             if (d1.value.city.coowner == true) {
               setInterval(async function( ) {
-                const earn = await f('workcity', post.author.id) / 3
+                var earn = 0
+                if (event.name == 'Co-Owner Event') {
+                  earn = await f('workcity', post.author.id) / 3 * 2
+                } else {
+                  earn = await f('workcity', post.author.id) / 3
+                }
                 d1.value.city.money += earn
+                d1.value.net += earn
                 setTimeout(function( ) {
                   d1.update()
                 }, 2500)
@@ -54,8 +81,14 @@ client.onPost = async (post) => {
           case 'beach':
             if (d1.value.beach.coowner == true) {
               setInterval(async function( ) {
-                const earn = await f('workbeach', post.author.id) / 3
+                var earn = 0
+                if (event.name == 'Co-Owner Event') {
+                  earn = await f('workbeach', post.author.id) / 3 * 2
+                } else {
+                  earn = await f('workbeach', post.author.id) / 3
+                }
                 d1.value.beach.money += earn
+                d1.value.net += earn
                 setTimeout(function( ) {
                   d1.update()
                 }, 2500)
@@ -65,8 +98,14 @@ client.onPost = async (post) => {
           case 'dank':
             if (d1.value.dank.coowner == true) {
               setInterval(async function( ) {
-                const earn = await f('workdank', post.author.id) / 3
+                var earn = 0
+                if (event.name == 'Co-Owner Event') {
+                  earn = await f('workdank', post.author.id) / 3 * 2
+                } else {
+                  earn = await f('workdank', post.author.id) / 3
+                }
                 d1.value.dank.money += earn
+                d1.value.net += earn
                 setTimeout(function( ) {
                   d1.update()
                 }, 2500)
@@ -76,8 +115,14 @@ client.onPost = async (post) => {
           case 'space':
             if (d1.value.space.coowner == true) {
               setInterval(async function( ) {
-                const earn = await f('workspace', post.author.id) / 3
+                var earn = 0
+                if (event.name == 'Co-Owner Event') {
+                  earn = await f('workspace', post.author.id) / 3 * 2
+                } else {
+                  earn = await f('workspace', post.author.id) / 3
+                }
                 d1.value.space.money += earn
+                d1.value.net += earn
                 setTimeout(function( ) {
                   d1.update()
                 }, 2500)
@@ -107,7 +152,7 @@ client.onReady = () => {
   setTimeout(async function( ) {
     const v = await db.get('Version')
     if (v != VersionID) {
-      const post = await client.post(`V${VersionID} added: \n${VersionSay}`)
+      const post = await client.post(`V${VersionID}: \n${VersionSay}`)
       db.set('Version', VersionID)
       setTimeout(function( ) {
         post.chat('Have fun with the update!')
