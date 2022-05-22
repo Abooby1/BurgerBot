@@ -8,7 +8,7 @@ export const SeasonMulti = 1
 export const Version = 2
 export const SeasonNum = 1
 export const SeasonEnd = "June 11"
-export const VersionID = '1.32'
+export const VersionID = '1.33'
 export var Day = date.getDate()
 export var event = {}
 

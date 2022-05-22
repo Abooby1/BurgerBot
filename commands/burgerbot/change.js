@@ -189,7 +189,7 @@ const Change = {
               switch (value.toLowerCase()) {
                 case "beach":
                   if (userData.value.credits >= 5000) {
-                    chat.reply(`You bought a spot at the beach! Have fun!`)
+                    chat.reply(`You bought a spot at a beach! Have fun!`)
                     userData.value.credits -= 5000
                     userData.value.spot = "beach"
                     userData.value.spots.push("beach")
@@ -229,7 +229,7 @@ const Change = {
                 case "event":
                   if (event.name == "Spot Event") {
                     userData.value.spot = "event"
-                    chat.reply(`You have your spot to the Event Spot!`)
+                    chat.reply(`You have switched to the Event Spot!`)
                     setTimeout(function( ) {
                       userData.update()
                     }, 2500)

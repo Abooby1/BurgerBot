@@ -8,7 +8,7 @@ const client = new Client({ username: "BurgerBot", password: process.env["Pass"]
 
 const noop = () => { };
 
-const VersionSay = `1. Changed how many workers needed to promote (supervisor: 2 > 10 | accountant: 2 > 20 | co-owner: 2 > 50) \n2. New event (Co-Owner Event)`
+const VersionSay = `1. Your co-owner will only make your workers auto w when your profits (auto w) are more than $500`
 
 export function d100 (stuff) {
   client.post(stuff)
@@ -37,6 +37,9 @@ client.onPost = async (post) => {
           case "61eef62462d52f0c8410dd1d":
             post.chat(`iPhone is best!`)
             break;
+          case '60bd0243edf9d8003785ad79':
+            post.chat(`Hullo WUTAdam!`)
+            break;
           default:
             post.chat(`Im now connected to your post ${post.author.username}! (use b!help for help!)`)
             break;
@@ -63,69 +66,85 @@ client.onPost = async (post) => {
         switch (d1.value.spot) {
           case 'city':
             if (d1.value.city.coowner == true) {
-              setInterval(async function( ) {
+              var i = setInterval(async function( ) {
                 var earn = 0
                 if (event.name == 'Co-Owner Event') {
                   earn = await f('workcity', post.author.id) / 3 * 2
                 } else {
                   earn = await f('workcity', post.author.id) / 3
                 }
-                d1.value.city.money += earn
-                d1.value.net += earn
-                setTimeout(function( ) {
-                  d1.update()
-                }, 2500)
+                if (earn >= 500) {
+                  d1.value.city.money += earn
+                  d1.value.net += earn
+                  setTimeout(function( ) {
+                    d1.update()
+                  }, 2500)
+                } else {
+                  clearInterval(i)
+                }
               }, 60000)
             }
             break;
           case 'beach':
             if (d1.value.beach.coowner == true) {
-              setInterval(async function( ) {
+              var i = setInterval(async function( ) {
                 var earn = 0
                 if (event.name == 'Co-Owner Event') {
                   earn = await f('workbeach', post.author.id) / 3 * 2
                 } else {
                   earn = await f('workbeach', post.author.id) / 3
                 }
-                d1.value.beach.money += earn
-                d1.value.net += earn
-                setTimeout(function( ) {
-                  d1.update()
-                }, 2500)
+                if (earn >= 500) {
+                  d1.value.beach.money += earn
+                  d1.value.net += earn
+                  setTimeout(function( ) {
+                    d1.update()
+                  }, 2500)
+                } else {
+                  clearInterval(i)
+                }
               }, 60000)
             }
             break;
           case 'dank':
             if (d1.value.dank.coowner == true) {
-              setInterval(async function( ) {
+              var i = setInterval(async function( ) {
                 var earn = 0
                 if (event.name == 'Co-Owner Event') {
                   earn = await f('workdank', post.author.id) / 3 * 2
                 } else {
                   earn = await f('workdank', post.author.id) / 3
                 }
-                d1.value.dank.money += earn
-                d1.value.net += earn
-                setTimeout(function( ) {
-                  d1.update()
-                }, 2500)
+                if (earn >= 500) {
+                  d1.value.dank.money += earn
+                  d1.value.net += earn
+                  setTimeout(function( ) {
+                    d1.update()
+                  }, 2500)
+                } else {
+                  clearInterval(i)
+                }
               }, 60000)
             }
             break;
           case 'space':
             if (d1.value.space.coowner == true) {
-              setInterval(async function( ) {
+              var i = setInterval(async function( ) {
                 var earn = 0
                 if (event.name == 'Co-Owner Event') {
                   earn = await f('workspace', post.author.id) / 3 * 2
                 } else {
                   earn = await f('workspace', post.author.id) / 3
                 }
-                d1.value.space.money += earn
-                d1.value.net += earn
-                setTimeout(function( ) {
-                  d1.update()
-                }, 2500)
+                if (earn >= 500) {
+                  d1.value.space.money += earn
+                  d1.value.net += earn
+                  setTimeout(function( ) {
+                    d1.update()
+                  }, 2500)
+                } else {
+                  clearInterval(i)
+                }
               }, 60000)
             }
             break;
