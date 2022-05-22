@@ -49,12 +49,13 @@ export const defaultData = {
   lvl: 1,
   lastlvl: 0,
   exp: 0,
+  net: 0,
 
   //
-  city: {money: 5, customers: 1, workers: 0, wage: 0, prestige: 1, normad: 'facebook', normwater: 'water1'},
-  beach: {money: 0, customers: 1, workers: 0, wage: 0, prestige: 1, normad: 'facebook', normwater: 'water1'},
-  dank: {money: 0, customers: 1, workers: 0, wage: 0, prestige: 1, normad: 'facebook', normwater: 'water1'},
-  space: {money: 0, customers: 1, workers: 0, wage: 0, prestige: 1, normad: 'facebook', normwater: 'water1'},
+  city: {money: 5, customers: 1, workers: 0, wage: 0, prestige: 1, normad: 'facebook', normwater: 'water1', supervisor: false, accountant: false, coowner: false},
+  beach: {money: 0, customers: 1, workers: 0, wage: 0, prestige: 1, normad: 'facebook', normwater: 'water1', supervisor: false, accountant: false, coowner: false},
+  dank: {money: 0, customers: 1, workers: 0, wage: 0, prestige: 1, normad: 'facebook', normwater: 'water1', supervisor: false, accountant: false, coowner: false},
+  space: {money: 0, customers: 1, workers: 0, wage: 0, prestige: 1, normad: 'facebook', normwater: 'water1', supervisor: false, accountant: false, coowner: false},
   event: {money: 0, customers: 1, workers: 0, wage: 0},
   //
   

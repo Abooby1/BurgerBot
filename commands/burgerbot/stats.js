@@ -21,25 +21,41 @@ const Stats = {
 
     switch (userData.value.spot.toLowerCase()) {
       case "city":
-        Say = `City | Money: $${getLet(userData.value.city.money, 2)} | Workers: ${getLet(userData.value.city.workers)} | Wage: $${getLet(c1, 2)} | Customers: ${getLet(userData.value.city.customers)} | Prestige: ${userData.value.city.prestige} | Earn (b!auto w): $${getLet(earn, 2)} | Cost (b!auto a): $${getLet(earn2, 2)}`
+        if (userData.value.city.accountant == true) {
+          Say = `City | Money: $${getLet(userData.value.city.money, 2)} | Workers: ${getLet(userData.value.city.workers)} | Wage: $${getLet(c1, 2)} | Customers: ${getLet(userData.value.city.customers)} | Prestige: ${userData.value.city.prestige} | Earn (b!auto w): $${getLet(earn, 2)} | Cost (b!auto a): $${getLet(earn2, 2)}`
+        } else {
+          Say = `City | Money: $${getLet(userData.value.city.money, 2)} | Workers: ${getLet(userData.value.city.workers)} | Wage: $${getLet(c1, 2)} | Customers: ${getLet(userData.value.city.customers)} | Prestige: ${userData.value.city.prestige}`
+        }
         break;
 
       case "beach":
-        Say = `Beach | Money: $${getLet(userData.value.beach.money, 2)} | Workers: ${getLet(userData.value.beach.workers)} | Wage: $${getLet(c2, 2)} | Customers: ${getLet(userData.value.beach.customers)} | Prestige: ${userData.value.beach.prestige} | Earn (b!auto w): $${getLet(earn3, 2)} | Cost (b!auto a): $${getLet(earn4, 2)}`
+        if (userData.value.beach.accountant == true) {
+          Say = `Beach | Money: $${getLet(userData.value.beach.money, 2)} | Workers: ${getLet(userData.value.beach.workers)} | Wage: $${getLet(c2, 2)} | Customers: ${getLet(userData.value.beach.customers)} | Prestige: ${userData.value.beach.prestige} | Earn (b!auto w): $${getLet(earn3, 2)} | Cost (b!auto a): $${getLet(earn4, 2)}`
+        } else {
+          Say = `Beach | Money: $${getLet(userData.value.beach.money, 2)} | Workers: ${getLet(userData.value.beach.workers)} | Wage: $${getLet(c2, 2)} | Customers: ${getLet(userData.value.beach.customers)} | Prestige: ${userData.value.beach.prestige}`
+        }
         break;
 
       case "dank":
-        Say = `Danker Land | Money: $${getLet(userData.value.dank.money, 2)} | Workers: ${getLet(userData.value.dank.workers)} | Wage: $${getLet(c3, 2)} | Customers: ${getLet(userData.value.dank.customers)} | Prestige: ${userData.value.dank.prestige} | Earn (b!auto w): $${getLet(earn5, 2)} | Cost (b!auto a): $${getLet(earn6, 2)}`
+        if (userData.value.dank.accountant == true) {
+          Say = `Danker Land | Money: $${getLet(userData.value.dank.money, 2)} | Workers: ${getLet(userData.value.dank.workers)} | Wage: $${getLet(c3, 2)} | Customers: ${getLet(userData.value.dank.customers)} | Prestige: ${userData.value.dank.prestige} | Earn (b!auto w): $${getLet(earn5, 2)} | Cost (b!auto a): $${getLet(earn6, 2)}`
+        } else {
+          Say = `Danker Land | Money: $${getLet(userData.value.dank.money, 2)} | Workers: ${getLet(userData.value.dank.workers)} | Wage: $${getLet(c3, 2)} | Customers: ${getLet(userData.value.dank.customers)} | Prestige: ${userData.value.dank.prestige}`
+        }
         break;
 
       case "space":
-        Say = `Space Center | Money: $${getLet(userData.value.space.money, 2)} | Workers: ${getLet(userData.value.space.workers)} | Wage: $${getLet(c4, 2)} | Customers: ${getLet(userData.value.space.customers)} | Prestige: ${userData.value.space.prestige} | Earn (b!auto w): $${getLet(earn7, 2)} | Cost (b!auto a): $${getLet(earn8, 2)}`
+        if (userData.value.space.accountant == true) {
+          Say = `Space Center | Money: $${getLet(userData.value.space.money, 2)} | Workers: ${getLet(userData.value.space.workers)} | Wage: $${getLet(c4, 2)} | Customers: ${getLet(userData.value.space.customers)} | Prestige: ${userData.value.space.prestige} | Earn (b!auto w): $${getLet(earn7, 2)} | Cost (b!auto a): $${getLet(earn8, 2)}`
+        } else {
+          Say = `Space Center | Money: $${getLet(userData.value.space.money, 2)} | Workers: ${getLet(userData.value.space.workers)} | Wage: $${getLet(c4, 2)} | Customers: ${getLet(userData.value.space.customers)} | Prestige: ${userData.value.space.prestige}`
+        }
         break;
       case "event":
         Say = `Event Spot | Money: $${getLet(userData.value.event['money'], 2)} | Workers: ${getLet(userData.value.event['workers'])} | Customers: ${getLet(userData.value.event['customers'])}`
     }
 
-    var Say2 = `Main | Credits: ${getLet(userData.value.credits)} | Level: ${userData.value.lvl} | Rank: ${userData.value.rank} | Season ends: '${SeasonEnd}' | (for event help use: <b!help event>)`
+    var Say2 = `Main | Credits: ${getLet(userData.value.credits)} | Level: ${userData.value.lvl} | Net: $${getLet(userData.value.net, 2)} | Rank: ${userData.value.rank} | Season ends: '${SeasonEnd}' | (for event help use: <b!help event>)`
 
     
     setTimeout(function( ) {

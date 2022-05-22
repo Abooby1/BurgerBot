@@ -4,7 +4,7 @@ import {working} from "./work.js"
 
 const Change = {
   names: ["change"],
-  func: async ({chat, args: [item, value], userData})=>{
+  func: async ({chat, args: [item, value, value2], userData})=>{
     if (value == undefined) {
       switch (userData.value.spot.toLowerCase()) {
         case "city":
@@ -247,7 +247,242 @@ const Change = {
             chat.reply(`You cant do this action right now... (you are currently autoing/working)`)
           }
         } else {
-          chat.reply(`Thats not a spot you can go to... (spots: 'city', 'beach' and 'dank')`)
+          chat.reply(`Thats not a spot you can go to... (check b!help spots for help!)`)
+        }
+        break;
+
+      case 'promote':
+        switch (value.toLowerCase()) {
+          case 'supervisor':
+            switch (userData.value.spot) {
+              case 'city':
+                if (userData.value.city.supervisor == false) {
+                  if (userData.value.city.workers >= 2) {
+                    userData.value.city.workers -= 1
+                    userData.value.city.wage -= 10.23
+                    userData.value.city.supervisor = true
+                    userData.value.city.wage += 20.46
+                    chat.reply(`You have promoted one of your workers into a supervisor!`)
+                    setTimeout(function( ) {
+                      userData.update()
+                    }, 2500)
+                  } else {
+                    chat.reply(`You need at least 2 workers to do this...`)
+                  }
+                } else {
+                  chat.reply(`You already have a supervisor...`)
+                }
+                break;
+              case 'beach':
+                if (userData.value.beach.supervisor == false) {
+                  if (userData.value.beach.workers >= 2) {
+                    userData.value.beach.workers -= 1
+                    userData.value.beach.wage -= 20.46
+                    userData.value.beach.supervisor = true
+                    userData.value.beach.wage += 30.69
+                    chat.reply(`You have promoted one of your workers into a supervisor!`)
+                    setTimeout(function( ) {
+                      userData.update()
+                    }, 2500)
+                  } else {
+                    chat.reply(`You need at least 2 workers to do this...`)
+                  }
+                } else {
+                  chat.reply(`You already have a supervisor...`)
+                }
+                break;
+              case 'dank':
+                if (userData.value.dank.supervisor == false) {
+                  if (userData.value.dank.workers >= 2) {
+                    userData.value.dank.workers -= 1
+                    userData.value.dank.wage -= 30.69
+                    userData.value.dank.supervisor = true
+                    userData.value.dank.wage += 40.92
+                    chat.reply(`You have promoted one of your workers into a supervisor!`)
+                    setTimeout(function( ) {
+                      userData.update()
+                    }, 2500)
+                  } else {
+                    chat.reply(`You need at least 2 workers to do this...`)
+                  }
+                } else {
+                  chat.reply(`You already have a supervisor...`)
+                }
+                break;
+              case 'space':
+                if (userData.value.space.supervisor == false) {
+                  if (userData.value.space.workers >= 2) {
+                    userData.value.space.workers -= 1
+                    userData.value.space.wage -= 40.92
+                    userData.value.space.supervisor = true
+                    userData.value.space.wage += 51.15
+                    chat.reply(`You have promoted one of your workers into a supervisor!`)
+                    setTimeout(function( ) {
+                      userData.update()
+                    }, 2500)
+                  } else {
+                    chat.reply(`You need at least 2 workers to do this...`)
+                  }
+                } else {
+                  chat.reply(`You already have a supervisor...`)
+                }
+                break;
+            }
+            break;
+          case 'accountant':
+            switch (userData.value.spot) {
+              case 'city':
+                if (userData.value.city.accountant == false) {
+                  if (userData.value.city.workers >= 2) {
+                    userData.value.city.workers -= 1
+                    userData.value.city.wage -= 10.23
+                    userData.value.city.accountant = true
+                    userData.value.city.wage += 30.69
+                    chat.reply(`You have promoted one of your workers into an accountant!`)
+                    setTimeout(function( ) {
+                      userData.update()
+                    }, 2500)
+                  } else {
+                    chat.reply(`You need at least 2 workers to do this...`)
+                  }
+                } else {
+                  chat.reply(`You already have an accountant...`)
+                }
+                break;
+              case 'beach':
+                if (userData.value.beach.accountant == false) {
+                  if (userData.value.beach.workers >= 2) {
+                    userData.value.beach.workers -= 1
+                    userData.value.beach.wage -= 20.46
+                    userData.value.beach.accountant = true
+                    userData.value.beach.wage += 40.92
+                    chat.reply(`You have promoted one of your workers into an accountant!`)
+                    setTimeout(function( ) {
+                      userData.update()
+                    }, 2500)
+                  } else {
+                    chat.reply(`You need at least 2 workers to do this...`)
+                  }
+                } else {
+                  chat.reply(`You already have an accountant...`)
+                }
+                break;
+              case 'dank':
+                if (userData.value.dank.accountant == false) {
+                  if (userData.value.dank.workers >= 2) {
+                    userData.value.dank.workers -= 1
+                    userData.value.dank.wage -= 30.69
+                    userData.value.dank.accountant = true
+                    userData.value.dank.wage += 51.15
+                    chat.reply(`You have promoted one of your workers into an accountant!`)
+                    setTimeout(function( ) {
+                      userData.update()
+                    }, 2500)
+                  } else {
+                    chat.reply(`You need at least 2 workers to do this...`)
+                  }
+                } else {
+                  chat.reply(`You already have an accountant...`)
+                }
+                break;
+              case 'space':
+                if (userData.value.space.accountant == false) {
+                  if (userData.value.space.workers >= 2) {
+                    userData.value.space.workers -= 1
+                    userData.value.space.wage -= 40.92
+                    userData.value.space.accountant = true
+                    userData.value.space.wage += 61.38
+                    chat.reply(`You have promoted one of your workers into an accountant!`)
+                    setTimeout(function( ) {
+                      userData.update()
+                    }, 2500)
+                  } else {
+                    chat.reply(`You need at least 2 workers to do this...`)
+                  }
+                } else {
+                  chat.reply(`You already have an accountant...`)
+                }
+                break;
+            }
+            break;
+          case 'coowner':
+            switch (userData.value.spot) {
+              case 'city':
+                if (userData.value.city.coowner == false) {
+                  if (userData.value.city.workers >= 2) {
+                    userData.value.city.workers -= 1
+                    userData.value.city.wage -= 10.23
+                    userData.value.city.coowner = true
+                    userData.value.city.wage += 40.92
+                    chat.reply(`You have promoted one of your workers into a co-owner!`)
+                    setTimeout(function( ) {
+                      userData.update()
+                    }, 2500)
+                  } else {
+                    chat.reply(`You need at least 2 workers to do this...`)
+                  }
+                } else {
+                  chat.reply(`You already have a co-owner...`)
+                }
+                break;
+              case 'beach':
+                if (userData.value.beach.coowner == false) {
+                  if (userData.value.beach.workers >= 2) {
+                    userData.value.beach.workers -= 1
+                    userData.value.beach.wage -= 20.46
+                    userData.value.beach.coowner = true
+                    userData.value.beach.wage += 51.15
+                    chat.reply(`You have promoted one of your workers into a co-owner!`)
+                    setTimeout(function( ) {
+                      userData.update()
+                    }, 2500)
+                  } else {
+                    chat.reply(`You need at least 2 workers to do this...`)
+                  }
+                } else {
+                  chat.reply(`You already have a co-owner...`)
+                }
+                break;
+              case 'dank':
+                if (userData.value.dank.coowner == false) {
+                  if (userData.value.dank.workers >= 2) {
+                    userData.value.dank.workers -= 1
+                    userData.value.dank.wage -= 30.69
+                    userData.value.dank.coowner = true
+                    userData.value.dank.wage += 61.39
+                    chat.reply(`You have promoted one of your workers into a co-owner!`)
+                    setTimeout(function( ) {
+                      userData.update()
+                    }, 2500)
+                  } else {
+                    chat.reply(`You need at least 2 workers to do this...`)
+                  }
+                } else {
+                  chat.reply(`You already have a co-owner...`)
+                }
+                break;
+              case 'space':
+                if (userData.value.space.coowner == false) {
+                  if (userData.value.space.workers >= 2) {
+                    userData.value.space.workers -= 1
+                    userData.value.space.wage -= 40.92
+                    userData.value.space.coowner = true
+                    userData.value.space.wage += 71.61
+                    chat.reply(`You have promoted one of your workers into an co-owner!`)
+                    setTimeout(function( ) {
+                      userData.update()
+                    }, 2500)
+                  } else {
+                    chat.reply(`You need at least 2 workers to do this...`)
+                  }
+                } else {
+                  chat.reply(`You already have a co-owner...`)
+                }
+                break;
+
+              default:
+                chat.reply(`Thats not a thing you can change your workers to...`)
+            }
         }
         break;
 

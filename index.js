@@ -1,14 +1,18 @@
 import { Client } from "photop-client";
 import { onChat } from "./commands_entry.js";
 import { START, PREFIX } from "./constants.js";
-import {db, defaultData} from "./database.js"
-import {Version, VersionID, SeasonNum} from "./utils.js"
+import {db, defaultData, getUserDataManager} from "./database.js"
+import {Version, VersionID, SeasonNum, f} from "./utils.js"
 
 const client = new Client({ username: "BurgerBot", password: process.env["Pass"] }, { logSocketMessages: false });
 
 const noop = () => { };
 
-const VersionSay = `1. All spot data has been made more compact (make sure to use a command to convert your data!) \n2. Bug fixes`
+const VersionSay = `1. Added net into stats (will go up and down when using money (any) | doesnt go down when prestiged)`
+
+export function d100 (stuff) {
+  client.post(stuff)
+}
 
 client.onPost = async (post) => {
   const resetTimeout = await post.connect(120000, () => {
@@ -21,13 +25,64 @@ client.onPost = async (post) => {
     setTimeout(async function( ) {
       resetTimeout()
       const data = await db.get(`v1/${post.author.id}`) 
+      const d12 = JSON.stringify(defaultData)
       if (data != undefined) {
         switch (post.author.id) {
           case "6154f0d0a8d6d106c5b869b6":
             post.chat(`Welcome king!`)
             break;
+          case "61eef62462d52f0c8410dd1d":
+            post.chat(`iPhone is best!`)
+            break;
           default:
             post.chat(`Im now connected to your post ${post.author.username}! (use b!help for help!)`)
+            break;
+        }
+        const d1 = await getUserDataManager(post.author.id)
+        switch (d1.value.spot) {
+          case 'city':
+            if (d1.value.city.coowner == true) {
+              setInterval(async function( ) {
+                const earn = await f('workcity', post.author.id) / 3
+                d1.value.city.money += earn
+                setTimeout(function( ) {
+                  d1.update()
+                }, 2500)
+              }, 60000)
+            }
+            break;
+          case 'beach':
+            if (d1.value.beach.coowner == true) {
+              setInterval(async function( ) {
+                const earn = await f('workbeach', post.author.id) / 3
+                d1.value.beach.money += earn
+                setTimeout(function( ) {
+                  d1.update()
+                }, 2500)
+              }, 60000)
+            }
+            break;
+          case 'dank':
+            if (d1.value.dank.coowner == true) {
+              setInterval(async function( ) {
+                const earn = await f('workdank', post.author.id) / 3
+                d1.value.dank.money += earn
+                setTimeout(function( ) {
+                  d1.update()
+                }, 2500)
+              }, 60000)
+            }
+            break;
+          case 'space':
+            if (d1.value.space.coowner == true) {
+              setInterval(async function( ) {
+                const earn = await f('workspace', post.author.id) / 3
+                d1.value.space.money += earn
+                setTimeout(function( ) {
+                  d1.update()
+                }, 2500)
+              }, 60000)
+            }
             break;
         }
       } else {

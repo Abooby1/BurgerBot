@@ -13,12 +13,12 @@ const Advertise = {
       }
       switch (userData.value.spot.toLowerCase()) {
         case "city":
-          if (userData.value.spot.city.money >= y) {
+          if (userData.value.city.money >= y) {
             t = true
           }
           break;
         case "beach":
-          if (userData.value.spot.beach.money >= y * 2) {
+          if (userData.value.beach.money >= y * 2) {
             t = true
             y = y * 2
           } else {
@@ -26,7 +26,7 @@ const Advertise = {
           }
           break;
         case "dank":
-          if (userData.value.spot.dank.money >= y * 3) {
+          if (userData.value.dank.money >= y * 3) {
             t = true
             y = y * 3
           } else {
@@ -34,7 +34,7 @@ const Advertise = {
           }
           break;
         case "space":
-          if (userData.value.spot.space.money >= y * 4) {
+          if (userData.value.space.money >= y * 4) {
             t = true
             y = y * 4
           } else {
@@ -42,7 +42,7 @@ const Advertise = {
           }
           break;
         case "event":
-          if (userData.value.spot.event.money >= y / 2) {
+          if (userData.value.event.money >= y / 2) {
             t = true
             y = y / 2
           } else {

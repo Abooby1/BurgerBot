@@ -1,4 +1,5 @@
 import {getUserDataManager, db} from "./database.js"
+import {d100} from "./index.js"
 
 const date = new Date()
 date.toLocaleString( "en-US", { timeZone: "America/New_York" });
@@ -7,7 +8,7 @@ export const SeasonMulti = 1
 export const Version = 2
 export const SeasonNum = 1
 export const SeasonEnd = "June 11"
-export const VersionID = '1.22'
+export const VersionID = '1.31'
 export var Day = date.getDate()
 export var event = {}
 
@@ -62,6 +63,15 @@ function getEvent (n) {
         earn: ["worker", "customs", "credits", "exp"]
       }
 
+    case 6:
+      return {
+        name: '',
+        desc: '',
+
+        last: 4,
+        earn: []
+      }
+
     default:
       return {
         name: "None...",
@@ -96,6 +106,7 @@ setInterval(async function( ) {
       d.num = n
       const d1 = JSON.stringify(d)
       db.set('EventDay', await d1)
+      d100(`A new event has been activated! (use b!help event for help)`)
     }
   } else {
     event = getEvent(d.num)

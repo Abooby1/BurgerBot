@@ -1,4 +1,4 @@
-import {event, Version, SeasonEnd} from "../../utils.js"
+import {event, Version, SeasonEnd, SeasonNum} from "../../utils.js"
 import {db} from "../../database.js"
 
 const Help = {
@@ -16,7 +16,7 @@ const Help = {
         }, 500)
         break;
       case "season":
-        chat.reply(`Season ${Version} ends: '${SeasonEnd}' | Earn rewards using b!claim season! (earn exp by working, events, and prestiging!)`)
+        chat.reply(`Season ${SeasonNum} ends: '${SeasonEnd}' | Earn rewards using b!claim season! (earn exp by working, events, and prestiging!)`)
         break;
       case "credits":
         chat.reply(`You can use credits for buying spots!`)
@@ -24,6 +24,13 @@ const Help = {
       case "symbols":
       case "symbol":
         chat.reply(`Symbols | 'K': thousand | 'M': million | 'B': billion | 'T': trillion | 'P': quadrillion | 'E': quintillion | 'Z': sextillion | 'Y': septillion`)
+        break;
+      case 'worker promotions':
+      case 'promotions':
+        chat.reply(`You can promote your workers into 3 different jobs: Supervisor (fires workers (1/50 chance) during auto w and auto a), Accountant (shows you how much youve earned/spent in auto)`)
+        setTimeout(function( ) {
+          chat.reply(`Co-Owner (makes your workers auto w (1 minute interval days) after connecting the post!)`)
+        }, 500)
         break;
       case "b!work":
       case "work":
@@ -65,6 +72,9 @@ const Help = {
       case "b!change":
       case "change":
         chat.reply(`b!change <item> <value>: change something in your BurgerBot account! item: "normad" change the ad used in b!auto advert, "normwater": multipliers, "spot": change your spot!`)
+        setTimeout(function( ) {
+          chat.reply(`"promote": add a supervisor, an accountant, or a co-owner!`)
+        }, 500)
         break;
       case "b!auto":
       case "auto":
