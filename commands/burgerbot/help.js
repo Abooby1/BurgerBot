@@ -33,7 +33,9 @@ const Help = {
         }, 500)
         break;
       case 'b!open':
+      case 'open':
         chat.reply(`b!open <crate> <amount (empty for just one crate): open crates with credits! (you can also open the seasonal crate!)`)
+        break;
       case "b!work":
       case "work":
         chat.reply(`b!work <hours>: work many hours and get money to upgrade to an industry!`)
