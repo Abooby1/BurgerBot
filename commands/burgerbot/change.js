@@ -327,6 +327,10 @@ const Change = {
                   chat.reply(`You already have a supervisor...`)
                 }
                 break;
+
+              default:
+                chat.reply(`Hmm, looks like this spot doesnt support supervisors...`)
+                break;
             }
             break;
           case 'accountant':
@@ -402,6 +406,10 @@ const Change = {
                 } else {
                   chat.reply(`You already have an accountant...`)
                 }
+                break;
+
+              default:
+                chat.reply(`Hmm, looks like this spot doesnt support accountants...`)
                 break;
             }
             break;
@@ -481,8 +489,12 @@ const Change = {
                 break;
 
               default:
-                chat.reply(`Thats not a thing you can change your workers to...`)
+                chat.reply(`Hmm, looks like this spot doesnt support supervisors...`)
+                break;
             }
+          default:
+            chat.reply(`You cant change one of your workers into that...`)
+            break;
         }
         break;
 

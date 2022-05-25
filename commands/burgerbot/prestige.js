@@ -13,6 +13,9 @@ const Prestige = {
               userData.value.city.customers = 1
               userData.value.city.normad = "flier"
               userData.value.city.wage = 0
+              userData.value.city.supervisor = false
+              userData.value.city.accountant = false
+              userData.value.city.coowner = false
               chat.reply(`You have prestiged! You will now earn more money!`)
               setTimeout(async function( ) {
                 userData.update()
@@ -46,6 +49,9 @@ const Prestige = {
               userData.value.beach.normad = "facebook"
               userData.value.beach.normwater = 'water1'
               userData.value.beach.wage = 0
+              userData.value.beach.supervisor = false
+              userData.value.beach.accountant = false
+              userData.value.beach.coowner = false
               chat.reply(`You have prestiged! You will now earn more money!`)
               setTimeout(async function( ) {
                 userData.update()
@@ -72,6 +78,9 @@ const Prestige = {
               userData.value.dank.normad = "facebook"
               userData.value.dank.normwater = 'water1'
               userData.value.dank.wage = 0
+              userData.value.dank.supervisor = false
+              userData.value.dank.accountant = false
+              userData.value.dank.coowner = false
               chat.reply(`You have prestiged! You will now earn more money!`)
               setTimeout(async function( ) {
                 userData.update()
@@ -98,6 +107,9 @@ const Prestige = {
               userData.value.space.normad = "facebook"
               userData.value.space.normwater = 'water1'
               userData.value.space.wage = 0
+              userData.value.space.supervisor = false
+              userData.value.space.accountant = false
+              userData.value.space.coowner = false
               chat.reply(`You have prestiged! You will now earn more money!`)
               setTimeout(async function( ) {
                 userData.update()
