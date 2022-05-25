@@ -114,8 +114,8 @@ const Prestige = {
         break;
       case "event":
         if (userData.value.event.workers >= 50) {
-          if (userData.value.event.customers >= 5000) {
-            if (userData.value.event.money >= 10000) {
+          if (userData.value.event.customers >= 500) {
+            if (userData.value.event.money >= 1000) {
               userData.value.credits += 10
               userData.value.exp += 10
               userData.value.event.money = 0
@@ -127,10 +127,10 @@ const Prestige = {
                 userData.update()
               }, 2500)
             } else {
-              chat.reply(`You need $10k to prestige...`)
+              chat.reply(`You need $1k to prestige...`)
             }
           } else {
-            chat.reply(`You need 5k customers to prestige...`)
+            chat.reply(`You need 500 customers to prestige...`)
           }
         } else {
           chat.reply(`You need 50 workers to prestige...`)

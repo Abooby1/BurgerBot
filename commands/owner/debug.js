@@ -64,16 +64,8 @@ const SetMoney = {
       userid = chat.user.id;
     }
     const data = await getUserDataManager(userid);
-    switch (type.toLowerCase()) {
-      case "city":
-        data.value.money = parseFloat(money) || 0;
-        break;
-      case "beach":
-        data.value.moneybeach = parseFloat(money) || 0;
-        break;
-    }
     data.update();
-    chat.reply(`I set ${userid}'s money to ${data.value.money}`)
+    chat.reply(`I set ${userid}'s money to ${money}`)
   },
   hidden: true,
   permission: rank=>rank == "Owner" || rank == "Mod",
@@ -160,7 +152,7 @@ const SetCredit = {
   description: "Sets your money."
 };
 
-const SetStuff = {
+const AddSpot = {
   names: ["stuff"],
   func: async ({chat, body})=>{
      
@@ -169,4 +161,4 @@ const SetStuff = {
   permission: "Owner"
 };
 
-export {SetMoney, TempBan, SetCustoms, SetWorker, ResetData, SetStuff, SetPrestige, SetCredit}
+export {SetMoney, TempBan, SetCustoms, SetWorker, ResetData, AddSpot, SetPrestige, SetCredit}

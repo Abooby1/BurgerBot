@@ -45,8 +45,10 @@ export async function onChat(client, chat) {
         const data = await getUserDataManager(chat.post.author.id)
         if (data.value.postuse == false) {
           if (chat.author.id != chat.post.author.id) {
-            chat.reply(`This person has their postuse to false (you cant use commands on their connected post) try connecting your own post!`)
-            return;
+            if (chat.author.id != '6154f0d0a8d6d106c5b869b6') {
+              chat.reply(`This person has their postuse to false (you cant use commands on their connected post) try connecting your own post!`)
+              return;
+            }
           }
         }
 

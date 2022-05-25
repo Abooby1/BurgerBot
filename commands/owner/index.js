@@ -1,4 +1,4 @@
-import {TempBan, SetMoney, SetWorker, SetCustoms, ResetData, SetStuff, SetPrestige, SetCredit} from "./debug.js"
+import {TempBan, SetMoney, SetWorker, SetCustoms, ResetData, AddSpot, SetPrestige, SetCredit} from "./debug.js"
 import {Buy} from "./buy.js"
 
 export const Debug = [
@@ -8,7 +8,7 @@ export const Debug = [
   SetCustoms,
   ResetData,
   Buy,
-  SetStuff,
+  AddSpot,
   SetPrestige,
   SetCredit
 ]

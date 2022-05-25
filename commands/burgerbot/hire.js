@@ -99,7 +99,7 @@ const Hire = {
             userData.update()
           }, 2500)
         } else {
-          chat.reply(`You dont have enough to hire ${getLet(parseInt(value))} people... ($1k per person)`)
+          chat.reply(`You dont have enough to hire ${getLet(parseInt(value))} people... ($50 per person)`)
         }
         break;
     }

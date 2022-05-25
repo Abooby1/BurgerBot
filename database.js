@@ -34,7 +34,10 @@ const specialRanks = {
   "62465bdda95b113f103322d2": "Special",
   "62221daff1c22c29f8629977": "Special",
   "6255aa3c434000065016fb6f": "Special",
-  "61c875e360fe4c7b88a8d071": "Special"
+  "61c875e360fe4c7b88a8d071": "Special",
+
+  "628a66938b00f740041007fe": 'Banned',
+  "61c6c9b3e1e6417b595d3dfc": 'Banned'
 }
 
 export const defaultData = {
@@ -56,6 +59,7 @@ export const defaultData = {
   beach: {money: 0, customers: 1, workers: 0, wage: 0, prestige: 1, normad: 'facebook', normwater: 'water1', supervisor: false, accountant: false, coowner: false},
   dank: {money: 0, customers: 1, workers: 0, wage: 0, prestige: 1, normad: 'facebook', normwater: 'water1', supervisor: false, accountant: false, coowner: false},
   space: {money: 0, customers: 1, workers: 0, wage: 0, prestige: 1, normad: 'facebook', normwater: 'water1', supervisor: false, accountant: false, coowner: false},
+  berming: {money: 0, customers: 1, workers: 0, wage: 0, prestige: 1, normad: 'facebook', normwater: 'water1', supervisor: false, accountant: false, coowner: false},
   event: {money: 0, customers: 1, workers: 0, wage: 0},
   //
   

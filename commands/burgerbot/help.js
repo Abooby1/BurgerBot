@@ -12,7 +12,7 @@ const Help = {
       case "spot":
         chat.reply(`You can buy spots in b!change spot <spot you want to buy>! Each spot costs more credits!`)
         setTimeout(function( ) {
-          chat.reply(`Spots: city (free starter), beach (5k credits), dank (25k credits), and space (50k credits)!`)
+          chat.reply(`Spots: "city" (free starter) | "beach" (5k credits) | "dank" (25k credits) | "space" (50k credits) | ******* (10k credits)`)
         }, 500)
         break;
       case "season":
@@ -32,6 +32,8 @@ const Help = {
           chat.reply(`Co-Owner (makes your workers auto w (1 minute interval days) after connecting the post!)`)
         }, 500)
         break;
+      case 'b!open':
+        chat.reply(`b!open <crate> <amount (empty for just one crate): open crates with credits! (you can also open the seasonal crate!)`)
       case "b!work":
       case "work":
         chat.reply(`b!work <hours>: work many hours and get money to upgrade to an industry!`)
@@ -54,6 +56,9 @@ const Help = {
             break;
           case "space":
             chat.reply(`Prestiging adds to your money earning (in the spot your prestiging in) | Requirements (Space Center): $100K, 50K customers, 5K workers!`)
+            break;
+          case 'event':
+            chat.reply(`Prestiging adds to your money earning (in the spot your prestiging in) | Requirements (Event Spot): $1K, 500 customers, 50 workers!`)
             break;
         }
         break;
@@ -84,14 +89,17 @@ const Help = {
       case "advert":
         chat.reply(`b!advert <item>: item: "facebook": facebook ADS, "flier": flier ADS, "radio": radio ADS, "mobile": mobile ADS, "tiktok": tiktok ADS, "youtube": youtube ADS, "tv": tv ADS`)
         setTimeout(function( ) {
-          chat.post.chat(`"uhaul": uhaul truck ADS, "billboard": billboard ADS, "superbowl": superbowl ADS, "photopbots": photop bot ADS, "dank": dank memer ADS | "movie": movie ADS`)
+          chat.reply(`"uhaul": uhaul truck ADS, "billboard": billboard ADS, "superbowl": superbowl ADS, "photopbots": photop bot ADS, "dank": dank memer ADS | "movie": movie ADS`)
         }, 100)
         break;
 
       default:
         chat.reply(`Commands: b!work <hours> | b!stats | b!prestige | b!hire <amount> | b!donateto <item> <value> | b!claim <item> | b!change <item> <value> | b!auto <item> <amount> | b!advert <item>`)
         setTimeout(function( ) {
-          chat.reply(`Normal: "season" | "credits" | "spots" | "event" | "symbols"`)
+          chat.reply(`b!open <crate> <amount (can stay empty for just one crate)>`)
+          setTimeout(function( ) {
+            chat.reply(`Normal: "season" | "credits" | "spots" | "event" | "symbols"`)
+          }, 100)
         }, 100)
     }
   },

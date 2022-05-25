@@ -8,11 +8,7 @@ const client = new Client({ username: "BurgerBot", password: process.env["Pass"]
 
 const noop = () => { };
 
-const VersionSay = `1. Your co-owner will only make your workers auto w when your profits (auto w) are more than $500`
-
-export function d100 (stuff) {
-  client.post(stuff)
-}
+const VersionSay = `1. Added crates (cost credits) \n2. Added new command (b!open <crate> <amount (can stay empty for just one crate)>)`
 
 client.onPost = async (post) => {
   var Connected = false
@@ -29,20 +25,12 @@ client.onPost = async (post) => {
       resetTimeout()
       const data = await db.get(`v1/${post.author.id}`) 
       const d12 = JSON.stringify(defaultData)
+      const ddd = JSON.parse(await db.get('PostSay'))
       if (data != undefined) {
-        switch (post.author.id) {
-          case "6154f0d0a8d6d106c5b869b6":
-            post.chat(`Welcome king!`)
-            break;
-          case "61eef62462d52f0c8410dd1d":
-            post.chat(`iPhone is best!`)
-            break;
-          case '60bd0243edf9d8003785ad79':
-            post.chat(`Hullo WUTAdam!`)
-            break;
-          default:
-            post.chat(`Im now connected to your post ${post.author.username}! (use b!help for help!)`)
-            break;
+        if (ddd[post.author.id] != undefined) {
+          post.chat(ddd[post.author.id])
+        } else {
+          post.chat(`Im now connected to your post ${post.author.username}! (use b!help for help!)`)
         }
         const d1 = await getUserDataManager(post.author.id)
         if (event.name == 'Start of Season Event') {

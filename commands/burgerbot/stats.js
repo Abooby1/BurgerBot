@@ -1,5 +1,5 @@
 import {getUserDataManager, db} from "../../database.js";
-import {getLet, getStuff, f, SeasonEnd} from "../../utils.js"
+import {getLet, getStuff, f, SeasonEnd, SeasonNum, SeasonName} from "../../utils.js"
 
 const Stats = {
   names: ["stats", "stat"],
@@ -55,7 +55,7 @@ const Stats = {
         Say = `Event Spot | Money: $${getLet(userData.value.event['money'], 2)} | Workers: ${getLet(userData.value.event['workers'])} | Customers: ${getLet(userData.value.event['customers'])}`
     }
 
-    var Say2 = `Main | Credits: ${getLet(userData.value.credits)} | Level: ${userData.value.lvl} | Net: $${getLet(userData.value.net, 2)} | Rank: ${userData.value.rank} | Season ends: '${SeasonEnd}' | (for event help use: <b!help event>)`
+    var Say2 = `Main | Credits: ${getLet(userData.value.credits)} | Level: ${userData.value.lvl} | Net: $${getLet(userData.value.net, 2)} | Rank: ${userData.value.rank} | Season ${SeasonNum} (${SeasonName}) ends: '${SeasonEnd}' | (for event help use: <b!help event>)`
 
     
     setTimeout(function( ) {

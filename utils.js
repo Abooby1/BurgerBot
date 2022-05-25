@@ -1,5 +1,4 @@
 import {getUserDataManager, db} from "./database.js"
-import {d100} from "./index.js"
 
 const date = new Date()
 date.toLocaleString( "en-US", { timeZone: "America/New_York" });
@@ -8,7 +7,8 @@ export const SeasonMulti = 1
 export const Version = 2
 export const SeasonNum = 1
 export const SeasonEnd = "June 11"
-export const VersionID = '1.33'
+export const SeasonName = "City"
+export const VersionID = '1.40'
 export var Day = date.getDate()
 export var event = {}
 
@@ -72,10 +72,19 @@ function getEvent (n) {
         earn: null
       }
 
+    case 100:
+      return {
+        name: 'End of Season Event',
+        desc: 'The End of Season Event gives you a lot of exp for working! (lasts for the rest of the season)',
+
+        last: 0,
+        earn: null
+      }
+
     default:
       return {
         name: 'Start of Season Event',
-        desc: 'The Start of Season Event (or SSE) gives you rewards every 1 minute of your post being connected! (lasts for 4 days)',
+        desc: 'The Start of Season Event gives you rewards every 1 minute of your post being connected! (lasts for 4 days)',
 
         last: 4,
         earn: ['credits', 'exp']
@@ -106,7 +115,6 @@ setInterval(async function( ) {
       d.num = n
       const d1 = JSON.stringify(d)
       db.set('EventDay', await d1)
-      d100(`A new event has been activated! (use b!help event for help)`)
     }
   } else {
     event = getEvent(d.num)
@@ -362,6 +370,46 @@ const water4 = {
   multi: 10,
   
   needed: 10000
+}
+
+export function getCrate(name) {
+  switch (name.toLowerCase()) {
+    case 'commoncrate':
+      return {
+        name: 'Common Crate',
+        earn: ['exp 3', 'citymoney 5', 'citymoney 25', 'customcity 2'],
+
+        cost: 10
+      }
+    case 'rarecrate':
+      return {
+        name: 'Rare Crate',
+        earn: ['exp 5', 'citymoney 25', 'citymoney 50', 'customcity 3'],
+
+        cost: 25
+      }
+    case 'epiccrate':
+      return {
+        name: 'Epic Crate',
+        earn: ['exp 10', 'citymoney 50', 'citymoney 75', 'customcity 4'],
+
+        cost: 50
+      }
+    case 'legendcrate':
+      return {
+        name: 'Legendary Crate',
+        earn: ['exp 15', 'citymoney 100', 'citymoney 150', 'customcity 5'],
+
+        cost: 100
+      }
+    case 'seasoncrate':
+      return {
+        name: 'Season Crate',
+        earn: ['exp 50', 'money 1000', 'money 1500', 'custom 100'],
+
+        cost: 500
+      }
+  }
 }
 
 export function getStuff (name) {
