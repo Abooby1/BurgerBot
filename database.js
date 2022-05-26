@@ -59,7 +59,7 @@ export const defaultData = {
   beach: {money: 0, customers: 1, workers: 0, wage: 0, prestige: 1, normad: 'facebook', normwater: 'water1', supervisor: false, accountant: false, coowner: false},
   dank: {money: 0, customers: 1, workers: 0, wage: 0, prestige: 1, normad: 'facebook', normwater: 'water1', supervisor: false, accountant: false, coowner: false},
   space: {money: 0, customers: 1, workers: 0, wage: 0, prestige: 1, normad: 'facebook', normwater: 'water1', supervisor: false, accountant: false, coowner: false},
-  berming: {money: 0, customers: 1, workers: 0, wage: 0, prestige: 1, normad: 'facebook', normwater: 'water1', supervisor: false, accountant: false, coowner: false},
+  birming: {money: 0, customers: 1, workers: 0, wage: 0, prestige: 1, normad: 'facebook', normwater: 'water1', supervisor: false, accountant: false, coowner: false},
   event: {money: 0, customers: 1, workers: 0, wage: 0},
   //
   

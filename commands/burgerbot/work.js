@@ -1,4 +1,4 @@
-import {getLet, getStuff, SeasonMulti, event} from "../../utils.js"
+import {getLet, getStuff, SeasonMulti, event, d12d} from "../../utils.js"
 
 export var working = []
 
@@ -26,7 +26,11 @@ const Work = {
             if (event.name == 'End of Season Event') {
               userData.value.exp += 10
             } else {
-              userData.value.exp += 1
+              if (d12d == false) {
+                userData.value.exp += 1
+              } else {
+                userData.value.exp += 6
+              }
             }
             chat.reply(`You worked for ${body} hours and earned $${getLet(Earned, 2)}!`)
             working.splice(working.indexOf(chat.author.id), 1)
@@ -54,7 +58,11 @@ const Work = {
             if (event.name == 'End of Season Event') {
               userData.value.exp += 15
             } else {
-              userData.value.exp += 2
+              if (d12d == false) {
+                userData.value.exp += 2
+              } else {
+                userData.value.exp += 7
+              }
             }
             chat.reply(`You worked for ${body} hours and earned $${getLet(Earned, 2)}!`)
             working.splice(working.indexOf(chat.author.id), 1)
@@ -80,7 +88,11 @@ const Work = {
             if (event.name == 'End of Season Event') {
               userData.value.exp += 20
             } else {
-              userData.value.exp += 5
+              if (d12d == false) {
+                userData.value.exp += 5
+              } else {
+                userData.value.exp += 10
+              }
             }
             chat.reply(`You worked for ${body} hours and earned $${getLet(Earned, 2)}!`)
             working.splice(working.indexOf(chat.author.id), 1)
@@ -108,7 +120,11 @@ const Work = {
             if (event.name == 'End of Season Event') {
               userData.value.exp += 25
             } else {
-              userData.value.exp += 8
+              if (d12d == false) {
+                userData.value.exp += 8
+              } else {
+                userData.value.exp += 13
+              }
             }
             chat.reply(`You worked for ${body} hours and earned $${getLet(Earned, 2)}!`)
             working.splice(working.indexOf(chat.author.id), 1)

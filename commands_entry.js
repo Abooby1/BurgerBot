@@ -91,7 +91,7 @@ export async function onChat(client, chat) {
                 chat.reply(`You earned ${m1} credits from the Reward Event!`)
                 break;
               case "customs":
-                const m2 = getRandomInt(10, 20)
+                const m2 = getRandomInt(2, 10)
                 context.userData.value.city.customers += m2
                 setTimeout(function( ) {
                   context.userData.update()
@@ -99,13 +99,13 @@ export async function onChat(client, chat) {
                 chat.reply(`You earned ${m2} customers from the Reward Event!`)
                 break;
               case "worker":
-                const m3 = getRandomInt(1, 5)
+                const m3 = getRandomInt(1,2)
                 context.userData.value.city.workers += m3
                 context.userData.value.city.wage += m3 * 5.12
                 setTimeout(function( ) {
                   context.userData.update()
                 }, 2500)
-                chat.reply(`You earned ${m3} workers from the Reward Event! (wage added: $${m3 * 5.12})`)
+                chat.reply(`You earned ${m3} worker(s) from the Reward Event! (wage added: $${m3 * 5.12})`)
                 break;
               case "exp":
                 const m4 = getRandomInt(10, 25)
@@ -132,7 +132,7 @@ export async function onChat(client, chat) {
           context.userData.value.lastlvl = 0
           context.userData.value.credits += 10
           context.userData.value.version = Version
-          chat.reply(`Welcome to Season ${SeasonNum}! You got yourself 10 credits! (your level has been refreshed)`)
+          chat.reply(`Welcome to Season ${SeasonNum}! You got yourself 10 credits! (you are back to level 1!)`)
           setTimeout(function( ) {
             context.userData.update()
           }, 2500)

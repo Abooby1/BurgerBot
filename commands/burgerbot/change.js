@@ -8,7 +8,7 @@ const Change = {
     if (value == undefined) {
       switch (userData.value.spot.toLowerCase()) {
         case "city":
-          chat.reply(`Beach | postuse: '${userData.value.postuse}' | normad: '${userData.value.city.normad}' | normwater: '${userData.value.city.normwater}'`);
+          chat.reply(`City | postuse: '${userData.value.postuse}' | normad: '${userData.value.city.normad}' | normwater: '${userData.value.city.normwater}'`);
           break;
         case "beach":
           chat.reply(`Beach | postuse: '${userData.value.postuse}' | normad: '${userData.value.beach.normad}' | normwater: '${userData.value.beach.normwater}'`);

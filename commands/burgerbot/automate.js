@@ -30,7 +30,7 @@ function geteva (n) {
 const Auto = {
   names: ["auto"],
   func: async ({chat, args: [item, body], userData})=>{
-    if (item.toLowerCase() == "work") {
+    if (item.toLowerCase() == "work" || item.toLowerCase() == 'w') {
       if (AutoW.includes(chat.author.id)) {
         chat.reply(`Your workers are already working...`)
         return;
@@ -57,7 +57,7 @@ const Auto = {
                 chat.reply(`Your workers started working in the city! (please wait ${24 * parseInt(body)} seconds)`)
       
                 var i = setInterval(function( ) {
-                  if (t1 != parseInt(body)) {
+                  if (t1 < parseInt(body)) {
                     t1 += 1
                     t += earn
                     chat.reply(`One day has passed...`)
@@ -102,7 +102,7 @@ const Auto = {
                 chat.reply(`Your workers started working on the beach! (please wait ${12 * parseInt(body)} seconds)`)
       
                 var o = setInterval(function( ) {
-                  if (t2 != parseInt(body)) {
+                  if (t2 < parseInt(body)) {
                     tt += earn
                     t2 += 1
                     chat.reply(`One day has passed...`)
@@ -147,7 +147,7 @@ const Auto = {
                 chat.reply(`Your workers started working in the city! (please wait ${24 * parseInt(body)} seconds)`)
       
                 var ii = setInterval(function( ) {
-                  if (y1 != parseInt(body)) {
+                  if (y1 < parseInt(body)) {
                     y1 += 1
                     y += earn
                     chat.reply(`One day has passed...`)
@@ -193,7 +193,7 @@ const Auto = {
                 chat.reply(`Your workers started working in the Space Center! (please wait ${24 * parseInt(body)} seconds)`)
       
                 var ww = setInterval(function( ) {
-                  if (w1 != parseInt(body)) {
+                  if (w1 < parseInt(body)) {
                     w1 += 1
                     w += earn
                     chat.reply(`One day has passed...`)
@@ -247,7 +247,7 @@ const Auto = {
                 chat.reply(`Your workers started advertising in the city! (please wait ${24 * parseInt(body)} seconds)`)
       
                 var oo = setInterval(function( ) {
-                  if (t3 != parseInt(body)) {
+                  if (t3 < parseInt(body)) {
                     ttt += earn
                     t3 += 1
                     const Earned = getRandomInt(0, getStuff(userData.value.city.normad).earn)
@@ -298,7 +298,7 @@ const Auto = {
                 chat.reply(`Your workers started advertising on the beach! (please wait ${12 * parseInt(body)} seconds)`)
       
                 var ooo = setInterval(function( ) {
-                  if (t4 != parseInt(body)) {
+                  if (t4 < parseInt(body)) {
                     tttt += earn
                     t4 += 1
                     const Earned = getRandomInt(0, getStuff(userData.value.beach.normad).earn)
@@ -349,7 +349,7 @@ const Auto = {
                 chat.reply(`Your workers started advertising on Danker Land! (please wait ${12 * parseInt(body)} seconds)`)
       
                 var iii = setInterval(function( ) {
-                  if (y2 != parseInt(body)) {
+                  if (y2 < parseInt(body)) {
                     yy += earn
                     y2 += 1
                     const Earned = getRandomInt(0, getStuff(userData.value.dank.normad).earn)
@@ -400,7 +400,7 @@ const Auto = {
                 chat.reply(`Your workers started advertising in the Space Center! (please wait ${12 * parseInt(body)} seconds)`)
       
                 var iii = setInterval(function( ) {
-                  if (space2 != parseInt(body)) {
+                  if (space2 < parseInt(body)) {
                     space += earn
                     space2 += 1
                     const Earned = getRandomInt(0, getStuff(userData.value.space.normad).earn)

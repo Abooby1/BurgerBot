@@ -34,7 +34,7 @@ const Help = {
         break;
       case 'b!open':
       case 'open':
-        chat.reply(`b!open <crate> <amount (empty for just one crate): open crates with credits! (you can also open the seasonal crate!)`)
+        chat.reply(`b!open <crate> <amount (empty for just one crate)>: open crates with credits! (you can also open the seasonal crate!)`)
         break;
       case "b!work":
       case "work":

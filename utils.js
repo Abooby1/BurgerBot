@@ -8,9 +8,10 @@ export const Version = 2
 export const SeasonNum = 1
 export const SeasonEnd = "June 11"
 export const SeasonName = "City"
-export const VersionID = '1.41'
+export const VersionID = '1.44'
 export var Day = date.getDate()
 export var event = {}
+export const d12d = false
 
 function getEvent (n) {
   switch (n) {

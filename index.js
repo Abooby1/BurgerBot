@@ -8,7 +8,7 @@ const client = new Client({ username: "BurgerBot", password: process.env["Pass"]
 
 const noop = () => { };
 
-const VersionSay = `1. Bug fixes`
+const VersionSay = `1. Added something secret 😉 (getting activated in 2 days!) \n2. Bug fixes`
 
 client.onPost = async (post) => {
   var Connected = false
