@@ -75,10 +75,11 @@ const Claim = {
         }
         break;
       case "season":
-        if (userData.value.lastlvl < userData.value.lvl) {
-          userData.value.lastlvl += 1
-          const earn = SeasonMulti * 2
-          chat.reply(`You collected your season level reward (${earn} credit(s)!)`)
+        if (userData.value.lastlvl != userData.value.lvl) {
+          const e = userData.value.lastlvl - userData.value.lvl
+          userData.value.lastlvl = userData.value.lvl
+          const earn = e * SeasonMulti * 2
+          chat.reply(`You collected your season level reward (${earn} credits!)`)
           userData.value.credits += earn
           setTimeout(function( ) {
             userData.update()
