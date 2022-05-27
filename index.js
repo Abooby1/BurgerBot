@@ -8,7 +8,7 @@ const client = new Client({ username: "BurgerBot", password: process.env["Pass"]
 
 const noop = () => { };
 
-const VersionSay = `1. The items gotten from b!open <crate> <amount> (b!help open for extra info) is now based on what spot you are currently on \n2. Event Spot prestige requirements changed: 50 workers > 100 workers | 500 customers > 1k customers!`
+const VersionSay = `1. Bug fixes`
 
 client.onPost = async (post) => {
   var Connected = false

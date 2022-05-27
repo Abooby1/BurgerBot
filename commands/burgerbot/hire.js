@@ -3,10 +3,7 @@ import {getStuff, getLet} from "../../utils.js"
 const Hire = {
   names: ["hire"],
   func: ({chat, args: [value], userData})=>{
-    if (value == undefined || parseInt(value) == 0) {
-      chat.reply(`Please complete the command... (b!hire <amount> | at least 1 worker)`); 
-      return;
-    }
+    value = parseFloat(value) || 1
     switch (userData.value.spot.toLowerCase()) {
       case "city":
         if (userData.value.city.money >= 100 * parseInt(value)) {

@@ -8,24 +8,20 @@ const Claim = {
     switch (body.toLowerCase()) {
       case "normal":
         if (userData.value.daily < Day) {
-          if (userData.value.prestige >= 2) {
-            if (userData.value.rank == "Normal") {
-              if (event.name != "Claim Event") {
-                userData.value.credits += 10
-                chat.reply("You earned your rank reward (10 credits)")
-              } else {
-                userData.value.credits += 25
-                chat.reply("You earned your rank reward! (25 credits)")
-              }
-              userData.value.daily = Day
-              setTimeout(function( ) {
-                userData.update()
-              }, 2500)
+          if (userData.value.rank == "Normal") {
+            if (event.name != "Claim Event") {
+              userData.value.credits += 10
+              chat.reply("You earned your rank reward (10 credits)")
             } else {
-              chat.reply("You dont have the normal rank...")
+              userData.value.credits += 25
+              chat.reply("You earned your rank reward! (25 credits)")
             }
+            userData.value.daily = Day
+            setTimeout(function( ) {
+              userData.update()
+            }, 2500)
           } else {
-            chat.reply("You dont have the requirements to use this command...")
+            chat.reply("You dont have the normal rank...")
           }
         } else {
           chat.reply(`You cant use this command yet... (last claimed (day of month): ${userData.value.daily})`)

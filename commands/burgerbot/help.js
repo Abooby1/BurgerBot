@@ -98,7 +98,7 @@ const Help = {
       default:
         chat.reply(`Commands: b!work <hours> | b!stats | b!prestige | b!hire <amount> | b!donateto <item> <value> | b!claim <item> | b!change <item> <value> | b!auto <item> <amount> | b!advert <item>`)
         setTimeout(function( ) {
-          chat.reply(`b!open <crate> <amount (can stay empty for just one crate)>`)
+          chat.reply(`b!open <crate> <amount>`)
           setTimeout(function( ) {
             chat.reply(`Normal: "season" | "credits" | "spots" | "event" | "symbols"`)
           }, 100)
