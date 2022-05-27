@@ -74,7 +74,7 @@ function getEvent (n) {
         earn: null
       }
 
-    case 100:
+    case 'ESE':
       return {
         name: 'End of Season Event',
         desc: 'The End of Season Event gives you a lot of exp for working! (lasts for the rest of the season)',
@@ -83,7 +83,7 @@ function getEvent (n) {
         earn: null
       }
 
-    default:
+    case 'SSE':
       return {
         name: 'Start of Season Event',
         desc: 'The Start of Season Event gives you rewards every 1 minute of your post being connected! (lasts for 4 days)',
@@ -91,6 +91,9 @@ function getEvent (n) {
         last: 4,
         earn: ['credits', 'exp']
       }
+
+    default:
+      return {name: 'None...', desc: 'No event today :('}
   }
 }
 
@@ -103,7 +106,7 @@ export function getRandomInt(min, max) {
 setInterval(async function( ) {
   var d = JSON.parse(await db.get('EventDay'))
   if (Day > d.day) {
-    if (d.last >= 1) {
+    if (d.last > 1) {
       d.last -= 1
       d.day = Day
       event = getEvent(d.num)
