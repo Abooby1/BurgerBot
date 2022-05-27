@@ -1,4 +1,4 @@
-import {event, Version, SeasonEnd, SeasonNum, getStuff} from "../../utils.js"
+import {event, Version, SeasonEnd, SeasonNum, getStuff, getLet} from "../../utils.js"
 import {db} from "../../database.js"
 
 const Help = {
@@ -31,7 +31,7 @@ const Help = {
         break;
       case "b!work":
       case "work":
-        chat.reply(`b!work <hours>: work many hours and get money to upgrade to an industry!`)
+        chat.reply(`b!work <hours (can stay empty for max amount of hours)>: work many hours and get money to upgrade to an industry!`)
         break;
       case "b!stats":
       case "stats":
@@ -92,6 +92,7 @@ const Help = {
           default:
             chat.reply(`Thats not a change command...`)
         }
+        break;
         //
       case "b!auto":
       case "auto":
@@ -120,6 +121,9 @@ const Help = {
               break;
             case 'space':
               chat.reply(`Space | Cost: ${getLet(i.cost * 4, 2)} | Max gain: ${getLet(i.earn)}`)
+              break;
+            case 'event':
+              chat.reply(`Event Spot | Cost: ${getLet(i.cost / 2, 2)} | Max gain: ${getLet(i.earn)}`)
               break;
           }
         } else {

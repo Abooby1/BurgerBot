@@ -52,7 +52,7 @@ const Stats = {
         }
         break;
       case "event":
-        Say = `Event Spot | Money: $${getLet(userData.value.event['money'], 2)} | Workers: ${getLet(userData.value.event['workers'])} | Customers: ${getLet(userData.value.event['customers'])}`
+        Say = `Event Spot | Money: $${getLet(userData.value.event.money, 2)} | Workers: ${getLet(userData.value.event.workers)} | Customers: ${getLet(userData.value.event.customers)}`
     }
 
     var Say2 = `Main | Credits: ${getLet(userData.value.credits)} | Level: ${userData.value.lvl} | Net: $${getLet(userData.value.net, 2)} | Rank: ${userData.value.rank} | Season ${SeasonNum} (${SeasonName}) ends: '${SeasonEnd}' | (for event help use: <b!help event>)`
