@@ -492,6 +492,7 @@ const Change = {
                 chat.reply(`Hmm, looks like this spot doesnt support supervisors...`)
                 break;
             }
+            break;
           default:
             chat.reply(`You cant change one of your workers into that...`)
             break;
