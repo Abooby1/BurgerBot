@@ -257,7 +257,7 @@ const Auto = {
                     chat.reply(`One day has passed...`)
                     userData.value.city.customers += Earned
                     userData.value.city.workers += EarnedW
-                    userData.value.net -= earn
+                    userData.value.city.money -= earn
                     if (userData.value.city.supervisor == true) {
                       if (getRandomInt(1, 50) == 1) {
                         userData.value.city.workers -= 1
@@ -308,7 +308,7 @@ const Auto = {
                     chat.reply(`One day has passed...`)
                     userData.value.beach.customers += Earned
                     userData.value.beach.workers += EarnedW
-                    userData.value.net -= earn
+                    userData.value.city.money -= earn
                     if (userData.value.beach.supervisor == true) {
                       if (getRandomInt(1, 50) == 1) {
                         userData.value.beach.workers -= 1
@@ -359,7 +359,7 @@ const Auto = {
                     chat.reply(`One day has passed...`)
                     userData.value.dank.customers += Earned
                     userData.value.dank.workers += EarnedW
-                    userData.value.net -= earn
+                    userData.value.city.money -= earn
                     if (userData.value.dank.supervisor == true) {
                       if (getRandomInt(1, 50) == 1) {
                         userData.value.dank.workers -= 1
@@ -410,7 +410,7 @@ const Auto = {
                     chat.reply(`One day has passed...`)
                     userData.value.space.customers += Earned
                     userData.value.space.workers += EarnedW
-                    userData.value.net -= earn
+                    userData.value.city.money -= earn
                     if (userData.value.space.supervisor == true) {
                       if (getRandomInt(1, 50) == 1) {
                         userData.value.space.workers -= 1
