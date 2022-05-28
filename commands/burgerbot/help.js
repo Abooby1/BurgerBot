@@ -19,7 +19,7 @@ const Help = {
         chat.reply(`Season ${SeasonNum} ends: '${SeasonEnd}' | Earn rewards using b!claim season! (earn exp by working, events, and prestiging!)`)
         break;
       case "credits":
-        chat.reply(`You can use credits for buying spots!`)
+        chat.reply(`You can use credits for buying spots and buying crates!`)
         break;
       case "symbols":
       case "symbol":
@@ -111,19 +111,19 @@ const Help = {
         if (i != 'false') {
           switch (userData.value.spot) {
             case 'city':
-              chat.reply(`City | Cost: ${getLet(i.cost, 2)} | Max gain: ${getLet(i.earn)}`)
+              chat.reply(`City | Cost: $${getLet(i.cost, 2)} | Max gain: ${getLet(i.earn)} | Chance of gaining worker: 1/${i.chance}`)
               break;
             case 'beach':
-              chat.reply(`Beach | Cost: ${getLet(i.cost * 2, 2)} | Max gain: ${getLet(i.earn)}`)
+              chat.reply(`Beach | Cost: $${getLet(i.cost * 2, 2)} | Max gain: ${getLet(i.earn)} | Chance of gaining worker: 1/${i.chance}`)
               break;
             case 'dank':
-              chat.reply(`Danker Land | Cost: ${getLet(i.cost * 3, 2)} | Max gain: ${getLet(i.earn)}`)
+              chat.reply(`Danker Land | Cost: $${getLet(i.cost * 3, 2)} | Max gain: ${getLet(i.earn)} | Chance of gaining worker: 1/${i.chance}`)
               break;
             case 'space':
-              chat.reply(`Space | Cost: ${getLet(i.cost * 4, 2)} | Max gain: ${getLet(i.earn)}`)
+              chat.reply(`Space | Cost: $${getLet(i.cost * 4, 2)} | Max gain: ${getLet(i.earn)} | Chance of gaining worker: 1/${i.chance}`)
               break;
             case 'event':
-              chat.reply(`Event Spot | Cost: ${getLet(i.cost / 2, 2)} | Max gain: ${getLet(i.earn)}`)
+              chat.reply(`Event Spot | Cost: $${getLet(i.cost / 2, 2)} | Max gain: ${getLet(i.earn)} | Chance of gaining worker: 1/${i.chance}`)
               break;
           }
         } else {

@@ -152,6 +152,13 @@ export async function onChat(client, chat) {
           }
         }
 
+        if (event.name == "End of Season Event") {
+          context.userData.value.exp += 10
+          setTimeout(function( ) {
+            context.userData.update()
+          }, 2500)
+        }
+
         await command.func(context);
         // command not found
       } else {

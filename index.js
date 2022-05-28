@@ -8,7 +8,7 @@ const client = new Client({ username: "BurgerBot", password: process.env["Pass"]
 
 const noop = () => { };
 
-const VersionSay = `1. Changed b!work: <b!work <hours (empty for max (according to spot) hours)>>`
+const VersionSay = `1. The chance of getting a worker is now shown in b!help advertinfo <advert id>`
 
 client.onPost = async (post) => {
   var Connected = false

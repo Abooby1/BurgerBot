@@ -8,7 +8,7 @@ export const Version = 2
 export const SeasonNum = 1
 export const SeasonEnd = "June 11"
 export const SeasonName = "City"
-export const VersionID = '1.54'
+export const VersionID = '1.55'
 export var Day = date.getDate()
 export var event = {}
 export const d12d = false
@@ -77,7 +77,7 @@ function getEvent (n) {
     case 'ESE':
       return {
         name: 'End of Season Event',
-        desc: 'The End of Season Event gives you a lot of exp for working! (lasts for the rest of the season)',
+        desc: 'The End of Season Event gives you a lot of exp for using commands and working! (lasts for the rest of the season)',
 
         last: 0,
         earn: null
