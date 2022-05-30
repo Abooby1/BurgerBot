@@ -3,6 +3,7 @@ import {getCrate, getRandomInt, SeasonName} from "../../utils.js"
 const Open = {
   names: ["open"],
   func: ({chat, args: [crate, amount], userData})=>{
+    var s = 0
     switch (crate.toLowerCase()) {
       case 'common':
         var quantity = parseFloat(amount) || 1
@@ -12,8 +13,9 @@ const Open = {
           userData.value.credits -= getCrate('commoncrate').cost * quantity
           switch (c[0]) {
             case 'exp':
-              userData.value.exp += parseInt(c[1])
-              chat.reply(`You got ${c[1] * quantity} exp from ${quantity} Common Crate(s)`)
+              s = getRandomInt(1, parseInt(c[1])) * quantity
+              userData.value.exp += s
+              chat.reply(`You got ${s} exp from ${quantity} Common Crate(s)`)
               setTimeout(function( ) {
                 userData.update()
               }, 2500)
@@ -21,20 +23,24 @@ const Open = {
             case 'citymoney':
               switch (userData.value.spot) {
                 case 'city':
-                  userData.value.city.money += parseInt(c[1]) * quantity
-                  chat.reply(`You got $${c[1] * quantity} (city) from ${quantity} Common Crate(s)`)
+                  s = getRandomInt(1, parseInt(c[1])) * quantity
+                  userData.value.city.money += s
+                  chat.reply(`You got $${s} (city) from ${quantity} Common Crate(s)`)
                   break;
                 case 'beach':
-                  userData.value.beach.money += parseInt(c[1]) * quantity
-                  chat.reply(`You got $${c[1] * quantity} (beach) from ${quantity} Common Crate(s)`)
+                  s = getRandomInt(1, parseInt(c[1])) * quantity
+                  userData.value.beach.money += s
+                  chat.reply(`You got $${s} (beach) from ${quantity} Common Crate(s)`)
                   break;
                 case 'dank':
-                  userData.value.dank.money += parseInt(c[1]) * quantity
-                  chat.reply(`You got $${c[1] * quantity} (dank) from ${quantity} Common Crate(s)`)
+                  s = getRandomInt(1, parseInt(c[1])) * quantity
+                  userData.value.dank.money += s
+                  chat.reply(`You got $${s} (dank) from ${quantity} Common Crate(s)`)
                   break;
                 case 'space':
-                  userData.value.space.money += parseInt(c[1]) * quantity
-                  chat.reply(`You got $${c[1] * quantity} (space) from ${quantity} Common Crate(s)`)
+                  s = getRandomInt(1, parseInt(c[1])) * quantity
+                  userData.value.space.money += s
+                  chat.reply(`You got $${s} (space) from ${quantity} Common Crate(s)`)
                   break;
 
                 default:
@@ -47,20 +53,24 @@ const Open = {
             case 'customcity':
               switch (userData.value.spot) {
                 case 'city':
-                  userData.value.city.customers += parseInt(c[1]) * quantity
-                  chat.reply(`You got ${c[1] * quantity} customer(s) (city) from ${quantity} Common Crate(s)`)
+                  s = getRandomInt(1, parseInt(c[1])) * quantity
+                  userData.value.city.customers += s
+                  chat.reply(`You got ${s} customer(s) (city) from ${quantity} Common Crate(s)`)
                   break;
                 case 'beach':
-                  userData.value.beach.customers += parseInt(c[1]) * quantity
-                  chat.reply(`You got ${c[1] * quantity} customer(s) (beach) from ${quantity} Common Crate(s)`)
+                  s = getRandomInt(1, parseInt(c[1])) * quantity
+                  userData.value.beach.customers += s
+                  chat.reply(`You got ${s} customer(s) (beach) from ${quantity} Common Crate(s)`)
                   break;
                 case 'dank':
-                  userData.value.dank.customers += parseInt(c[1]) * quantity
-                  chat.reply(`You got ${c[1] * quantity} customer(s) (dank) from ${quantity} Common Crate(s)`)
+                  s = getRandomInt(1, parseInt(c[1])) * quantity
+                  userData.value.dank.customers += s
+                  chat.reply(`You got ${s} customer(s) (dank) from ${quantity} Common Crate(s)`)
                   break;
                 case 'space':
-                  userData.value.space.customers += parseInt(c[1]) * quantity
-                  chat.reply(`You got ${c[1] * quantity} customer(s) (space) from ${quantity} Common Crate(s)`)
+                  s = getRandomInt(1, parseInt(c[1])) * quantity
+                  userData.value.space.customers += s
+                  chat.reply(`You got ${s} customer(s) (space) from ${quantity} Common Crate(s)`)
                   break;
 
                 default:
@@ -80,8 +90,9 @@ const Open = {
           userData.value.credits -= getCrate('rarecrate').cost * quantity
           switch (c[0]) {
             case 'exp':
-              userData.value.exp += parseInt(c[1]) * quantity
-              chat.reply(`You got ${c[1] * quantity} exp from ${quantity} Rare Crate(s)`)
+              s = getRandomInt(parseInt(c[1])) * quantity
+              userData.value.exp += s
+              chat.reply(`You got ${s} exp from ${quantity} Rare Crate(s)`)
               setTimeout(function( ) {
                 userData.update()
               }, 2500)
@@ -89,20 +100,24 @@ const Open = {
             case 'citymoney':
               switch (userData.value.spot) {
                 case 'city':
-                  userData.value.city.money += parseInt(c[1]) * quantity
-                  chat.reply(`You got $${c[1] * quantity} (city) from ${quantity} Rare Crate(s)`)
+                  s = getRandomInt(1, parseInt(c[1])) * quantity
+                  userData.value.city.money += s
+                  chat.reply(`You got $${s} (city) from ${quantity} Rare Crate(s)`)
                   break;
                 case 'beach':
-                  userData.value.beach.money += parseInt(c[1]) * quantity
-                  chat.reply(`You got $${c[1] * quantity} (beach) from ${quantity} Rare Crate(s)`)
+                  s = getRandomInt(1, parseInt(c[1])) * quantity
+                  userData.value.beach.money += s
+                  chat.reply(`You got $${s} (beach) from ${quantity} Rare Crate(s)`)
                   break;
                 case 'dank':
-                  userData.value.dank.money += parseInt(c[1]) * quantity
-                  chat.reply(`You got $${c[1] * quantity} (dank) from ${quantity} Rare Crate(s)`)
+                  s = getRandomInt(1, parseInt(c[1])) * quantity
+                  userData.value.dank.money += s
+                  chat.reply(`You got $${s} (dank) from ${quantity} Rare Crate(s)`)
                   break;
                 case 'space':
-                  userData.value.space.money += parseInt(c[1]) * quantity
-                  chat.reply(`You got $${c[1] * quantity} (space) from ${quantity} Rare Crate(s)`)
+                  s = getRandomInt(1, parseInt(c[1])) * quantity
+                  userData.value.space.money += s
+                  chat.reply(`You got $${s} (space) from ${quantity} Rare Crate(s)`)
                   break;
 
                 default:
@@ -115,20 +130,24 @@ const Open = {
             case 'customcity':
               switch (userData.value.spot) {
                 case 'city':
-                  userData.value.city.customers += parseInt(c[1]) * quantity
-                  chat.reply(`You got ${c[1] * quantity} customer(s) (city) from ${quantity} Rare Crate(s)`)
+                  s = getRandomInt(1, parseInt(c[1])) * quantity
+                  userData.value.city.customers += s
+                  chat.reply(`You got ${s} customer(s) (city) from ${quantity} Rare Crate(s)`)
                   break;
                 case 'beach':
-                  userData.value.beach.customers += parseInt(c[1]) * quantity
-                  chat.reply(`You got ${c[1] * quantity} customer(s) (beach) from ${quantity} Rare Crate(s)`)
+                  s = getRandomInt(1, parseInt(c[1])) * quantity
+                  userData.value.beach.customers += s
+                  chat.reply(`You got ${s} customer(s) (beach) from ${quantity} Rare Crate(s)`)
                   break;
                 case 'dank':
-                  userData.value.dank.customers += parseInt(c[1]) * quantity
-                  chat.reply(`You got ${c[1] * quantity} customer(s) (dank) from ${quantity} Rare Crate(s)`)
+                  s = getRandomInt(1, parseInt(c[1])) * quantity
+                  userData.value.dank.customers += s
+                  chat.reply(`You got ${s} customer(s) (dank) from ${quantity} Rare Crate(s)`)
                   break;
                 case 'space':
-                  userData.value.space.customers += parseInt(c[1]) * quantity
-                  chat.reply(`You got ${c[1] * quantity} customer(s) (space) from ${quantity} Rare Crate(s)`)
+                  s = getRandomInt(1, parseInt(c[1])) * quantity
+                  userData.value.space.customers += s
+                  chat.reply(`You got ${s} customer(s) (space) from ${quantity} Rare Crate(s)`)
                   break;
 
                 default:
@@ -151,8 +170,9 @@ const Open = {
           userData.value.credits -= getCrate('epiccrate').cost * quantity
           switch (c[0]) {
             case 'exp':
-              userData.value.exp += parseInt(c[1]) * quantity
-              chat.reply(`You got ${c[1] * quantity} exp from ${quantity} Epic Crate(s)`)
+              s = getRandomInt(1, parseInt(c[1])) * quantity
+              userData.value.exp += s
+              chat.reply(`You got ${s} exp from ${quantity} Epic Crate(s)`)
               setTimeout(function( ) {
                 userData.update()
               }, 2500)
@@ -160,20 +180,24 @@ const Open = {
             case 'citymoney':
               switch (userData.value.spot) {
                 case 'city':
-                  userData.value.city.money += parseInt(c[1]) * quantity
-                  chat.reply(`You got $${c[1] * quantity} (city) from ${quantity} Epic Crate(s)`)
+                  s = getRandomInt(1, parseInt(c[1])) * quantity
+                  userData.value.city.money += s
+                  chat.reply(`You got $${s} (city) from ${quantity} Epic Crate(s)`)
                   break;
                 case 'beach':
-                  userData.value.beach.money += parseInt(c[1]) * quantity
-                  chat.reply(`You got $${c[1] * quantity} (beach) from ${quantity} Epic Crate(s)`)
+                  s = getRandomInt(1, parseInt(c[1])) * quantity
+                  userData.value.beach.money += s
+                  chat.reply(`You got $${s} (beach) from ${quantity} Epic Crate(s)`)
                   break;
                 case 'dank':
-                  userData.value.dank.money += parseInt(c[1]) * quantity
-                  chat.reply(`You got $${c[1] * quantity} (dank) from ${quantity} Epic Crate(s)`)
+                  s = getRandomInt(1, parseInt(c[1])) * quantity
+                  userData.value.dank.money += s
+                  chat.reply(`You got $${s} (dank) from ${quantity} Epic Crate(s)`)
                   break;
                 case 'space':
-                  userData.value.space.money += parseInt(c[1]) * quantity
-                  chat.reply(`You got $${c[1] * quantity} (space) from ${quantity} Epic Crate(s)`)
+                  s = getRandomInt(1, parseInt(c[1])) * quantity
+                  userData.value.space.money += s
+                  chat.reply(`You got $${s} (space) from ${quantity} Epic Crate(s)`)
                   break;
 
                 default:
@@ -186,20 +210,24 @@ const Open = {
             case 'customcity':
               switch (userData.value.spot) {
                 case 'city':
-                  userData.value.city.customers += parseInt(c[1]) * quantity
-                  chat.reply(`You got ${c[1] * quantity} customer(s) (city) from ${quantity} Epic Crate(s)`)
+                  s = getRandomInt(1, parseInt(c[1])) * quantity
+                  userData.value.city.customers += s
+                  chat.reply(`You got ${s} customer(s) (city) from ${quantity} Epic Crate(s)`)
                   break;
                 case 'beach':
-                  userData.value.beach.customers += parseInt(c[1]) * quantity
-                  chat.reply(`You got ${c[1] * quantity} customer(s) (beach) from ${quantity} Epic Crate(s)`)
+                  s = getRandomInt(1, parseInt(c[1])) * quantity
+                  userData.value.beach.customers += s
+                  chat.reply(`You got ${s} customer(s) (beach) from ${quantity} Epic Crate(s)`)
                   break;
                 case 'dank':
-                  userData.value.dank.customers += parseInt(c[1]) * quantity
-                  chat.reply(`You got ${c[1] * quantity} customer(s) (dank) from ${quantity} Epic Crate(s)`)
+                  s = getRandomInt(1, parseInt(c[1])) * quantity
+                  userData.value.dank.customers += s
+                  chat.reply(`You got ${s} customer(s) (dank) from ${quantity} Epic Crate(s)`)
                   break;
                 case 'space':
-                  userData.value.space.customers += parseInt(c[1]) * quantity
-                  chat.reply(`You got ${c[1] * quantity} customer(s) (space) from ${quantity} Epic Crate(s)`)
+                  s = getRandomInt(1, parseInt(c[1])) * quantity
+                  userData.value.space.customers += s
+                  chat.reply(`You got ${s} customer(s) (space) from ${quantity} Epic Crate(s)`)
                   break;
 
                 default:
@@ -223,8 +251,9 @@ const Open = {
           userData.value.credits -= getCrate('legendcrate').cost * quantity
           switch (c[0]) {
             case 'exp':
-              userData.value.exp += parseInt(c[1]) * quantity
-              chat.reply(`You got ${c[1] * quantity} exp from ${quantity} Legendary Crate(s)`)
+              s = getRandomInt(1, parseInt(c[1])) * quantity
+              userData.value.exp += s
+              chat.reply(`You got ${s} exp from ${quantity} Legendary Crate(s)`)
               setTimeout(function( ) {
                 userData.update()
               }, 2500)
@@ -232,20 +261,24 @@ const Open = {
             case 'citymoney':
               switch (userData.value.spot) {
                 case 'city':
-                  userData.value.city.money += parseInt(c[1]) * quantity
-                  chat.reply(`You got $${c[1] * quantity} (city) from ${quantity} Legendary Crate(s)`)
+                  s = getRandomInt(1, parseInt(c[1])) * quantity
+                  userData.value.city.money += s
+                  chat.reply(`You got $${s} (city) from ${quantity} Legendary Crate(s)`)
                   break;
                 case 'beach':
-                  userData.value.beach.money += parseInt(c[1]) * quantity
-                  chat.reply(`You got $${c[1] * quantity} (beach) from ${quantity} Legendary Crate(s)`)
+                  s = getRandomInt(1, parseInt(c[1])) * quantity
+                  userData.value.beach.money += s
+                  chat.reply(`You got $${s} (beach) from ${quantity} Legendary Crate(s)`)
                   break;
                 case 'dank':
-                  userData.value.dank.money += parseInt(c[1]) * quantity
-                  chat.reply(`You got $${c[1] * quantity} (dank) from ${quantity} Legendary Crate(s)`)
+                  s = getRandomInt(1, parseInt(c[1])) * quantity
+                  userData.value.dank.money += s
+                  chat.reply(`You got $${s} (dank) from ${quantity} Legendary Crate(s)`)
                   break;
                 case 'space':
-                  userData.value.space.money += parseInt(c[1]) * quantity
-                  chat.reply(`You got $${c[1] * quantity} (space) from ${quantity} Legendary Crate(s)`)
+                  s = getRandomInt(1, parseInt(c[1])) * quantity
+                  userData.value.space.money += s
+                  chat.reply(`You got $${s} (space) from ${quantity} Legendary Crate(s)`)
                   break;
 
                 default:
@@ -258,20 +291,24 @@ const Open = {
             case 'customcity':
               switch (userData.value.spot) {
                 case 'city':
-                  userData.value.city.customers += parseInt(c[1]) * quantity
-                  chat.reply(`You got ${c[1] * quantity} customer(s) (city) from ${quantity} Legendary Crate(s)`)
+                  s = getRandomInt(1, parseInt(c[1])) * quantity
+                  userData.value.city.customers += s
+                  chat.reply(`You got ${s} customer(s) (city) from ${quantity} Legendary Crate(s)`)
                   break;
                 case 'beach':
-                  userData.value.beach.customers += parseInt(c[1]) * quantity
-                  chat.reply(`You got ${c[1] * quantity} customer(s) (beach) from ${quantity} Legendary Crate(s)`)
+                  s = getRandomInt(1, parseInt(c[1])) * quantity
+                  userData.value.beach.customers += s
+                  chat.reply(`You got ${s} customer(s) (beach) from ${quantity} Legendary Crate(s)`)
                   break;
                 case 'dank':
-                  userData.value.dank.customers += parseInt(c[1]) * quantity
-                  chat.reply(`You got ${c[1] * quantity} customer(s) (dank) from ${quantity} Legendary Crate(s)`)
+                  s = getRandomInt(1, parseInt(c[1])) * quantity
+                  userData.value.dank.customers += s
+                  chat.reply(`You got ${s} customer(s) (dank) from ${quantity} Legendary Crate(s)`)
                   break;
                 case 'space':
-                  userData.value.space.customers += parseInt(c[1]) * quantity
-                  chat.reply(`You got ${c[1] * quantity} customer(s) (space) from ${quantity} Legendary Crate(s)`)
+                  s = getRandomInt(1, parseInt(c[1])) * quantity
+                  userData.value.space.customers += s
+                  chat.reply(`You got ${s} customer(s) (space) from ${quantity} Legendary Crate(s)`)
                   break;
 
                 default:
@@ -295,22 +332,25 @@ const Open = {
           userData.value.credits -= getCrate('seasoncrate').cost * quantity
           switch (c[0]) {
             case 'exp':
-              userData.value.exp += parseInt(c[1]) * quantity
-              chat.reply(`You got ${c[1] * quantity} exp from ${quantity} ${SeasonName} Crate(s)`)
+              s = getRandomInt(1, parseInt(c[1])) * quantity
+              userData.value.exp += s
+              chat.reply(`You got ${s} exp from ${quantity} ${SeasonName} Crate(s)`)
               setTimeout(function( ) {
                 userData.update()
               }, 2500)
               break;
             case 'money':
-              userData.value.city.money += parseInt(c[1]) * quantity//*******
-              chat.reply(`You got $${c[1] * quantity} (${SeasonName}) from ${quantity} ${SeasonName} Crate(s)`)
+              s = getRandomInt(1, parseInt(c[1])) * quantity
+              userData.value.city.money += s//*******
+              chat.reply(`You got $${s} (${SeasonName}) from ${quantity} ${SeasonName} Crate(s)`)
               setTimeout(function( ) {
                 userData.update()
               }, 2500)
               break;
             case 'custom':
-              userData.value.city.customers += parseInt(c[1]) * quantity//*****
-              chat.reply(`You got ${c[1] * quantity} customer(s) (${SeasonName}) from ${quantity} ${SeasonName} Crate(s)`)
+              s = getRandomInt(1, parseInt(c[1])) * quantity
+              userData.value.city.customers += s//*****
+              chat.reply(`You got ${s} customer(s) (${SeasonName}) from ${quantity} ${SeasonName} Crate(s)`)
               setTimeout(function( ) {
                 userData.update()
               }, 2500)

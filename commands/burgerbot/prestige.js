@@ -129,12 +129,12 @@ const Prestige = {
           if (userData.value.event.customers >= 1000) {
             if (userData.value.event.money >= 1000) {
               userData.value.credits += 10
-              userData.value.exp += 10
+              userData.value.exp += 15
               userData.value.event.money = 0
               userData.value.event.workers = 0
               userData.value.event.customers = 1
               userData.value.event.wage = 0
-              chat.reply(`You have prestiged in the event spot! (you earned 10 exp and 10 credits!)`)
+              chat.reply(`You have prestiged in the event spot! (you earned 15 exp and 10 credits!)`)
               setTimeout(function( ) {
                 userData.update()
               }, 2500)

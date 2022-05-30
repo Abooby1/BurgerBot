@@ -10,11 +10,11 @@ const Claim = {
         if (userData.value.daily < Day) {
           if (userData.value.rank == "Normal") {
             if (event.name != "Claim Event") {
-              userData.value.credits += 10
-              chat.reply("You earned your rank reward (10 credits)")
+              userData.value.credits += 15
+              chat.reply("You earned your rank reward (15 credits)")
             } else {
-              userData.value.credits += 25
-              chat.reply("You earned your rank reward! (25 credits)")
+              userData.value.credits += 30
+              chat.reply("You earned your rank reward! (30 credits)")
             }
             userData.value.daily = Day
             setTimeout(function( ) {

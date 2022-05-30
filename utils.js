@@ -8,11 +8,13 @@ export const Version = 2
 export const SeasonNum = 1
 export const SeasonEnd = "June 11"
 export const SeasonName = "City"
-export const VersionID = '1.60'
+export const VersionID = '1.71'
 export var Day = date.getDate()
 export var event = {}
 export const d12d = true
-// /Post_628fee908b00f7400416cac7
+
+export var QuestW = {}
+export var QuestS = {name: 'Work', desc: 'Work 500 times', max: 500}
 
 function getEvent (n) {
   switch (n) {
@@ -97,6 +99,17 @@ function getEvent (n) {
   }
 }
 
+function getQuest (n) {
+  switch (n) {
+    case 1:
+      return {
+        name: 'Work Quest',
+        desc: 'Work until completed!',
+        earn: ['money 10', 'credits 2']
+      }
+  }
+}
+
 export function getRandomInt(min, max) {  
   return Math.floor(
     Math.random() * (max - min) + min
@@ -125,6 +138,17 @@ setInterval(async function( ) {
     event = getEvent(d.num)
   }
 }, 100)
+
+/*
+setInterval(async function( ) {
+  var da = JSON.parse(await db.get('QuestDay'))
+  if (Day > da.day) {
+    
+  } else {
+    QuestW = getQuest(da.num)
+  }
+}, 100)
+*/
 
 export function getLet(num, other) {
   if (num >= 1000000000000000000000000) {

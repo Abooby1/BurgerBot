@@ -8,7 +8,7 @@ const client = new Client({ username: "BurgerBot", password: process.env["Pass"]
 
 const noop = () => { };
 
-const VersionSay = `1. You will now earn more exp from <b!work> (will last one week (ends June 4)) \n2. BurgerBot is now in the Photop group! (updates will be sent there and in the main posting area)`
+const VersionSay = `1. Bug fixes`
 
 client.onPost = async (post) => {
   var Connected = false
@@ -54,6 +54,8 @@ client.onPost = async (post) => {
               d1.value.beach.tables = 0
               d1.value.dank.tables = 0
               d1.value.space.tables = 0
+              d1.value.birming.tables = 0
+              chat.reply(`Your data is up to date!`)
               setTimeout(function( ) {
                 d1.update()
               }, 2500)
