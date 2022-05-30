@@ -38,7 +38,6 @@ const Donate = {
 
           if (u.value.city.money >= amount) {
             u.value.city.money -= parseInt(amount)
-            u.value.net -= parseInt(amount)
             d.value.inbox2 += parseInt(amount)
             chat.reply(`You donated $${getLet(parseInt(amount), 2)} to ${id}!`)
           } else {
@@ -75,7 +74,6 @@ const Collect = {
   func: ({chat, userData})=>{
     userData.value.credits += userData.value.inbox
     userData.value.city.money += userData.value.inbox2
-    userData.value.net += userData.value.inbox2
     userData.value.inbox = 0
     userData.value.inbox2 = 0
     chat.reply(`You collected everything from your inbox!`)

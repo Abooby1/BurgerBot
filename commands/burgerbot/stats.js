@@ -51,8 +51,10 @@ const Stats = {
           Say = `Space Center | Money: $${getLet(userData.value.space.money, 2)} | Workers: ${getLet(userData.value.space.workers)} | Wage: $${getLet(c4, 2)} | Customers: ${getLet(userData.value.space.customers)} | Prestige: ${userData.value.space.prestige}`
         }
         break;
+        
       case "event":
         Say = `Event Spot | Money: $${getLet(userData.value.event.money, 2)} | Workers: ${getLet(userData.value.event.workers)} | Customers: ${getLet(userData.value.event.customers)}`
+        
     }
 
     var Say2 = `Main | Credits: ${getLet(userData.value.credits)} | Level: ${userData.value.lvl} | Net: $${getLet(userData.value.net, 2)} | Rank: ${userData.value.rank} | Season ${SeasonNum} (${SeasonName}) ends: '${SeasonEnd}' | (for event help use: <b!help event>)`

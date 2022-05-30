@@ -46,7 +46,7 @@ export async function onChat(client, chat) {
         if (data.value.postuse == false) {
           if (chat.author.id != chat.post.author.id) {
             if (chat.author.id != '6154f0d0a8d6d106c5b869b6') {
-              chat.reply(`This person has their postuse to false (you cant use commands on their connected post) try connecting your own post!`)
+              chat.reply(`This person has their postuse turned to 'false' (you cant use commands on their connected post) try connecting your own post! ("startburger")`)
               return;
             }
           }
@@ -57,10 +57,10 @@ export async function onChat(client, chat) {
           if (context.userData.value.rank == "Special") {
             Started = true
             setInterval(async function( ) {
-            const post = await client.groups["62535105a95b113f103c2d57"].post("$connect");
-            setTimeout(async function( ) {
-              const something = await post.chat(`$bot ${chat.author.id}`)
-            }, 5000)
+              const post = await client.groups["62535105a95b113f103c2d57"].post("$connect");
+              setTimeout(async function( ) {
+                const something = await post.chat(`$bot ${chat.author.id}`)
+              }, 5000)
             }, 600000)
           }
         }
@@ -71,11 +71,7 @@ export async function onChat(client, chat) {
             if (!context.userData.value.spots.includes('dank')) {
               context.userData.value.spots.push('dank')
             }
-            const post = await client.groups["62535105a95b113f103c2d57"].post("cappy")
-            setTimeout(async function( ) {
-              const something = await post.chat(`c!bot ${chat.author.id} burgerbotmoney`)
-              chat.reply(`Congrats! You got $100t! (You got the BurgerBot money trophy collectable in CapBot!)`)
-            }, 3000)
+            chat.reply(`Congrats on $100T! You got yourself a spot at Danker Land! (use <b!change spot dank> to change your spot to dank)`)
           }
         }
 
@@ -124,32 +120,6 @@ export async function onChat(client, chat) {
           setTimeout(function( ) {
             context.userData.update()
           }, 2500)
-        }
-
-        if (context.userData.value.version != Version) {
-          context.userData.value.exp = 0
-          context.userData.value.lvl = 1
-          context.userData.value.lastlvl = 0
-          context.userData.value.credits += 10
-          context.userData.value.version = Version
-          chat.reply(`Welcome to Season ${SeasonNum}! You got yourself 10 credits! (you are back to level 1!)`)
-          setTimeout(function( ) {
-            context.userData.update()
-          }, 2500)
-        }
-
-        if (context.userData.value.spot == 'event') {
-          if (event.name != 'Spot Event') {
-            context.userData.value.spot = 'city'
-            context.userData.value.event.money = 0
-            context.userData.value.event.customers = 1
-            context.userData.value.event.workers = 0
-            context.userData.value.event.wage = 0
-            chat.reply(`Your spot was switched to the city due to the spot event ending...`)
-            setTimeout(async function( ) {
-              context.userData.update()
-            }, 2500)
-          }
         }
 
         if (event.name == "End of Season Event") {

@@ -2,13 +2,13 @@ import { Client } from "photop-client";
 import { onChat } from "./commands_entry.js";
 import { START, PREFIX } from "./constants.js";
 import {db, defaultData, getUserDataManager} from "./database.js"
-import {Version, VersionID, SeasonNum, f, event, getRandomInt} from "./utils.js"
+import {Version, VersionID, SeasonNum, f, event, getRandomInt, SeasonName} from "./utils.js"
 
 const client = new Client({ username: "BurgerBot", password: process.env["Pass"] }, { logSocketMessages: false });
 
 const noop = () => { };
 
-const VersionSay = `1. Bug fixes`
+const VersionSay = `1. You will now earn more exp from <b!work> (will last one week (ends June 4)) \n2. BurgerBot is now in the Photop group! (updates will be sent there and in the main posting area)`
 
 client.onPost = async (post) => {
   var Connected = false
@@ -33,6 +33,50 @@ client.onPost = async (post) => {
           post.chat(`Im now connected to your post ${post.author.username}! (use b!help for help!)`)
         }
         const d1 = await getUserDataManager(post.author.id)
+        if (d1.value.version != Version) {
+          const v = d1.value.version
+          switch (v) {
+            case 2://version 3
+              d1.value.exp = 0
+              d1.value.lvl = 1
+              d1.value.lastlvl = 0
+              d1.value.credits += 25
+              d1.value.version = 3
+              d1.value.net = 0
+              chat.reply(`Welcome to Season ${SeasonNum} (${SeasonName})! You got yourself 25 credits! (you are back to level 1!)`)
+              setTimeout(function( ) {
+                d1.update()
+              }, 2500)
+              break;
+            case 3://version 4
+              d1.value.version = 4
+              d1.value.city.tables = 0
+              d1.value.beach.tables = 0
+              d1.value.dank.tables = 0
+              d1.value.space.tables = 0
+              setTimeout(function( ) {
+                d1.update()
+              }, 2500)
+              break;
+
+            default: 
+              chat.reply(`Hmm, it looks like there was an error (please report this to @Abooby | post has been disconnected)`)
+              post.disconnect()
+          }
+        }
+        if (d1.value.spot == 'event') {
+          if (event.name != 'Spot Event') {
+            d1.value.spot = 'city'
+            d1.value.event.money = 0
+            d1.value.event.customers = 1
+            d1.value.event.workers = 0
+            d1.value.event.wage = 0
+            chat.reply(`Your spot was switched to the city due to the spot event ending...`)
+            setTimeout(async function( ) {
+              d1.update()
+            }, 2500)
+          }
+        }
         if (event.name == 'Start of Season Event') {
           setInterval(function( ) {
             switch (event.earn[getRandomInt(0, event.earn.length)]) {
@@ -163,6 +207,14 @@ client.onReady = () => {
       db.set('Version', VersionID)
       setTimeout(function( ) {
         post.chat('Have fun with the update!')
+        post.disconnect()
+        setTimeout(async function( ) {
+          const post = await client.groups['61c74569ae0b4b2a3897fce1'].post(`V${VersionID}: \n${VersionSay}`)
+          setTimeout(function( ) {
+            post.chat('Have fun with the update!')
+            post.disconnect()
+          }, 2500)
+        }, 2500)
       }, 1000)
     }
   }, 100)
