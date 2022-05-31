@@ -12,31 +12,37 @@ const VersionSay = `1. Bug fixes`
 
 client.onPost = async (post) => {
   var Connected = false
+  const pp = post.text.toLowerCase().split(' ')
   const resetTimeout = await post.connect(120000, () => {
     post.onChat = noop; //replace post.onChat to free up memory
-    if (post.text == START) {
+    if (pp.includes(START)) {
       post.chat("Bot has disconnected... Reason: inactivity")
       Connected = false
     }
   })
-  if (post.text == START) {
+  if (pp.includes(START)) {
     Connected = true
     setTimeout(async function( ) {
       resetTimeout()
       const data = await db.get(`v1/${post.author.id}`) 
+      const d1 = await getUserDataManager(post.author.id)
       const d12 = JSON.stringify(defaultData)
       const ddd = JSON.parse(await db.get('PostSay'))
       if (data != undefined) {
         if (ddd[post.author.id] != undefined) {
           post.chat(ddd[post.author.id])
         } else {
-          post.chat(`Im now connected to your post ${post.author.username}! (use b!help for help!)`)
+          if (d1.value.rank != 'Banned') {
+            post.chat(`Im now connected to your post ${post.author.username}! (use b!help for help!)`)
+          } else {
+            post.chat('Sorry... Youre banned from BurgerBot...')
+            post.disconnect()
+          }
         }
-        const d1 = await getUserDataManager(post.author.id)
         if (d1.value.version != Version) {
           const v = d1.value.version
           switch (v) {
-            case 2://version 3
+            case 2://new season (version before the current version)
               d1.value.exp = 0
               d1.value.lvl = 1
               d1.value.lastlvl = 0
@@ -55,7 +61,7 @@ client.onPost = async (post) => {
               d1.value.dank.tables = 0
               d1.value.space.tables = 0
               d1.value.birming.tables = 0
-              chat.reply(`Your data is up to date!`)
+              chat.reply(`Your data is now up to date!`)
               setTimeout(function( ) {
                 d1.update()
               }, 2500)
@@ -192,7 +198,7 @@ client.onPost = async (post) => {
   }
 
   post.onChat = (chat) => {
-    if (post.text == START) {
+    if (pp.includes(START)) {
       if (chat.text.startsWith('pls')) {setTimeout(function() {chat.reply(`Really?! This aint @DankMemer...`)}, 750)}
       resetTimeout();
       onChat(client, chat);

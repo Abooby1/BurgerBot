@@ -1,4 +1,4 @@
-import { defaultData, getUserDataManager } from "../../database.js";
+import { defaultData, getUserDataManager, db } from "../../database.js";
 
 const isNaN = function(value) {
     const n = Number(value);
@@ -8,22 +8,69 @@ const isNaN = function(value) {
 const TempBan = {
   names: ["ban"],
   func: async ({chat, client, args: [name, time]})=>{
+    
     const user = await client.getUserFromUsername(name)
     if (name != "" && time != "" && name != "Abooby" && user != undefined) {
       const ID = user.id
       var data = await getUserDataManager(ID)
-      var NormalRank = data.value.rank
-      data.value.rank = "Banned"
-      setTimeout(function( ) {
-        data.value.rank = NormalRank
-        setTimeout(function() {
-          data.update();
-        }, 1500)
-      }, time * 60000)
-      setTimeout(function() {
-        data.update();
-        chat.reply(`I have temp banned ${name} | Time: ${time * 60} seconds`)
-      }, 1500)
+      const dbdata = JSON.parse(await db.get('Banned'))
+      if (dbdata[ID] != undefined) {
+        if (typeof time != 'String') {
+          dbdata[ID].time += time
+          chat.reply(`I have added ${time} seconds into ${name}'s ban time`)
+          if (dbdata[ID].start == false) {
+            var i = setInterval(function( ) {
+              if (dbdata[ID].time > 0) {
+                dbdata[ID].time -= 1
+                db.set('Banned', JSON.stringify(dbdata))
+              } else {
+                data.value.rank = dbdata[ID].rank
+                dbdata[ID].start = false
+                dbdata[ID].time = 0
+                db.set('Banned', JSON.stringify(dbdata))
+                clearInterval(i)
+                setTimeout(function( ) {
+                  data.update()
+                }, 2500)
+              }
+            }, 1000)
+          }
+        } else {
+          chat.reply(`You didnt specify a number...`)
+        }
+      } else {
+        if (typeof time != 'String') {
+         dbdata[ID] = {rank: data.value.rank, time: time, start: true}
+        } else {
+          if (time == 'perm' || time == 'perma') {
+            dbdata[ID] = {rank: data.value.rank, time: 'perma', start: false}
+          }
+        }
+        await db.set('Banned', JSON.stringify(dbdata))
+        data.value.rank = 'Banned'
+        chat.reply(`I have banned ${name} for ${time} seconds!`)
+        setTimeout(function( ) {
+          data.update()
+        }, 2500)
+        var i = setInterval(function( ) {
+          if (dbdata[ID] != undefined) {
+            if (dbdata[ID].time > 0) {
+              dbdata[ID].time -= 1
+              db.set('Banned', JSON.stringify(dbdata))
+            } else {
+              data.value.rank = dbdata[ID].rank
+              dbdata[ID].start = false
+              dbdata[ID].time = 0
+              db.set('Banned', JSON.stringify(dbdata))
+              clearInterval(i)
+              setTimeout(function( ) {
+                data.update()
+              }, 2500)
+            }
+          }
+        }, 1000)
+      }
+
     } else {
       chat.reply("There has been an error, please check the chat...")
       console.log(`${chat.author.username} had an error banning someone...`)
@@ -32,6 +79,25 @@ const TempBan = {
   description: "Temp bans someone",
   hidden: true,
   permission: rank => rank == "Owner" || rank == "Mod"
+};
+
+const AddSay = {
+  names: ["addsay"],
+  func: async ({client, chat, body})=>{
+    const b = body.split('@s')
+    const user = await client.getUserFromUsername(b[0])
+    if (user != undefined) {
+      const id = user.id
+      const data = JSON.parse(await db.get('PostSay'))
+      data[id] = b[1]
+      db.set('PostSay', JSON.stringify(data))
+      chat.reply(`I have added a post say for ${b[0]}!`)
+    } else {
+      chat.reply(`That account doesnt exist...`)
+    }
+  },
+  description: "Add a post entry",
+  permission: 'Owner'
 };
 
 const ResetData = {
@@ -97,13 +163,25 @@ const SetWorker = {
     const data = await getUserDataManager(userid);
     switch (type.toLowerCase()) {
       case "city":
-        data.value.workers = parseFloat(amount) || 0;
-        data.value.wage = parseFloat(amount * 10.23) || 0;
+        data.value.city.workers = parseFloat(amount) || 0;
+        data.value.city.wage = parseFloat(amount * 10.23) || 0;
         break;
       case "beach":
-        data.value.workersbeach = parseFloat(amount) || 0;
-        data.value.wagebeach = parseFloat(amount * 20.46) || 0;
+        data.value.beach.workers = parseFloat(amount) || 0;
+        data.value.beach.wage = parseFloat(amount * 20.46) || 0;
         break;
+      case 'dank':
+        data.value.dank.workers = parseFloat(amount) || 0
+        data.value.dank.wage = parseFloat(amount * 30.69) || 0;
+        break;
+      case 'space':
+        data.value.space.workers = parseFloat(amount) || 0
+        data.value.space.wage = parseFloat(amount * 40.92) || 0;
+        break;
+
+      default:
+        chat.reply(`That spot isnt available to do this action...`)
+        return;
     }
     data.update();
     chat.reply(`I set ${userid}'s workers to ${data.value.workers}`)
@@ -122,11 +200,20 @@ const SetCustoms = {
     const data = await getUserDataManager(userid);
     switch (type.toLowerCase()) {
       case "city":
-        data.value.customers = parseFloat(amount) || 0;
+        data.value.city.customers = parseFloat(amount) || 0;
         break;
       case "beach":
-        data.value.customsbeach = parseFloat(amount) || 0;
+        data.value.beach.customers = parseFloat(amount) || 0;
         break;
+      case 'dank':
+        data.value.dank.customers = parseFloat(amount) || 0
+        break;
+      case 'space':
+        data.value.space.customers = parseFloat(amount) || 0
+        break;
+
+      default:
+        chat.reply(`That spot isnt available to do this action...`)
     }
     data.update();
     chat.reply(`I set ${userid}'s customers to ${data.value.customers}`)
@@ -161,4 +248,4 @@ const AddSpot = {
   permission: "Owner"
 };
 
-export {SetMoney, TempBan, SetCustoms, SetWorker, ResetData, AddSpot, SetPrestige, SetCredit}
+export {SetMoney, TempBan, SetCustoms, SetWorker, ResetData, AddSpot, SetPrestige, SetCredit, AddSay}

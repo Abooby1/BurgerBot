@@ -6,7 +6,7 @@ const Work = {
   names: ["work"],
   func: ({chat, body, userData})=>{
     if (working.includes(chat.author.id)){
-      chat.reply(`Your already working....`)
+      chat.reply(`Youre already working....`)
       return;
     }
     switch (userData.value.spot.toLowerCase()) {
