@@ -38,8 +38,7 @@ const specialRanks = {
 
   "628a66938b00f740041007fe": 'Banned',
   "61c6c9b3e1e6417b595d3dfc": 'Banned',
-  "61eef62462d52f0c8410dd1d": 'Banned',//pl
-  "622a3fc20c9eb90613714a4c": 'Banned',//pl #2
+  '6297fdf0f47a391ad514a437': 'Banned',
 
   "622fb3400c9eb9061377ddda": 'Banned'//Yudz
 }

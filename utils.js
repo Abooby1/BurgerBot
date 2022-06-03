@@ -1,15 +1,55 @@
 import {getUserDataManager, db} from "./database.js"
 
 const date = new Date()
-date.toLocaleString( "en-US", { timeZone: "America/New_York" });
 
-export const SeasonMulti = 1
-export const Version = 2
-export const SeasonNum = 1
-export const SeasonEnd = "June 11"
-export const SeasonName = "City"
-export const VersionID = '1.72'
-export var Day = date.getDate()
+function changeTimeZone(date, timeZone) {
+  if (typeof date === 'string') {
+    return new Date(
+      new Date(date).toLocaleString('en-US', {
+        timeZone,
+      }),
+    );
+  }
+
+  return new Date(
+    date.toLocaleString('en-US', {
+      timeZone,
+    }),
+  );
+}
+
+export async function getDay (tt) {
+  switch (tt) {
+    case 'asia':
+      const d1 = await changeTimeZone(new Date(), 'Asia/Singapore');
+      return d1.getDate()
+    case 'global':
+      const d2 = await changeTimeZone(new Date(), 'America/New_York');
+      return d2.getDate()
+    case 'korean':
+      const d3 = await changeTimeZone(new Date(), 'Asia/Seoul');
+      return d3.getDate()
+    case 'japan':
+      const d4 = await changeTimeZone(new Date(), 'Asia/Tokyo');
+      return d4.getDate()
+    case 'china':
+      const d5 = await changeTimeZone(new Date(), 'Asia/Shanghai');
+      return d5.getDate()
+    case 'europe':
+      const d6 = await changeTimeZone(new Date(), 'Europe/Copenhagen');
+      return d6.getDate()
+    default:
+      return date.getDate()
+  }
+}
+
+export const SeasonMulti = 3
+export const Version = 3
+export const SeasonNum = 2
+export const SeasonEnd = "July 9"
+export const SeasonName = "Birmingham"
+export const VersionID = '2.03'
+export var Day = await getDay('global')
 export var event = {}
 export const d12d = true
 
@@ -118,7 +158,7 @@ export function getRandomInt(min, max) {
 
 setInterval(async function( ) {
   var d = JSON.parse(await db.get('EventDay'))
-  if (Day > d.day) {
+  if (Day != d.day) {
     if (d.last > 1) {
       d.last -= 1
       d.day = Day
@@ -345,6 +385,19 @@ const ma = {
   chance: 100
 }
 
+const ba = {
+  name: "Birmingham ADS",
+  id: "birming",
+
+  rank: "ad",
+
+  costshow: "20m",
+  cost: 20000000,
+  earn: 30000,
+
+  chance: 10
+}
+
 const water1 = {
   name: "Great Value Water",
   id: "water1",
@@ -385,6 +438,20 @@ const water3 = {
   multi: 3,
   
   needed: 500
+}
+
+const water5 = {
+  name: "Birmingham Water",
+  id: "water5",
+
+  rank: "water",
+
+  costshow: "1k",
+  cost: 5.91,
+
+  multi: 4,
+  
+  needed: 1000
 }
 
 const water4 = {
@@ -482,6 +549,9 @@ export function getStuff (name) {
     case "movie":
       return ma;
 
+    case 'birming':
+      return ba;
+
     case "water1":
       return water1;
 
@@ -493,6 +563,9 @@ export function getStuff (name) {
 
     case "water4":
       return water4;
+
+    case 'water5':
+      return water5;
 
     default:
       return "false";
@@ -608,6 +681,33 @@ export async function f (type, uid) {
       }
       const c5 = a2 * userData.value.space.workers + w8
       return c5
+      break;
+
+    case "workbirming":
+      var w9 = 0
+      if (event.name == "Worker Event") {
+        w9 = userData.value.birming.wage / 2
+      } else {
+        w9 = userData.value.birming.wage
+      }
+      return userData.value.birming.workers * userData.value.birming.prestige * 0.01 * userData.value.birming.customers - w9
+      break;
+      
+    case "advertbirming":
+      var w10 = 0
+      var a3 = 0
+      if (event.name == "Advert Event") {
+        a3 = getStuff(userData.value.space.normad).cost * 6 / 2
+      } else {
+        a3 = getStuff(userData.value.space.normad).cost * 6
+      }
+      if (event.name == "Worker Event") {
+        w10 = userData.value.space.wage / 2
+      } else {
+        w10 = userData.value.space.wage
+      }
+      const c6 = a3 * userData.value.space.workers + w10
+      return c6
       break;
 
     default: 

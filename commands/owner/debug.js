@@ -1,4 +1,5 @@
 import { defaultData, getUserDataManager, db } from "../../database.js";
+import {getDay} from '../../utils.js'
 
 const isNaN = function(value) {
     const n = Number(value);
@@ -242,7 +243,7 @@ const SetCredit = {
 const AddSpot = {
   names: ["stuff"],
   func: async ({chat, body})=>{
-     
+     chat.reply(`Asia: ${await getDay('asia')} global: ${await getDay('global')} korean: ${await getDay('korean')} japan: ${await getDay('japan')} china: ${await getDay('china')} europe: ${await getDay('europe')}`)
   },
   description: "Change stuff",
   permission: "Owner"

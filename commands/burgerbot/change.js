@@ -115,6 +115,22 @@ const Change = {
             }
             break;
 
+          case "birming":
+            if (getStuff(value.toLowerCase()).rank == "ad") {
+              if (userData.value.birming.money >= getStuff(value.toLowerCase()).cost * 6) {
+                userData.value.birming.normad = getStuff(value.toLowerCase()).id
+                chat.reply(`Your Birmingham workers will now use ${getStuff(value.toLowerCase()).name} to advertise! (spot: Birmingham)`)
+                setTimeout(function( ) {
+                  userData.update()
+                }, 2500)
+              } else {
+                chat.reply(`You cant use this advertisement... (cost $${getLet(value.toLowerCase().cost * 6, 2)})`)
+              }
+            } else {
+              chat.reply(`Thats not an ad...`)
+            }
+            break;
+
           default:
             chat.reply(`Hmm, looks like this spot doesnt support ad changes...`)
         }
@@ -166,13 +182,24 @@ const Change = {
                 chat.reply(`You dont have enough customers to have ${getStuff(value.toLowerCase()).name} as your hydrating drink... (needed: ${getLet(getStuff(value.toLowerCase()).needed * 5, 2)})`)
             }
             break;
+          case "birming":
+            if (getStuff(value.toLowerCase()).needed <= userData.value.birming.customers * 6) {
+              userData.value.birming.normwater = getStuff(value.toLowerCase()).id
+              chat.reply(`Your workers will now use ${getStuff(value.toLowerCase()).name} to hydrate while advertising on the Space Center! (multiplier: ×${getStuff(value.toLowerCase()).multi})`)
+              setTimeout(function( ) {
+                userData.update()
+              }, 2500)
+            } else {
+                chat.reply(`You dont have enough customers to have ${getStuff(value.toLowerCase()).name} as your hydrating drink... (needed: ${getLet(getStuff(value.toLowerCase()).needed * 6, 2)})`)
+            }
+            break;
 
           default:
             chat.reply(`Hmm, looks like this spot doesnt support water changes...`)
         }
         break;
       case "spot":
-        const c = ["city", "beach", "dank", "space", "event"]
+        const c = ["city", "beach", "dank", "space", "event", 'birming']
         if (c.includes(value.toLowerCase())) {
           if (!AutoW.includes(chat.author.id) && !AutoA.includes(chat.author.id) && !working.includes(chat.author.id)) {
             if (userData.value.spots.includes(value.toLowerCase())) {
@@ -224,6 +251,19 @@ const Change = {
                     }, 2500)
                   } else {
                     chat.reply(`You dont have enough credits to buy a spot at the Space Center... (cost: 50k credits)`)
+                  }
+                  break;
+                case "birming":
+                  if (userData.value.credits >= 10000) {
+                    chat.reply(`You bought a spot in Birmingham! Have fun!`)
+                    userData.value.credits -= 10000
+                    userData.value.spot = "birming"
+                    userData.value.spots.push("birming")
+                    setTimeout(function( ) {
+                      userData.update()
+                    }, 2500)
+                  } else {
+                    chat.reply(`You dont have enough credits to buy a spot at Birmingham... (cost: 10k credits)`)
                   }
                   break;
                 case "event":
@@ -327,6 +367,24 @@ const Change = {
                   chat.reply(`You already have a supervisor...`)
                 }
                 break;
+              case 'birming':
+                if (userData.value.birming.supervisor == false) {
+                  if (userData.value.birming.workers >= 10) {
+                    userData.value.birming.workers -= 1
+                    userData.value.birming.wage -= 51.15
+                    userData.value.birming.supervisor = true
+                    userData.value.birming.wage += 61.38
+                    chat.reply(`You have promoted one of your workers into a supervisor!`)
+                    setTimeout(function( ) {
+                      userData.update()
+                    }, 2500)
+                  } else {
+                    chat.reply(`You need at least 10 workers to do this...`)
+                  }
+                } else {
+                  chat.reply(`You already have a supervisor...`)
+                }
+                break;
 
               default:
                 chat.reply(`Hmm, looks like this spot doesnt support supervisors...`)
@@ -396,6 +454,24 @@ const Change = {
                     userData.value.space.wage -= 40.92
                     userData.value.space.accountant = true
                     userData.value.space.wage += 61.38
+                    chat.reply(`You have promoted one of your workers into an accountant!`)
+                    setTimeout(function( ) {
+                      userData.update()
+                    }, 2500)
+                  } else {
+                    chat.reply(`You need at least 20 workers to do this...`)
+                  }
+                } else {
+                  chat.reply(`You already have an accountant...`)
+                }
+                break;
+              case 'birming':
+                if (userData.value.birming.accountant == false) {
+                  if (userData.value.birming.workers >= 20) {
+                    userData.value.birming.workers -= 1
+                    userData.value.birming.wage -= 51.15
+                    userData.value.birming.accountant = true
+                    userData.value.birming.wage += 71.61
                     chat.reply(`You have promoted one of your workers into an accountant!`)
                     setTimeout(function( ) {
                       userData.update()
@@ -487,6 +563,24 @@ const Change = {
                   chat.reply(`You already have a co-owner...`)
                 }
                 break;
+              case 'birming':
+                if (userData.value.birming.coowner == false) {
+                  if (userData.value.birming.workers >= 50) {
+                    userData.value.birming.workers -= 1
+                    userData.value.birming.wage -= 51.15
+                    userData.value.birming.coowner = true
+                    userData.value.birming.wage += 81.84
+                    chat.reply(`You have promoted one of your workers into an co-owner!`)
+                    setTimeout(function( ) {
+                      userData.update()
+                    }, 2500)
+                  } else {
+                    chat.reply(`You need at least 50 workers to do this...`)
+                  }
+                } else {
+                  chat.reply(`You already have a co-owner...`)
+                }
+                break;
 
               default:
                 chat.reply(`Hmm, looks like this spot doesnt support supervisors...`)
@@ -496,6 +590,41 @@ const Change = {
           default:
             chat.reply(`You cant change one of your workers into that...`)
             break;
+        }
+        break;
+
+      case 'server':
+        if (userData.value.timezone == undefined) {
+          switch(value) {
+            case 'asia':
+              userData.value.timezone = 'asia'
+              chat.reply(`You are now in the Asia server!`)
+              break;
+            case 'global':
+              userData.value.timezone = 'global'
+              chat.reply(`You are now in the Global server!`)
+              break;
+            case 'korean':
+              userData.value.timezone = 'korean'
+              chat.reply(`You are now in the Korean server!`)
+              break;
+            case 'japan':
+              userData.value.timezone = 'japan'
+              chat.reply(`You are now in the Japan server!`)
+              break;
+            case 'china':
+              userData.value.timezone = 'china'
+              chat.reply(`You are now in the China server!`)
+              break;
+            case 'europe':
+              userData.value.timezone = 'europe'
+              chat.reply(`You are now in the Europe server!`)
+              break;
+            default: 
+              chat.reply(`Thats not a timezone you can change to... ("asia", "global", "korean", "china", "japan", or "europe")`)
+          }
+        } else {
+          chat.reply(`You already have a timezone set...`)
         }
         break;
 

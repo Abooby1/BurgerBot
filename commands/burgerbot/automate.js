@@ -226,6 +226,51 @@ const Auto = {
               chat.reply(`You need at least one worker to do this...`)
             }
             break;
+          case "birming":
+            if (userData.value.birming.workers >= 1) {
+              if (parseInt(body) >= 1 && parseInt(body) <= 5) {
+                AutoW.push(chat.author.id)
+                
+                var earn = await f("workbirming", chat.author.id)
+                var birming = 0
+                var birming1 = 0
+      
+                chat.reply(`Your workers started working in Birmingham! (please wait ${24 * parseInt(body)} seconds)`)
+      
+                var birming2 = setInterval(function( ) {
+                  if (birming1 < parseInt(body)) {
+                    birming1 += 1
+                    birming += earn
+                    chat.reply(`One day has passed...`)
+                    userData.value.birming.money += earn
+                    userData.value.net += earn
+                    if (userData.value.birming.supervisor == true) {
+                      if (getRandomInt(1, 50) == 1) {
+                        userData.value.birming.workers -= 1
+                        userData.value.birming.wage -= 51.15
+                        chat.reply(getevw(getRandomInt(1, 4)))
+                      }
+                    }
+                    setTimeout(function( ) {
+                      userData.update()
+                    }, 2500)
+                  } else {
+                    if (userData.value.birming.accountant == true) {
+                      chat.reply(`Your workers are done working! (total: $${getLet(birming, 2)})`)
+                    } else {
+                      chat.reply(`Your workers are done working!`)
+                    }
+                    AutoW.splice(AutoW.indexOf(chat.author.id), 1)
+                    clearInterval(birming2)
+                  }
+                }, 24000)
+              } else {
+                chat.reply(`You didnt specify how many days you want your workers to work... (b!auto work <days> | max: 5)`)
+              }
+            } else {
+              chat.reply(`You need at least one worker to do this...`)
+            }
+            break;
 
           default:
             chat.reply(`Hmm, looks like this spot doesnt support automation...`)
@@ -308,7 +353,7 @@ const Auto = {
                     chat.reply(`One day has passed...`)
                     userData.value.beach.customers += Earned
                     userData.value.beach.workers += EarnedW
-                    userData.value.city.money -= earn
+                    userData.value.beach.money -= earn
                     if (userData.value.beach.supervisor == true) {
                       if (getRandomInt(1, 50) == 1) {
                         userData.value.beach.workers -= 1
@@ -359,7 +404,7 @@ const Auto = {
                     chat.reply(`One day has passed...`)
                     userData.value.dank.customers += Earned
                     userData.value.dank.workers += EarnedW
-                    userData.value.city.money -= earn
+                    userData.value.dank.money -= earn
                     if (userData.value.dank.supervisor == true) {
                       if (getRandomInt(1, 50) == 1) {
                         userData.value.dank.workers -= 1
@@ -410,7 +455,7 @@ const Auto = {
                     chat.reply(`One day has passed...`)
                     userData.value.space.customers += Earned
                     userData.value.space.workers += EarnedW
-                    userData.value.city.money -= earn
+                    userData.value.space.money -= earn
                     if (userData.value.space.supervisor == true) {
                       if (getRandomInt(1, 50) == 1) {
                         userData.value.space.workers -= 1
@@ -429,6 +474,57 @@ const Auto = {
                     }
                     AutoA.splice(AutoA.indexOf(chat.author.id), 1)
                     clearInterval(iii)
+                  }
+                }, 12000)
+              } else {
+                chat.reply(`You didnt specify how many days you want your workers to work... (b!auto advert <days> | max: 5)`)
+              }
+            } else {
+              chat.reply(`You need at least one worker to do this...`)
+            }
+            break;
+          case "birming":
+            if (userData.value.birming.workers >= 1) {
+              if (parseInt(body) >= 1 && parseInt(body) <= 5) {
+                AutoA.push(chat.author.id)
+                
+                var earn = await f("advertbirming", chat.author.id)
+                var birming3 = 0
+                var birming4 = 0
+                var EarnedW = 0
+      
+                chat.reply(`Your workers started advertising in Birmingham! (please wait ${12 * parseInt(body)} seconds)`)
+      
+                var birming5 = setInterval(function( ) {
+                  if (birming4 < parseInt(body)) {
+                    birming3 += earn
+                    birming4 += 1
+                    const Earned = getRandomInt(0, getStuff(userData.value.birming.normad).earn)
+                    if (getRandomInt(1, getStuff(userData.value.birming.normad).chance) == 1) {
+                      EarnedW = getRandomInt(1, 2)
+                    }
+                    chat.reply(`One day has passed...`)
+                    userData.value.birming.customers += Earned
+                    userData.value.birming.workers += EarnedW
+                    userData.value.birming.money -= earn
+                    if (userData.value.birming.supervisor == true) {
+                      if (getRandomInt(1, 50) == 1) {
+                        userData.value.birming.workers -= 1
+                        userData.value.birming.wage -= 51.15
+                        chat.reply(geteva(getRandomInt(1, 3)))
+                      }
+                    }
+                    setTimeout(function( ) {
+                      userData.update()
+                    }, 2500)
+                  } else {
+                    if (userData.value.birming.accountant == true) {
+                      chat.reply(`Your workers are done advertising! (total cost: $${getLet(birming3, 2)})`)
+                    } else {
+                      chat.reply(`Your workers are done advertising!`)
+                    }
+                    AutoA.splice(AutoA.indexOf(chat.author.id), 1)
+                    clearInterval(birming5)
                   }
                 }, 12000)
               } else {

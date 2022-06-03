@@ -12,11 +12,14 @@ const Stats = {
     const earn6 = await f('advertdank', chat.author.id)
     const earn7 = await f('workspace', chat.author.id)
     const earn8 = await f('advertspace', chat.author.id)
+    const earn9 = await f('workbirming', chat.author.id)
+    const earn10 = await f('advertbirming', chat.author.id)
 
     const c1 = userData.value.city.wage
     const c2 = userData.value.beach.wage
     const c3 = userData.value.dank.wage
     const c4 = userData.value.space.wage
+    const c5 = userData.value.birming.wage
     var Say = ``
 
     switch (userData.value.spot.toLowerCase()) {
@@ -49,6 +52,14 @@ const Stats = {
           Say = `Space Center | Money: $${getLet(userData.value.space.money, 2)} | Workers: ${getLet(userData.value.space.workers)} | Wage: $${getLet(c4, 2)} | Customers: ${getLet(userData.value.space.customers)} | Prestige: ${userData.value.space.prestige} | Earn (b!auto w): $${getLet(earn7, 2)} | Cost (b!auto a): $${getLet(earn8, 2)}`
         } else {
           Say = `Space Center | Money: $${getLet(userData.value.space.money, 2)} | Workers: ${getLet(userData.value.space.workers)} | Wage: $${getLet(c4, 2)} | Customers: ${getLet(userData.value.space.customers)} | Prestige: ${userData.value.space.prestige}`
+        }
+        break;
+        
+      case "birming":
+        if (userData.value.birming.accountant == true) {
+          Say = `Birmingham | Money: $${getLet(userData.value.birming.money, 2)} | Workers: ${getLet(userData.value.birming.workers)} | Wage: $${getLet(c5, 2)} | Customers: ${getLet(userData.value.birming.customers)} | Prestige: ${userData.value.birming.prestige} | Earn (b!auto w): $${getLet(earn9, 2)} | Cost (b!auto a): $${getLet(earn10, 2)}`
+        } else {
+          Say = `Birmingham | Money: $${getLet(userData.value.birming.money, 2)} | Workers: ${getLet(userData.value.birming.workers)} | Wage: $${getLet(c5, 2)} | Customers: ${getLet(userData.value.birming.customers)} | Prestige: ${userData.value.birming.prestige}`
         }
         break;
         

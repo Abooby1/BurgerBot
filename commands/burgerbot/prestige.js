@@ -124,6 +124,36 @@ const Prestige = {
           chat.reply(`You need 5k workers to prestige...`)
         }
         break;
+      case "birming":
+        if (userData.value.birming.workers >= 10000) {
+          if (userData.value.birming.customers >= 100000) {
+            if (userData.value.birming.money >= 200000) {
+              userData.value.birming.prestige += 1
+              userData.value.exp += 50
+              userData.value.birming.money = 2 * userData.value.birming.prestige
+              userData.value.birming.workers = 0
+              userData.value.birming.customers = 1
+              userData.value.birming.normad = "facebook"
+              userData.value.birming.normwater = 'water1'
+              userData.value.birming.wage = 0
+              userData.value.birming.supervisor = false
+              userData.value.birming.accountant = false
+              userData.value.birming.coowner = false
+              chat.reply(`You have prestiged! You will now earn more money!`)
+              setTimeout(async function( ) {
+                userData.update()
+              }, 2500)
+            } else {
+              chat.reply(`You need $200k to prestige...`)
+            }
+          } else {
+            chat.reply(`You need 100k customers to prestige...`)
+          }
+        } else {
+          chat.reply(`You need 10k workers to prestige...`)
+        }
+        break;
+        //event
       case "event":
         if (userData.value.event.workers >= 100) {
           if (userData.value.event.customers >= 1000) {

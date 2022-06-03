@@ -8,7 +8,7 @@ const client = new Client({ username: "BurgerBot", password: process.env["Pass"]
 
 const noop = () => { };
 
-const VersionSay = `1. Bug fixes`
+const VersionSay = `1. Event fix!`
 
 client.onPost = async (post) => {
   var Connected = false
@@ -20,6 +20,12 @@ client.onPost = async (post) => {
       Connected = false
     }
   })
+  if (pp.includes('refreshburger')) {
+    const d111111 = await getUserDataManager(post.author.id)
+    if (d111111.value.rank == 'Owner') {
+      process.exit()
+    }
+  }
   if (pp.includes(START)) {
     Connected = true
     setTimeout(async function( ) {
@@ -49,7 +55,7 @@ client.onPost = async (post) => {
               d1.value.credits += 25
               d1.value.version = 3
               d1.value.net = 0
-              chat.reply(`Welcome to Season ${SeasonNum} (${SeasonName})! You got yourself 25 credits! (you are back to level 1!)`)
+              post.chat(`Welcome to Season ${SeasonNum} (${SeasonName})! You got yourself 25 credits! (you are back to level 1!)`)
               setTimeout(function( ) {
                 d1.update()
               }, 2500)
@@ -61,14 +67,14 @@ client.onPost = async (post) => {
               d1.value.dank.tables = 0
               d1.value.space.tables = 0
               d1.value.birming.tables = 0
-              chat.reply(`Your data is now up to date!`)
+              post.chat(`Your data is now up to date!`)
               setTimeout(function( ) {
                 d1.update()
               }, 2500)
               break;
 
             default: 
-              chat.reply(`Hmm, it looks like there was an error (please report this to @Abooby | post has been disconnected)`)
+              post.chat(`Hmm, it looks like there was an error (please report this to @Abooby | post has been disconnected)`)
               post.disconnect()
           }
         }
@@ -79,7 +85,7 @@ client.onPost = async (post) => {
             d1.value.event.customers = 1
             d1.value.event.workers = 0
             d1.value.event.wage = 0
-            chat.reply(`Your spot was switched to the city due to the spot event ending...`)
+            post.chat(`Your spot was switched to the city due to the spot event ending...`)
             setTimeout(async function( ) {
               d1.update()
             }, 2500)
@@ -188,11 +194,32 @@ client.onPost = async (post) => {
               }, 60000)
             }
             break;
+          case 'birming':
+            if (d1.value.birming.coowner == true) {
+              var i = setInterval(async function( ) {
+                var earn = 0
+                if (event.name == 'Co-Owner Event') {
+                  earn = await f('workbirming', post.author.id) / 3 * 2
+                } else {
+                  earn = await f('workbirming', post.author.id) / 3
+                }
+                if (earn >= 500) {
+                  d1.value.birming.money += earn
+                  d1.value.net += earn
+                  setTimeout(function( ) {
+                    d1.update()
+                  }, 2500)
+                } else {
+                  clearInterval(i)
+                }
+              }, 60000)
+            }
+            break;
         }
       } else {
         const d = await JSON.stringify(defaultData)
         db.set(`v1/${post.author.id}`, d)
-        post.chat(`Welcome to BurgerBot Season ${SeasonNum} ${post.author.username}! Make sure to use b!help for help!`)
+        post.chat(`Welcome to BurgerBot Season ${SeasonNum} ${post.author.username}! Make sure to use b!help for help and to use b!change timezone <timezone> to change your timezone!`)
       }
     }, 2000)
   }
@@ -211,13 +238,13 @@ client.onReady = () => {
   setTimeout(async function( ) {
     const v = await db.get('Version')
     if (v != VersionID) {
-      const post = await client.post(`V${VersionID}: \n${VersionSay}`)
+      const post = await client.post(`V${VersionID}: \n${VersionSay}\n\nPost "startburger" to connect me!`)
       db.set('Version', VersionID)
       setTimeout(function( ) {
         post.chat('Have fun with the update!')
         post.disconnect()
         setTimeout(async function( ) {
-          const post = await client.groups['61c74569ae0b4b2a3897fce1'].post(`V${VersionID}: \n${VersionSay}`)
+          const post = await client.groups['61c74569ae0b4b2a3897fce1'].post(`V${VersionID}: \n${VersionSay}\n\nPost "startburger" to connect me!`)
           setTimeout(function( ) {
             post.chat('Have fun with the update!')
             post.disconnect()

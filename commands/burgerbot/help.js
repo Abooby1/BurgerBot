@@ -1,4 +1,4 @@
-import {event, Version, SeasonEnd, SeasonNum, getStuff, getLet} from "../../utils.js"
+import {event, Version, SeasonEnd, SeasonNum, getStuff, getLet, SeasonName, SeasonMulti} from "../../utils.js"
 import {db} from "../../database.js"
 
 const Help = {
@@ -12,14 +12,17 @@ const Help = {
       case "spot":
         chat.reply(`You can buy spots in b!change spot <spot you want to buy>! Each spot costs more credits!`)
         setTimeout(function( ) {
-          chat.reply(`Spots: "city" (free starter) | "beach" (5k credits) | "dank" (25k credits) | "space" (50k credits) | ******* (10k credits)`)
+          chat.reply(`Spots: "city" (free starter) | "beach" (5k credits) | "dank" (25k credits) | "space" (50k credits) | Birmingham (10k credits)`)
         }, 500)
         break;
       case "season":
-        chat.reply(`Season ${SeasonNum} ends: '${SeasonEnd}' | Earn rewards using b!claim season! (earn exp by working, events, and prestiging!)`)
+        chat.reply(`Season ${SeasonNum} (${SeasonName}) ends: '${SeasonEnd}' | Earn rewards using b!claim season! (Season Multiplier: '${SeasonMulti}' | earn exp by working, events, and prestiging!)`)
         break;
       case "credits":
         chat.reply(`You can use credits for buying spots and buying crates!`)
+        break;
+      case 'multiplier':
+        chat.reply(`The Season Multiplier adds to how much you earn from b!work and how many credits you earn when using b!claim season`)
         break;
       case "symbols":
       case "symbol":
@@ -52,6 +55,9 @@ const Help = {
           case "space":
             chat.reply(`Prestiging adds to your money earning (in the spot your prestiging in) | Requirements (Space Center): $100K, 50K customers, 5K workers!`)
             break;
+          case 'birming':
+            chat.reply(`Prestiging adds to your money earning (in the spot your prestiging in) | Requirements (Space Center): $200K, 100K customers, 10K workers!`)
+            break;
           case 'event':
             chat.reply(`Prestiging adds to your money earning (in the spot your prestiging in) | Requirements (Event Spot): $1K, 1k customers, 100 workers!`)
             break;
@@ -72,9 +78,9 @@ const Help = {
         //
       case "b!change":
       case "change":
-        chat.reply(`b!change <item> <value>: change something in your BurgerBot account! item: "normad" change the ad used in b!auto advert, "normwater": multipliers, "spot": change your spot!`)
+        chat.reply(`b!change <item> <value>: change something in your BurgerBot account! item: "normad" change the ad used in b!auto advert | "normwater": multipliers | "spot": change your spot!`)
         setTimeout(function( ) {
-          chat.reply(`"promote": add a supervisor, an accountant, or a co-owner!`)
+          chat.reply(`"promote": add a supervisor, an accountant, or a co-owner! | "server": change your server!`)
         }, 500)
         break;
       case 'changeinfo':
@@ -89,6 +95,9 @@ const Help = {
           case 'coowner':
             chat.reply(`The co-owner is good when you earn from autoing! It starts autoing and youll earn money every minute! (autoing started after connecting post)`)
             break;
+          case 'servers':
+          case 'server':
+            chat.reply(`You can change into the "asia", "global", "korean", "china", "japan", or "europe" server`)
           default:
             chat.reply(`Thats not a change command...`)
         }

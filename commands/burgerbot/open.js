@@ -42,6 +42,11 @@ const Open = {
                   userData.value.space.money += s
                   chat.reply(`You got $${s} (space) from ${quantity} Common Crate(s)`)
                   break;
+                case 'birming':
+                  s = getRandomInt(1, parseInt(c[1])) * quantity
+                  userData.value.birming.money += s
+                  chat.reply(`You got $${s} (birming) from ${quantity} Common Crate(s)`)
+                  break;
 
                 default:
                   chat.reply(`Hmm, looks like this spot doesnt support common crates...`)
@@ -71,6 +76,11 @@ const Open = {
                   s = getRandomInt(1, parseInt(c[1])) * quantity
                   userData.value.space.customers += s
                   chat.reply(`You got ${s} customer(s) (space) from ${quantity} Common Crate(s)`)
+                  break;
+                case 'birming':
+                  s = getRandomInt(1, parseInt(c[1])) * quantity
+                  userData.value.birming.customers += s
+                  chat.reply(`You got ${s} customer(s) (birming) from ${quantity} Common Crate(s)`)
                   break;
 
                 default:
@@ -119,6 +129,11 @@ const Open = {
                   userData.value.space.money += s
                   chat.reply(`You got $${s} (space) from ${quantity} Rare Crate(s)`)
                   break;
+                case 'birming':
+                  s = getRandomInt(1, parseInt(c[1])) * quantity
+                  userData.value.birming.money += s
+                  chat.reply(`You got $${s} (birming) from ${quantity} Rare Crate(s)`)
+                  break;
 
                 default:
                   chat.reply(`Hmm, looks like this spot doesnt support rare crates...`)
@@ -148,6 +163,11 @@ const Open = {
                   s = getRandomInt(1, parseInt(c[1])) * quantity
                   userData.value.space.customers += s
                   chat.reply(`You got ${s} customer(s) (space) from ${quantity} Rare Crate(s)`)
+                  break;
+                case 'birming':
+                  s = getRandomInt(1, parseInt(c[1])) * quantity
+                  userData.value.birming.customers += s
+                  chat.reply(`You got ${s} customer(s) (birming) from ${quantity} Rare Crate(s)`)
                   break;
 
                 default:
@@ -199,6 +219,11 @@ const Open = {
                   userData.value.space.money += s
                   chat.reply(`You got $${s} (space) from ${quantity} Epic Crate(s)`)
                   break;
+                case 'birming':
+                  s = getRandomInt(1, parseInt(c[1])) * quantity
+                  userData.value.birming.money += s
+                  chat.reply(`You got $${s} (birming) from ${quantity} Epic Crate(s)`)
+                  break;
 
                 default:
                   chat.reply(`Hmm, looks like this spot doesnt support epic crates...`)
@@ -228,6 +253,11 @@ const Open = {
                   s = getRandomInt(1, parseInt(c[1])) * quantity
                   userData.value.space.customers += s
                   chat.reply(`You got ${s} customer(s) (space) from ${quantity} Epic Crate(s)`)
+                  break;
+                case 'birming':
+                  s = getRandomInt(1, parseInt(c[1])) * quantity
+                  userData.value.birming.customers += s
+                  chat.reply(`You got ${s} customer(s) (birming) from ${quantity} Epic Crate(s)`)
                   break;
 
                 default:
@@ -280,6 +310,11 @@ const Open = {
                   userData.value.space.money += s
                   chat.reply(`You got $${s} (space) from ${quantity} Legendary Crate(s)`)
                   break;
+                case 'birming':
+                  s = getRandomInt(1, parseInt(c[1])) * quantity
+                  userData.value.birming.money += s
+                  chat.reply(`You got $${s} (birming) from ${quantity} Legendary Crate(s)`)
+                  break;
 
                 default:
                   chat.reply(`Hmm, looks like this spot doesnt support legendary crates...`)
@@ -309,6 +344,11 @@ const Open = {
                   s = getRandomInt(1, parseInt(c[1])) * quantity
                   userData.value.space.customers += s
                   chat.reply(`You got ${s} customer(s) (space) from ${quantity} Legendary Crate(s)`)
+                  break;
+                case 'birming':
+                  s = getRandomInt(1, parseInt(c[1])) * quantity
+                  userData.value.birming.customers += s
+                  chat.reply(`You got ${s} customer(s) (birming) from ${quantity} Legendary Crate(s)`)
                   break;
 
                 default:
@@ -341,7 +381,7 @@ const Open = {
               break;
             case 'money':
               s = getRandomInt(1, parseInt(c[1])) * quantity
-              userData.value.city.money += s//*******
+              userData.value.birming.money += s//*******
               chat.reply(`You got $${s} (${SeasonName}) from ${quantity} ${SeasonName} Crate(s)`)
               setTimeout(function( ) {
                 userData.update()
@@ -349,7 +389,7 @@ const Open = {
               break;
             case 'custom':
               s = getRandomInt(1, parseInt(c[1])) * quantity
-              userData.value.city.customers += s//*****
+              userData.value.birming.customers += s//*****
               chat.reply(`You got ${s} customer(s) (${SeasonName}) from ${quantity} ${SeasonName} Crate(s)`)
               setTimeout(function( ) {
                 userData.update()
