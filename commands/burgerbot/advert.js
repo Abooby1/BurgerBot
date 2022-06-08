@@ -49,6 +49,15 @@ const Advertise = {
             y = y * 5
           }
           break;
+        case 'summer':
+          if (userData.value.summer.money >= y / 2) {
+            t = true
+            y = y / 2
+          } else {
+            y = y / 2
+          }
+          break;
+          //event
         case "event":
           if (userData.value.event.money >= y / 2) {
             t = true
@@ -97,6 +106,13 @@ const Advertise = {
             userData.value.birming.workers += EarnedW
             userData.value.birming.wage += EarnedW * 51.15
             break;
+          case 'summer':
+            userData.value.summer.money -= y
+            userData.value.summer.customers += Earned
+            userData.value.summer.workers += EarnedW
+            userData.value.summer.wage += EarnedW * 5.12
+            break;
+            //event
           case "event":
             userData.value.event.money -= y
             userData.value.event.customers += Earned

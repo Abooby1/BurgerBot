@@ -12,7 +12,7 @@ ranks:
 */
 
 const specialRanks = {
-  "6154f0d0a8d6d106c5b869b6": "Owner",//3
+  "6154f0d0a8d6d106c5b869b6": "Premium",//3
   "60ca4bc6f6bf2c044d2c11e6": "Owner",
   
   "61f9afa941a9e239b62ec6f5": "Bot",
@@ -38,15 +38,13 @@ const specialRanks = {
 
   "628a66938b00f740041007fe": 'Banned',
   "61c6c9b3e1e6417b595d3dfc": 'Banned',
-  '6297fdf0f47a391ad514a437': 'Banned',
-
-  "622fb3400c9eb9061377ddda": 'Banned'//Yudz
+  '6297fdf0f47a391ad514a437': 'Banned'
 }
 
 export const defaultData = {
   rankshow: true,
   postuse: false,
-  version: 2,
+  version: 3,
 
   rank: "Normal",
   daily: 0,
@@ -63,10 +61,13 @@ export const defaultData = {
   dank: {money: 0, customers: 1, workers: 0, wage: 0, prestige: 1, normad: 'facebook', normwater: 'water1', supervisor: false, accountant: false, coowner: false},
   space: {money: 0, customers: 1, workers: 0, wage: 0, prestige: 1, normad: 'facebook', normwater: 'water1', supervisor: false, accountant: false, coowner: false},
   birming: {money: 0, customers: 1, workers: 0, wage: 0, prestige: 1, normad: 'facebook', normwater: 'water1', supervisor: false, accountant: false, coowner: false},
+  summer: {money: 0, customers: 1, workers: 0, wage: 0, prestige: 1},
   event: {money: 0, customers: 1, workers: 0, wage: 0},
   //
   
   troph: false,
+  buy: {month: 0, day: 0},
+  month: {number: 0, day: 0, next: ''},
 
   inbox: 0,
   inbox2: 0,

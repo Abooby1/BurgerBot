@@ -62,6 +62,10 @@ const Stats = {
           Say = `Birmingham | Money: $${getLet(userData.value.birming.money, 2)} | Workers: ${getLet(userData.value.birming.workers)} | Wage: $${getLet(c5, 2)} | Customers: ${getLet(userData.value.birming.customers)} | Prestige: ${userData.value.birming.prestige}`
         }
         break;
+
+      case 'summer':
+        Say = `Summer Spot | Money: $${getLet(userData.value.summer.money, 2)} | Workers: ${getLet(userData.value.summer.workers)} | Customers: ${getLet(userData.value.summer.customers)} | Prestige: ${userData.value.summer.prestige}`
+        break;
         
       case "event":
         Say = `Event Spot | Money: $${getLet(userData.value.event.money, 2)} | Workers: ${getLet(userData.value.event.workers)} | Customers: ${getLet(userData.value.event.customers)}`

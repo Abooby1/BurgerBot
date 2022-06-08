@@ -26,20 +26,41 @@ export async function getDay (tt) {
     case 'global':
       const d2 = await changeTimeZone(new Date(), 'America/New_York');
       return d2.getDate()
-    case 'korean':
-      const d3 = await changeTimeZone(new Date(), 'Asia/Seoul');
+    case 'africa':
+      const d3 = await changeTimeZone(new Date(), 'Africa/Abidjan');
       return d3.getDate()
-    case 'japan':
-      const d4 = await changeTimeZone(new Date(), 'Asia/Tokyo');
+    case 'antarctica':
+      const d4 = await changeTimeZone(new Date(), 'Antarctica/Casey');
       return d4.getDate()
-    case 'china':
-      const d5 = await changeTimeZone(new Date(), 'Asia/Shanghai');
+    case 'australia':
+      const d5 = await changeTimeZone(new Date(), 'Australia/Brisbane');
       return d5.getDate()
     case 'europe':
       const d6 = await changeTimeZone(new Date(), 'Europe/Copenhagen');
       return d6.getDate()
-    default:
-      return date.getDate()
+  }
+}
+
+export async function getMonth (tt) {
+  switch (tt) {
+    case 'asia':
+      const d1 = await changeTimeZone(new Date(), 'Asia/Singapore');
+      return d1.getMonth() + 1
+    case 'global':
+      const d2 = await changeTimeZone(new Date(), 'America/New_York');
+      return d2.getMonth() + 1
+    case 'africa':
+      const d3 = await changeTimeZone(new Date(), 'Africa/Abidjan');
+      return d3.getMonth() + 1
+    case 'antarctica':
+      const d4 = await changeTimeZone(new Date(), 'Antarctica/Casey');
+      return d4.getMonth() + 1
+    case 'australia':
+      const d5 = await changeTimeZone(new Date(), 'Australia/Brisbane');
+      return d5.getMonth() + 1
+    case 'europe':
+      const d6 = await changeTimeZone(new Date(), 'Europe/Copenhagen');
+      return d6.getMonth() + 1
   }
 }
 
@@ -48,10 +69,14 @@ export const Version = 3
 export const SeasonNum = 2
 export const SeasonEnd = "July 9"
 export const SeasonName = "Birmingham"
-export const VersionID = '2.03'
+export const SeasonSpot = 'birming'
+export const VersionID = '2.07'
+export const downtime = false
 export var Day = await getDay('global')
 export var event = {}
-export const d12d = true
+export const d12d = false
+export const DowntimeEnd = 'July 9'
+export const PremiumSpotID = {6: 'london'}
 
 export var QuestW = {}
 export var QuestS = {name: 'Work', desc: 'Work 500 times', max: 500}

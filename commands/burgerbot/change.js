@@ -19,6 +19,9 @@ const Change = {
         case "space":
           chat.reply(`Space Center | postuse: '${userData.value.postuse}' | normad: '${userData.value.space.normad}' | normwater: '${userData.value.space.normwater}'`);
           break;
+        case 'summer':
+          chat.reply(`Summer Spot | postuse: '${userData.value.postuse}' | normad: 'not supported...' | normwater: 'not supported...'`);
+          break;
         case "event":
           chat.reply(`Event Spot | postuse: '${userData.value.postuse}' | normad: 'not supported...' | normwater: 'not supported...'`);
           break;
@@ -199,7 +202,7 @@ const Change = {
         }
         break;
       case "spot":
-        const c = ["city", "beach", "dank", "space", "event", 'birming']
+        const c = ["city", "beach", "dank", "space", "event", 'birming', 'summer']
         if (c.includes(value.toLowerCase())) {
           if (!AutoW.includes(chat.author.id) && !AutoA.includes(chat.author.id) && !working.includes(chat.author.id)) {
             if (userData.value.spots.includes(value.toLowerCase())) {
@@ -266,6 +269,15 @@ const Change = {
                     chat.reply(`You dont have enough credits to buy a spot at Birmingham... (cost: 10k credits)`)
                   }
                   break;
+                case "summer":
+                  userData.value.spot = "summer"
+                  userData.value.spots.push('summer')
+                  chat.reply(`You now have the Summer Spot! Have fun!`)
+                  setTimeout(function( ) {
+                    userData.update()
+                  }, 2500)
+                  break;
+                  //event
                 case "event":
                   if (event.name == "Spot Event") {
                     userData.value.spot = "event"
@@ -279,7 +291,7 @@ const Change = {
                   break;
   
                 default:
-                  chat.reply(`Hmm, there was an error...`)
+                  chat.reply(`That spot isnt available...`)
                   break;
               }
             }
@@ -604,24 +616,24 @@ const Change = {
               userData.value.timezone = 'global'
               chat.reply(`You are now in the Global server!`)
               break;
-            case 'korean':
-              userData.value.timezone = 'korean'
-              chat.reply(`You are now in the Korean server!`)
+            case 'africa':
+              userData.value.timezone = 'africa'
+              chat.reply(`You are now in the Africa server!`)
               break;
-            case 'japan':
-              userData.value.timezone = 'japan'
-              chat.reply(`You are now in the Japan server!`)
+            case 'antarctica':
+              userData.value.timezone = 'antarctica'
+              chat.reply(`You are now in the Antarctica server!`)
               break;
-            case 'china':
-              userData.value.timezone = 'china'
-              chat.reply(`You are now in the China server!`)
+            case 'australia':
+              userData.value.timezone = 'australia'
+              chat.reply(`You are now in the Australia server!`)
               break;
             case 'europe':
               userData.value.timezone = 'europe'
               chat.reply(`You are now in the Europe server!`)
               break;
             default: 
-              chat.reply(`Thats not a timezone you can change to... ("asia", "global", "korean", "china", "japan", or "europe")`)
+              chat.reply(`Thats not a timezone you can change to... ("asia", "global", "africa", "antarctica", "australia", or "europe")`)
           }
         } else {
           chat.reply(`You already have a timezone set...`)

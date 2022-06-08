@@ -95,6 +95,24 @@ const Hire = {
           chat.reply(`You dont have enough to hire ${getLet(parseInt(value))} people... ($1.5k per person)`)
         }
         break;
+      case 'summer':
+        if (userData.value.summer.money >= 50 * parseInt(value)) {
+          userData.value.summer.workers += parseInt(value)
+          userData.value.summer.money -= 50 * parseInt(value)
+          userData.value.summer.wage += 5.12 * parseInt(value)
+          userData.value.exp += parseInt(value) * 3
+          if (parseInt(value) >= 2) {
+            chat.reply(`You hired ${getLet(parseInt(value))} people!`)
+          } else {
+            chat.reply(`You hired ${getLet(parseInt(value))} person!`)
+          }
+          setTimeout(function( ) {
+            userData.update()
+          }, 2500)
+        } else {
+          chat.reply(`You dont have enough to hire ${getLet(parseInt(value))} people... ($50 per person)`)
+        }
+        break;
         //event
       case "event":
         if (userData.value.event.money >= 50 * parseInt(value)) {

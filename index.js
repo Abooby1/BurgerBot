@@ -2,22 +2,63 @@ import { Client } from "photop-client";
 import { onChat } from "./commands_entry.js";
 import { START, PREFIX } from "./constants.js";
 import {db, defaultData, getUserDataManager} from "./database.js"
-import {Version, VersionID, SeasonNum, f, event, getRandomInt, SeasonName} from "./utils.js"
+import {Version, VersionID, SeasonNum, f, event, getRandomInt, SeasonName, downtime, DowntimeEnd} from "./utils.js"
 
 const client = new Client({ username: "BurgerBot", password: process.env["Pass"] }, { logSocketMessages: false });
 
 const noop = () => { };
 
-const VersionSay = `1. Event fix!`
+const VersionSay = `1. When theres an update and your post is connected, BurgerBot will now reconnect to the post!`
+
+async function main () {
+  const posts = JSON.parse(await db.get('posts'))
+  var times = 0
+  setInterval(async function( ) {
+    if (posts[times] != undefined) {
+      const post = client.getPostFromCache(posts[times])
+      if (post != undefined) {
+        setTimeout(async function( ) {
+          const pp = post.text.toLowerCase().split(' ')
+          post.chat('Im reconnected!')
+          await post.connect(120000, () => {
+            post.onChat = noop;
+            if (pp.includes(START)) {
+              post.chat("Bot has disconnected... Reason: inactivity")
+            }
+          })
+          post.onChat = (chat) => {
+            //
+            post.connect(120000, () => {
+              post.onChat = noop;
+              if (pp.includes(START)) {
+                post.chat("Bot has disconnected... Reason: inactivity")
+              }
+            })
+            onChat(client, chat);
+            //
+          }
+          posts.splice(posts.indexOf(posts[times]), 1)
+          db.set('posts', JSON.stringify(posts))
+          times += 1
+        }, 2500)
+      } else {
+        await posts.splice(posts.indexOf(posts[times]), 1)
+        db.set('posts', JSON.stringify(posts))
+        times += 1
+      }
+    }
+  }, 5000)
+}
 
 client.onPost = async (post) => {
-  var Connected = false
   const pp = post.text.toLowerCase().split(' ')
-  const resetTimeout = await post.connect(120000, () => {
+  const resetTimeout = await post.connect(120000, async () => {
     post.onChat = noop; //replace post.onChat to free up memory
     if (pp.includes(START)) {
       post.chat("Bot has disconnected... Reason: inactivity")
-      Connected = false
+      const posts = JSON.parse(await db.get('posts'))
+      posts.splice(post.id, 1)
+      db.set('posts', JSON.stringify(posts))
     }
   })
   if (pp.includes('refreshburger')) {
@@ -27,7 +68,11 @@ client.onPost = async (post) => {
     }
   }
   if (pp.includes(START)) {
-    Connected = true
+    const posts = JSON.parse(await db.get('posts'))
+    if (posts.indexOf(post.id) < 0) {
+      posts.push(post.id)
+      db.set('posts', JSON.stringify(posts))
+    }
     setTimeout(async function( ) {
       resetTimeout()
       const data = await db.get(`v1/${post.author.id}`) 
@@ -56,18 +101,6 @@ client.onPost = async (post) => {
               d1.value.version = 3
               d1.value.net = 0
               post.chat(`Welcome to Season ${SeasonNum} (${SeasonName})! You got yourself 25 credits! (you are back to level 1!)`)
-              setTimeout(function( ) {
-                d1.update()
-              }, 2500)
-              break;
-            case 3://version 4
-              d1.value.version = 4
-              d1.value.city.tables = 0
-              d1.value.beach.tables = 0
-              d1.value.dank.tables = 0
-              d1.value.space.tables = 0
-              d1.value.birming.tables = 0
-              post.chat(`Your data is now up to date!`)
               setTimeout(function( ) {
                 d1.update()
               }, 2500)
@@ -219,7 +252,7 @@ client.onPost = async (post) => {
       } else {
         const d = await JSON.stringify(defaultData)
         db.set(`v1/${post.author.id}`, d)
-        post.chat(`Welcome to BurgerBot Season ${SeasonNum} ${post.author.username}! Make sure to use b!help for help and to use b!change timezone <timezone> to change your timezone!`)
+        post.chat(`Welcome to BurgerBot Season ${SeasonNum} ${post.author.username}! Make sure to use b!help for help and to use b!change server <server> to change your server!`)
       }
     }, 2000)
   }
@@ -233,7 +266,7 @@ client.onPost = async (post) => {
   }
 }
 
-client.onReady = () => {
+client.onReady = async () => {
   console.log("Bot is ready!")
   setTimeout(async function( ) {
     const v = await db.get('Version')
@@ -252,6 +285,15 @@ client.onReady = () => {
         }, 2500)
       }, 1000)
     }
+  }, 100)
+  if (downtime == true) {
+    client.editor().setDescription(`Currently in downtime until ${DowntimeEnd}... \n\nMade by @Abooby`).save()
+  } else {
+    client.editor().setDescription(`Online with V${VersionID} \nSeason ${SeasonNum} (${SeasonName})\n\nMake sure to connect me by posting "startburger"\nBot made by @Abooby`).save()
+  }
+  //post saving
+  let interval = setInterval(()=>{
+    if (client._network.simpleSocket.secureID) {main(); clearInterval(interval)}
   }, 100)
 }
 

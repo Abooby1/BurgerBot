@@ -153,6 +153,30 @@ const Prestige = {
           chat.reply(`You need 10k workers to prestige...`)
         }
         break;
+      case 'summer':
+        if (userData.value.summer.workers >= 1000) {
+          if (userData.value.summer.customers >= 5000) {
+            if (userData.value.summer.money >= 10000) {
+              userData.value.exp += 15
+              userData.value.summer.money = 0
+              userData.value.summer.workers = 0
+              userData.value.summer.customers = 1
+              userData.value.summer.prestige += 1
+              userData.value.summer.wage = 0
+              chat.reply(`You have prestiged! You will now earn more money!`)
+              setTimeout(function( ) {
+                userData.update()
+              }, 2500)
+            } else {
+              chat.reply(`You need $10k to prestige...`)
+            }
+          } else {
+            chat.reply(`You need 5k customers to prestige...`)
+          }
+        } else {
+          chat.reply(`You need 1k workers to prestige...`)
+        }
+        break;
         //event
       case "event":
         if (userData.value.event.workers >= 100) {

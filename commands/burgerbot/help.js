@@ -12,7 +12,7 @@ const Help = {
       case "spot":
         chat.reply(`You can buy spots in b!change spot <spot you want to buy>! Each spot costs more credits!`)
         setTimeout(function( ) {
-          chat.reply(`Spots: "city" (free starter) | "beach" (5k credits) | "dank" (25k credits) | "space" (50k credits) | Birmingham (10k credits)`)
+          chat.reply(`Spots: "city" (free starter) | "beach" (5k credits) | "dank" (25k credits) | "space" (50k credits) | "birming" (10k credits) | "summer" (FREE)`)
         }, 500)
         break;
       case "season":
@@ -58,6 +58,9 @@ const Help = {
           case 'birming':
             chat.reply(`Prestiging adds to your money earning (in the spot your prestiging in) | Requirements (Space Center): $200K, 100K customers, 10K workers!`)
             break;
+          case 'summer':
+            chat.reply(`Prestiging adds to your money earning (in the spot your prestiging in) | Requirements (Summer Spot): $10K, 5k customers, 1k workers!`)
+            break;
           case 'event':
             chat.reply(`Prestiging adds to your money earning (in the spot your prestiging in) | Requirements (Event Spot): $1K, 1k customers, 100 workers!`)
             break;
@@ -97,7 +100,7 @@ const Help = {
             break;
           case 'servers':
           case 'server':
-            chat.reply(`You can change into the "asia", "global", "korean", "china", "japan", or "europe" server`)
+            chat.reply(`You can change into the "asia", "global", "africa", "antarctica", "australia", or "europe" server`)
           default:
             chat.reply(`Thats not a change command...`)
         }
@@ -113,6 +116,9 @@ const Help = {
         chat.reply(`b!advert <item>: item: "facebook": facebook ADS, "flier": flier ADS, "radio": radio ADS, "mobile": mobile ADS, "tiktok": tiktok ADS, "youtube": youtube ADS, "tv": tv ADS`)
         setTimeout(function( ) {
           chat.reply(`"uhaul": uhaul truck ADS, "billboard": billboard ADS, "superbowl": superbowl ADS, "photopbots": photop bot ADS, "dank": dank memer ADS | "movie": movie ADS`)
+          setTimeout(function( ) {
+            chat.reply(`"birming": Birmingham ADS`)
+          }, 100)
         }, 100)
         break;
       case 'advertinfo':
@@ -129,7 +135,13 @@ const Help = {
               chat.reply(`Danker Land | Cost: $${getLet(i.cost * 3, 2)} | Max gain: ${getLet(i.earn)} | Chance of gaining worker: 1/${i.chance}`)
               break;
             case 'space':
-              chat.reply(`Space | Cost: $${getLet(i.cost * 4, 2)} | Max gain: ${getLet(i.earn)} | Chance of gaining worker: 1/${i.chance}`)
+              chat.reply(`Space Center | Cost: $${getLet(i.cost * 4, 2)} | Max gain: ${getLet(i.earn)} | Chance of gaining worker: 1/${i.chance}`)
+              break;
+            case 'birming':
+              chat.reply(`Birmingham | Cost: $${getLet(i.cost * 5, 2)} | Max gain: ${getLet(i.earn)} | Chance of gaining worker: 1/${i.chance}`)
+              break;
+            case 'summer':
+              chat.reply(`Summer Spot | Cost: $${getLet(i.cost / 2, 2)} | Max gain: ${getLet(i.earn)} | Chance of gaining worker: 1/${i.chance}`)
               break;
             case 'event':
               chat.reply(`Event Spot | Cost: $${getLet(i.cost / 2, 2)} | Max gain: ${getLet(i.earn)} | Chance of gaining worker: 1/${i.chance}`)
