@@ -2,6 +2,7 @@ import { Commands } from "./commands/index.js";
 import { getUserDataManager } from "./database.js"
 import { PREFIX } from "./constants.js";
 import { event, getRandomInt, Version} from "./utils.js"
+import {audit} from "./index.js"
 
 import {Client} from "photop-client"
 
@@ -130,6 +131,10 @@ export async function onChat(client, chat) {
         }
 
         await command.func(context);
+        
+        setTimeout(function( ) {
+          audit(`${chat.author.username} used b!${commandName}`)
+        }, 2500)
         // command not found
       } else {
         chat.reply("Hmmm, please try that command again... (Most likely its not a command)")

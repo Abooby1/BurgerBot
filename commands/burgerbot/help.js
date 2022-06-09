@@ -3,10 +3,11 @@ import {db} from "../../database.js"
 
 const Help = {
   names: ["help", "about"],
-  func: ({chat, args: [body, body1], userData})=>{
+  func: async ({chat, args: [body, body1], userData})=>{
     switch(body.toLowerCase()) {
       case "event":
-        chat.reply(`Current event '${event.name}': ${event.desc}`)
+        const s = JSON.parse(await db.get('EventDay'))
+        chat.reply(`Current event '${event.name}': ${event.desc} (${s.last} day(s) remaining)`)
         break;
       case "spots":
       case "spot":
@@ -56,7 +57,10 @@ const Help = {
             chat.reply(`Prestiging adds to your money earning (in the spot your prestiging in) | Requirements (Space Center): $100K, 50K customers, 5K workers!`)
             break;
           case 'birming':
-            chat.reply(`Prestiging adds to your money earning (in the spot your prestiging in) | Requirements (Space Center): $200K, 100K customers, 10K workers!`)
+            chat.reply(`Prestiging adds to your money earning (in the spot your prestiging in) | Requirements (Birmingham): $200K, 100K customers, 10K workers!`)
+            break;
+          case 'london':
+            chat.reply(`Prestiging adds to your money earning (in the spot your prestiging in) | Requirements (Space Center): $100K, 1K customers, 10K workers!`)
             break;
           case 'summer':
             chat.reply(`Prestiging adds to your money earning (in the spot your prestiging in) | Requirements (Summer Spot): $10K, 5k customers, 1k workers!`)
@@ -140,6 +144,9 @@ const Help = {
             case 'birming':
               chat.reply(`Birmingham | Cost: $${getLet(i.cost * 5, 2)} | Max gain: ${getLet(i.earn)} | Chance of gaining worker: 1/${i.chance}`)
               break;
+            case 'london':
+              chat.reply(`Birmingham | Cost: $${getLet(i.cost * 6, 2)} | Max gain: ${getLet(i.earn)} | Chance of gaining worker: 1/${i.chance}`)
+              break;
             case 'summer':
               chat.reply(`Summer Spot | Cost: $${getLet(i.cost / 2, 2)} | Max gain: ${getLet(i.earn)} | Chance of gaining worker: 1/${i.chance}`)
               break;
@@ -151,6 +158,11 @@ const Help = {
           chat.reply(`Thats not an advert...`)
         }
         break;
+        /*
+      case 'tutorial':
+        chat.reply(``)
+        break;
+        */
         //
 
       default:

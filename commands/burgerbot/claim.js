@@ -8,8 +8,13 @@ const Claim = {
     if (userData.value.timezone != undefined) {
       /*
       if (getRandomInt(1, 1000) == 1) {
-        chat.reply(`You got the seasons spot! (first spot)`)
-        userData.value.spots.push(SeasonSpot)
+        if (!userData.value.spots.includes(SeasonSpot)) {
+          userData.value.spots.push(SeasonSpot)
+          chat.reply(`You got the seasons spot!`)
+        } else {
+          chat.reply(`You got 50 credits!`)
+          userData.value.credits += 50
+        }
         setTimeout(function( ) {
           userData.update()
         }, 2500)

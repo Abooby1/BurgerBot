@@ -1,5 +1,6 @@
 import { defaultData, getUserDataManager, db } from "../../database.js";
 import {getDay} from '../../utils.js'
+import {audit} from "../../index.js"
 
 const isNaN = function(value) {
     const n = Number(value);
@@ -8,73 +9,59 @@ const isNaN = function(value) {
 
 const TempBan = {
   names: ["ban"],
-  func: async ({chat, client, args: [name, time]})=>{
+  func: async ({chat, client, args: [name]})=>{
     
     const user = await client.getUserFromUsername(name)
-    if (name != "" && time != "" && name != "Abooby" && user != undefined) {
+    if (name != "" && name != "Abooby" && user != undefined) {
       const ID = user.id
       var data = await getUserDataManager(ID)
-      const dbdata = JSON.parse(await db.get('Banned'))
-      if (dbdata[ID] != undefined) {
-        if (typeof time != 'String') {
-          dbdata[ID].time += time
-          chat.reply(`I have added ${time} seconds into ${name}'s ban time`)
-          if (dbdata[ID].start == false) {
-            var i = setInterval(function( ) {
-              if (dbdata[ID].time > 0) {
-                dbdata[ID].time -= 1
-                db.set('Banned', JSON.stringify(dbdata))
-              } else {
-                data.value.rank = dbdata[ID].rank
-                dbdata[ID].start = false
-                dbdata[ID].time = 0
-                db.set('Banned', JSON.stringify(dbdata))
-                clearInterval(i)
-                setTimeout(function( ) {
-                  data.update()
-                }, 2500)
-              }
-            }, 1000)
-          }
-        } else {
-          chat.reply(`You didnt specify a number...`)
-        }
-      } else {
-        if (typeof time != 'String') {
-         dbdata[ID] = {rank: data.value.rank, time: time, start: true}
-        } else {
-          if (time == 'perm' || time == 'perma') {
-            dbdata[ID] = {rank: data.value.rank, time: 'perma', start: false}
-          }
-        }
-        await db.set('Banned', JSON.stringify(dbdata))
+      var dbdata = JSON.parse(await db.get('Banned'))
+      if (!dbdata.includes(ID)) {
+        dbdata.push(ID)
+        audit(`${chat.author.username} banned ${name}`)
+        db.set('Banned', JSON.stringify(dbdata))
+        chat.reply(`You banned ${name}`)
         data.value.rank = 'Banned'
-        chat.reply(`I have banned ${name} for ${time} seconds!`)
         setTimeout(function( ) {
           data.update()
         }, 2500)
-        var i = setInterval(function( ) {
-          if (dbdata[ID] != undefined) {
-            if (dbdata[ID].time > 0) {
-              dbdata[ID].time -= 1
-              db.set('Banned', JSON.stringify(dbdata))
-            } else {
-              data.value.rank = dbdata[ID].rank
-              dbdata[ID].start = false
-              dbdata[ID].time = 0
-              db.set('Banned', JSON.stringify(dbdata))
-              clearInterval(i)
-              setTimeout(function( ) {
-                data.update()
-              }, 2500)
-            }
-          }
-        }, 1000)
+      } else {
+        chat.reply(`That person is already banned...`)
       }
-
     } else {
       chat.reply("There has been an error, please check the chat...")
-      console.log(`${chat.author.username} had an error banning someone...`)
+      audit(`${chat.author.username} had an error banning someone`)
+    }
+  },
+  description: "Temp bans someone",
+  hidden: true,
+  permission: rank => rank == "Owner" || rank == "Mod"
+};
+
+const TempBan2 = {
+  names: ["unban"],
+  func: async ({chat, client, args: [name]})=>{
+    
+    const user = await client.getUserFromUsername(name)
+    if (name != "" && name != "Abooby" && user != undefined) {
+      const ID = user.id
+      var data = await getUserDataManager(ID)
+      var dbdata = JSON.parse(await db.get('Banned'))
+      if (dbdata.includes(ID)) {
+        dbdata.splice(dbdata.indexOf(ID), 1)
+        audit(`${chat.author.username} unbanned ${name}`)
+        db.set('Banned', JSON.stringify(dbdata))
+        chat.reply(`You unbanned ${name}`)
+        data.applyRanks();
+        setTimeout(function( ) {
+          data.update()
+        }, 2500)
+      } else {
+        chat.reply(`That person is not banned...`)
+      }
+    } else {
+      chat.reply("There has been an error, please check the chat...")
+      audit(`${chat.author.username} had an error unbanning someone`)
     }
   },
   description: "Temp bans someone",
@@ -249,4 +236,4 @@ const AddSpot = {
   permission: "Owner"
 };
 
-export {SetMoney, TempBan, SetCustoms, SetWorker, ResetData, AddSpot, SetPrestige, SetCredit, AddSay}
+export {SetMoney, TempBan, SetCustoms, SetWorker, ResetData, AddSpot, SetPrestige, SetCredit, AddSay, TempBan2}

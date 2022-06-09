@@ -2,7 +2,7 @@ import {getUserDataManager, db} from "./database.js"
 
 const date = new Date()
 
-function changeTimeZone(date, timeZone) {
+export function changeTimeZone(date, timeZone) {
   if (typeof date === 'string') {
     return new Date(
       new Date(date).toLocaleString('en-US', {
@@ -70,7 +70,7 @@ export const SeasonNum = 2
 export const SeasonEnd = "July 9"
 export const SeasonName = "Birmingham"
 export const SeasonSpot = 'birming'
-export const VersionID = '2.07'
+export const VersionID = '2.08'
 export const downtime = false
 export var Day = await getDay('global')
 export var event = {}
@@ -86,7 +86,7 @@ function getEvent (n) {
     case 1:
       return {
         name: "Spot Event",
-        desc: "The spot event adds a spot you can freely change to using <b!change spot event>! (when prestiging, you will get the rewards | lasts for 5 days)",
+        desc: "The spot event adds a spot you can freely change to using <b!change spot event>! (when prestiging, you will get the rewards)",
       
         last: 5,
         earn: null
@@ -94,7 +94,7 @@ function getEvent (n) {
     case 2:
       return {
         name: "Command Event",
-        desc: "The command event adds to b!claim! To claim rewards use <b!claim event> (lasts for 2 days)",
+        desc: "The command event adds to b!claim! To claim rewards use <b!claim event>",
       
         last: 2,
         earn: null
@@ -102,7 +102,7 @@ function getEvent (n) {
     case 3:
       return {
         name: "Worker Event",
-        desc: "The worker event cuts your wage by half! (during the event | lasts for 2 days)",
+        desc: "The worker event cuts your wage by half! (during the event)",
       
         last: 2,
         earn: null
@@ -110,7 +110,7 @@ function getEvent (n) {
     case 4:
       return {
         name: "Advert Event",
-        desc: "The advert event cuts the price of adverts by half! (during the event | lasts for 2 days)",
+        desc: "The advert event cuts the price of adverts by half! (during the event)",
       
         last: 2,
         earn: null
@@ -118,7 +118,7 @@ function getEvent (n) {
     case 5:
       return {
         name: "Claim Event",
-        desc: "The claim event adds to the credits earned in b!claim <rank>! (lasts for 7 days)",
+        desc: "The claim event adds to the credits earned in b!claim <rank>!",
       
         last: 7,
         earn: null
@@ -126,7 +126,7 @@ function getEvent (n) {
     case 6:
       return {
         name: "Reward Event",
-        desc: "The reward event gives you rewards for using BurgerBot! (lasts for 3 days)",
+        desc: "The reward event gives you rewards for using BurgerBot!",
       
         last: 3,
         earn: ["worker", "customs", "credits", "exp"]
@@ -135,7 +135,7 @@ function getEvent (n) {
     case 7:
       return {
         name: 'Co-Owner Event',
-        desc: 'The co-owner event makes the money earned from the co-owner doubled! (lasts for 2 days)',
+        desc: 'The co-owner event makes the money earned from the co-owner doubled!',
 
         last: 2,
         earn: null
@@ -144,7 +144,7 @@ function getEvent (n) {
     case 'ESE':
       return {
         name: 'End of Season Event',
-        desc: 'The End of Season Event gives you a lot of exp for using commands and working! (lasts for the rest of the season)',
+        desc: 'The End of Season Event gives you a lot of exp for using commands and working!',
 
         last: 0,
         earn: null
@@ -153,14 +153,14 @@ function getEvent (n) {
     case 'SSE':
       return {
         name: 'Start of Season Event',
-        desc: 'The Start of Season Event gives you rewards every 1 minute of your post being connected! (lasts for 4 days)',
+        desc: 'The Start of Season Event gives you rewards every 1 minute of your post being connected!',
 
         last: 4,
         earn: ['credits', 'exp']
       }
 
     default:
-      return {name: 'None...', desc: 'No event today :('}
+      return {name: 'None...', desc: 'No event today :(', last: 1}
   }
 }
 
@@ -170,7 +170,15 @@ function getQuest (n) {
       return {
         name: 'Work Quest',
         desc: 'Work until completed!',
-        earn: ['money 10', 'credits 2']
+        earn: ['money 10', 'credits 2'],
+        max: getRandomInt(10, 25)
+      }
+    case 2:
+      return {
+        name: 'Advert Quest',
+        desc: 'Get customers from adverts until completed!',
+        earn: ['money 100', 'credits 25'],
+        max: getRandomInt(100, 250)
       }
   }
 }
@@ -188,16 +196,14 @@ setInterval(async function( ) {
       d.last -= 1
       d.day = Day
       event = getEvent(d.num)
-      const d1 = JSON.stringify(d)
-      db.set('EventDay', await d1)
+      db.set('EventDay', JSON.stringify(d))
     } else {
       const n = getRandomInt(1, 7)
       event = await getEvent(n)
       d.last = event.last
       d.day = Day
       d.num = n
-      const d1 = JSON.stringify(d)
-      db.set('EventDay', await d1)
+      db.set('EventDay', JSON.stringify(d))
     }
   } else {
     event = getEvent(d.num)
@@ -207,13 +213,29 @@ setInterval(async function( ) {
 /*
 setInterval(async function( ) {
   var da = JSON.parse(await db.get('QuestDay'))
-  if (Day > da.day) {
-    
+  if (Day != da.day) {
+    if (d.last > 1) {
+      da.last -= 1
+      da.day = Day
+      QuestW = getQuest(da.num)
+      db.set('QuestDay', JSON.stringify(da))
+    } else {
+      const gina = getRandomInt(1, 2)
+      QuestW = await getQuest(gina)
+      da.last = 7
+      da.day = Day
+      da.num = gina
+      db.set('QuestDay', JSON.stringify(da))
+    }
   } else {
-    QuestW = getQuest(da.num)
+    QuestW = await getQuest(da.num)
   }
 }, 100)
 */
+
+export function p(value1, value2) {
+  return (100 * value1) / value2;
+}
 
 export function getLet(num, other) {
   if (num >= 1000000000000000000000000) {
@@ -722,17 +744,44 @@ export async function f (type, uid) {
       var w10 = 0
       var a3 = 0
       if (event.name == "Advert Event") {
-        a3 = getStuff(userData.value.space.normad).cost * 6 / 2
+        a3 = getStuff(userData.value.birming.normad).cost * 6 / 2
       } else {
-        a3 = getStuff(userData.value.space.normad).cost * 6
+        a3 = getStuff(userData.value.birming.normad).cost * 6
       }
       if (event.name == "Worker Event") {
-        w10 = userData.value.space.wage / 2
+        w10 = userData.value.birming.wage / 2
       } else {
-        w10 = userData.value.space.wage
+        w10 = userData.value.birming.wage
       }
-      const c6 = a3 * userData.value.space.workers + w10
+      const c6 = a3 * userData.value.birming.workers + w10
       return c6
+      break;
+
+    case "worklondon":
+      var w11 = 0
+      if (event.name == "Worker Event") {
+        w11 = userData.value.london.wage / 2
+      } else {
+        w11 = userData.value.london.wage
+      }
+      return userData.value.london.workers * userData.value.london.prestige * 0.01 * userData.value.london.customers - w11
+      break;
+      
+    case "advertlondon":
+      var w12 = 0
+      var a4 = 0
+      if (event.name == "Advert Event") {
+        a4 = getStuff(userData.value.london.normad).cost * 6 / 2
+      } else {
+        a4 = getStuff(userData.value.london.normad).cost * 6
+      }
+      if (event.name == "Worker Event") {
+        w12 = userData.value.london.wage / 2
+      } else {
+        w12 = userData.value.london.wage
+      }
+      const c7 = a4 * userData.value.london.workers + w12
+      return c7
       break;
 
     default: 

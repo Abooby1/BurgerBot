@@ -95,6 +95,35 @@ const Prestige = {
           chat.reply(`You need 2k workers to prestige...`)
         }
         break;
+       case "london":
+        if (userData.value.london.customers >= 10000) {
+          if (userData.value.london.customers >= 1000) {
+            if (userData.value.london.money >= 100000) {
+              userData.value.london.prestige += 1
+              userData.value.exp += 60
+              userData.value.london.money = 2 * userData.value.london.prestige
+              userData.value.london.workers = 0
+              userData.value.london.customers = 1
+              userData.value.london.normad = "facebook"
+              userData.value.london.normwater = 'water1'
+              userData.value.london.wage = 0
+              userData.value.london.supervisor = false
+              userData.value.london.accountant = false
+              userData.value.london.coowner = false
+              chat.reply(`You have prestiged! You will now earn more money!`)
+              setTimeout(async function( ) {
+                userData.update()
+              }, 2500)
+            } else {
+              chat.reply(`You need $100K to prestige...`)
+            }
+          } else {
+            chat.reply(`You need 1K customers to prestige...`)
+          }
+        } else {
+          chat.reply(`You need 10K workers to prestige...`)
+        }
+        break;
       case "space":
         if (userData.value.space.workers >= 5000) {
           if (userData.value.space.customers >= 50000) {

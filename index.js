@@ -2,13 +2,24 @@ import { Client } from "photop-client";
 import { onChat } from "./commands_entry.js";
 import { START, PREFIX } from "./constants.js";
 import {db, defaultData, getUserDataManager} from "./database.js"
-import {Version, VersionID, SeasonNum, f, event, getRandomInt, SeasonName, downtime, DowntimeEnd} from "./utils.js"
+import {Version, VersionID, SeasonNum, f, event, getRandomInt, SeasonName, downtime, DowntimeEnd, changeTimeZone} from "./utils.js"
 
 const client = new Client({ username: "BurgerBot", password: process.env["Pass"] }, { logSocketMessages: false });
 
 const noop = () => { };
 
-const VersionSay = `1. When theres an update and your post is connected, BurgerBot will now reconnect to the post!`
+const VersionSay = `1. When you invite BurgerBot into a group, BurgerBot will join instantly!`
+
+export async function audit (m) {
+  const p = await client.getPost('62a0c26622eae87f3e7e4939')
+  p.chat(`${m} (${await changeTimeZone(new Date(), 'America/New_York').toLocaleString()})`)
+}
+
+client.onInvite = async (invite) => {
+  audit(`${invite.From} invited BurgerBot into ${invite.Name}`)
+  await client.joinGroup(invite._id)
+  client.groups[invite._id].post(`Im now in the ${invite.Name} group! Make sure to connect me by posting "startburger"! (All commands used are recorded | No AFKing/bot automations)`)
+}
 
 async function main () {
   const posts = JSON.parse(await db.get('posts'))
@@ -65,6 +76,8 @@ client.onPost = async (post) => {
     const d111111 = await getUserDataManager(post.author.id)
     if (d111111.value.rank == 'Owner') {
       process.exit()
+    } else {
+      post.chat(`You cant use this cmd...`)
     }
   }
   if (pp.includes(START)) {
@@ -77,14 +90,17 @@ client.onPost = async (post) => {
       resetTimeout()
       const data = await db.get(`v1/${post.author.id}`) 
       const d1 = await getUserDataManager(post.author.id)
+      const d2 = JSON.parse(await db.get('Banned'))
       const d12 = JSON.stringify(defaultData)
       const ddd = JSON.parse(await db.get('PostSay'))
       if (data != undefined) {
         if (ddd[post.author.id] != undefined) {
           post.chat(ddd[post.author.id])
+          audit(`${post.author.username} connected a post`)
         } else {
-          if (d1.value.rank != 'Banned') {
+          if (d1.value.rank != 'Banned' && !d2.includes(post.author.id)) {
             post.chat(`Im now connected to your post ${post.author.username}! (use b!help for help!)`)
+            audit(`${post.author.username} connected a post`)
           } else {
             post.chat('Sorry... Youre banned from BurgerBot...')
             post.disconnect()
@@ -248,18 +264,43 @@ client.onPost = async (post) => {
               }, 60000)
             }
             break;
+          case 'london':
+            if (d1.value.london.coowner == true) {
+              var i = setInterval(async function( ) {
+                var earn = 0
+                if (event.name == 'Co-Owner Event') {
+                  earn = await f('worklondon', post.author.id) / 3 * 2
+                } else {
+                  earn = await f('worklondon', post.author.id) / 3
+                }
+                if (earn >= 500) {
+                  d1.value.london.money += earn
+                  d1.value.net += earn
+                  setTimeout(function( ) {
+                    d1.update()
+                  }, 2500)
+                } else {
+                  clearInterval(i)
+                }
+              }, 60000)
+            }
+            break;
         }
       } else {
         const d = await JSON.stringify(defaultData)
         db.set(`v1/${post.author.id}`, d)
         post.chat(`Welcome to BurgerBot Season ${SeasonNum} ${post.author.username}! Make sure to use b!help for help and to use b!change server <server> to change your server!`)
+        audit(`${post.author.username} made an account`)
       }
     }, 2000)
   }
 
   post.onChat = (chat) => {
     if (pp.includes(START)) {
-      if (chat.text.startsWith('pls')) {setTimeout(function() {chat.reply(`Really?! This aint @DankMemer...`)}, 750)}
+      if (chat.text.startsWith('pls')) {setTimeout(function() {
+        chat.reply(`Really?! This aint @DankMemer...`); 
+        audit(`${post.author.username} used "pls" instead of "b!"`);}, 750)
+      }
       resetTimeout();
       onChat(client, chat);
     }
@@ -293,7 +334,10 @@ client.onReady = async () => {
   }
   //post saving
   let interval = setInterval(()=>{
-    if (client._network.simpleSocket.secureID) {main(); clearInterval(interval)}
+    if (client._network.simpleSocket.secureID) {
+      main();
+      clearInterval(interval)
+    }
   }, 100)
 }
 

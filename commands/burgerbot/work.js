@@ -135,6 +135,38 @@ const Work = {
           }, 2500)
         }, body * 1000)
         break;
+      case "london":
+        body = parseFloat(body) || 30;
+        if (body * 1 > 30 || body < 0) {
+          chat.reply(`You cant work that many hours... (max: '30')`)
+          break;
+        }
+        working.push(chat.author.id)
+        setTimeout(function( ) {
+          userData.update()
+        }, 2500)
+        chat.reply(`You started working for ${body} hours (time: ${body} seconds)`)
+        
+        setTimeout(function( ) {
+          var Earned = body * userData.value.london.prestige * 0.01 * userData.value.london.customers * SeasonMulti
+          userData.value.london.money += Earned
+          userData.value.net += Earned
+          if (event.name == 'End of Season Event') {
+            userData.value.exp += 30
+          } else {
+            if (d12d == false) {
+              userData.value.exp += 10
+            } else {
+              userData.value.exp += 15
+            }
+          }
+          chat.reply(`You worked for ${body} hours and earned $${getLet(Earned, 2)}!`)
+          working.splice(working.indexOf(chat.author.id), 1)
+          setTimeout(function( ) {
+            userData.update()
+          }, 2500)
+        }, body * 1000)
+        break;
       case "birming":
         body = parseFloat(body) || 24;
         if (body * 1 > 24 || body < 0) {

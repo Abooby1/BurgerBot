@@ -1,5 +1,5 @@
 import {getUserDataManager, db} from "../../database.js";
-import {getLet, getStuff, f, SeasonEnd, SeasonNum, SeasonName} from "../../utils.js"
+import {getLet, getStuff, f, SeasonEnd, SeasonNum, SeasonName, getPoints} from "../../utils.js"
 
 const Stats = {
   names: ["stats", "stat"],
@@ -14,12 +14,15 @@ const Stats = {
     const earn8 = await f('advertspace', chat.author.id)
     const earn9 = await f('workbirming', chat.author.id)
     const earn10 = await f('advertbirming', chat.author.id)
+    const earn11 = await f('worklondon', chat.author.id)
+    const earn12 = await f('advertlondon', chat.author.id)
 
     const c1 = userData.value.city.wage
     const c2 = userData.value.beach.wage
     const c3 = userData.value.dank.wage
     const c4 = userData.value.space.wage
     const c5 = userData.value.birming.wage
+    const c6 = userData.value.london.wage
     var Say = ``
 
     switch (userData.value.spot.toLowerCase()) {
@@ -61,6 +64,18 @@ const Stats = {
         } else {
           Say = `Birmingham | Money: $${getLet(userData.value.birming.money, 2)} | Workers: ${getLet(userData.value.birming.workers)} | Wage: $${getLet(c5, 2)} | Customers: ${getLet(userData.value.birming.customers)} | Prestige: ${userData.value.birming.prestige}`
         }
+        break;
+
+      case "london":
+        if (userData.value.london.accountant == true) {
+          Say = `London | Money: $${getLet(userData.value.london.money, 2)} | Workers: ${getLet(userData.value.london.workers)} | Wage: $${getLet(c6, 2)} | Customers: ${getLet(userData.value.london.customers)} | Prestige: ${userData.value.london.prestige} | Earn (b!auto w): $${getLet(earn11, 2)} | Cost (b!auto a): $${getLet(earn12, 2)}`
+        } else {
+          Say = `London | Money: $${getLet(userData.value.london.money, 2)} | Workers: ${getLet(userData.value.london.workers)} | Wage: $${getLet(c6, 2)} | Customers: ${getLet(userData.value.london.customers)} | Prestige: ${userData.value.london.prestige}`
+        }
+        break;
+
+      case 'arena':
+        Say = `Arena | Money: $${getLet(userData.value.arena.money, 2)} | Workers: ${getLet(userData.value.arena.workers)} | Customers: ${getLet(userData.value.arena.customers)} | Prestige: ${userData.value.arena.prestige} | Rank: ${userData.value.arena.points}/${getPoints(userData.value.arena.rank)} (${userData.value.arena.rank})`
         break;
 
       case 'summer':
