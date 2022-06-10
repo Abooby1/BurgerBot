@@ -14,7 +14,7 @@ const Help = {
         chat.reply(`You can buy spots in b!change spot <spot you want to buy>! Each spot costs more credits!`)
         setTimeout(function( ) {
           chat.reply(`Spots: "city" (free starter) | "beach" (5k credits) | "dank" (25k credits) | "space" (50k credits) | "birming" (10k credits) | "summer" (FREE)`)
-        }, 500)
+        }, 100)
         break;
       case "season":
         chat.reply(`Season ${SeasonNum} (${SeasonName}) ends: '${SeasonEnd}' | Earn rewards using b!claim season! (Season Multiplier: '${SeasonMulti}' | earn exp by working, events, and prestiging!)`)
@@ -60,10 +60,13 @@ const Help = {
             chat.reply(`Prestiging adds to your money earning (in the spot your prestiging in) | Requirements (Birmingham): $200K, 100K customers, 10K workers!`)
             break;
           case 'london':
-            chat.reply(`Prestiging adds to your money earning (in the spot your prestiging in) | Requirements (Space Center): $100K, 1K customers, 10K workers!`)
+            chat.reply(`Prestiging adds to your money earning (in the spot your prestiging in) | Requirements (London): $100K, 1K customers, 10K workers!`)
             break;
           case 'summer':
             chat.reply(`Prestiging adds to your money earning (in the spot your prestiging in) | Requirements (Summer Spot): $10K, 5k customers, 1k workers!`)
+            break;
+          case 'arena':
+            chat.reply(`Prestiging adds to your money earning (in the spot your prestiging in) | Requirements (Arena): $5K, 2.5k customers, 500 workers!`)
             break;
           case 'event':
             chat.reply(`Prestiging adds to your money earning (in the spot your prestiging in) | Requirements (Event Spot): $1K, 1k customers, 100 workers!`)
@@ -150,6 +153,9 @@ const Help = {
             case 'summer':
               chat.reply(`Summer Spot | Cost: $${getLet(i.cost / 2, 2)} | Max gain: ${getLet(i.earn)} | Chance of gaining worker: 1/${i.chance}`)
               break;
+            case 'arena':
+              chat.reply(`Arena | Cost: $${getLet(i.cost / 2, 2)} | Max gain: ${getLet(i.earn)} | Chance of gaining worker: 1/${i.chance}`)
+              break;
             case 'event':
               chat.reply(`Event Spot | Cost: $${getLet(i.cost / 2, 2)} | Max gain: ${getLet(i.earn)} | Chance of gaining worker: 1/${i.chance}`)
               break;
@@ -158,12 +164,18 @@ const Help = {
           chat.reply(`Thats not an advert...`)
         }
         break;
-        /*
+        //
+        
       case 'tutorial':
         chat.reply(``)
         break;
-        */
-        //
+      case 'arena':
+        chat.reply(`BurgerBot Arena is a good way to get many rewards! All you do is b!change spot arena and prestige in spot to earn points to rank up! Based on your rank, at the end of the season you will earn rewards!`)
+        setTimeout(function( ) {
+          chat.reply(`Ranks: "Bronze" (250 points needed to go up), "Silver" (500 points needed to go up), "Gold" (750 points needed to go up), "Platinum" (1000 points needed to go up), "Diamond" (Final Rank)`)
+        }, 100)
+        break;
+        
 
       default:
         chat.reply(`Commands: b!work <hours> | b!stats | b!prestige | b!hire <amount> | b!donateto <item> <value> | b!claim <item> | b!change <item> <value> | b!auto <item> <amount> | b!advert <item>`)

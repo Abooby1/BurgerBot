@@ -75,7 +75,7 @@ const Stats = {
         break;
 
       case 'arena':
-        Say = `Arena | Money: $${getLet(userData.value.arena.money, 2)} | Workers: ${getLet(userData.value.arena.workers)} | Customers: ${getLet(userData.value.arena.customers)} | Prestige: ${userData.value.arena.prestige} | Rank: ${userData.value.arena.points}/${getPoints(userData.value.arena.rank)} (${userData.value.arena.rank})`
+        Say = `Arena | Money: $${getLet(userData.value.arena.money, 2)} | Workers: ${getLet(userData.value.arena.workers)} | Customers: ${getLet(userData.value.arena.customers)} | Rank: ${userData.value.arena.points}/${getPoints(userData.value.arena.rank, 'points')} (${userData.value.arena.rank})`
         break;
 
       case 'summer':

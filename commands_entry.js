@@ -1,7 +1,7 @@
 import { Commands } from "./commands/index.js";
 import { getUserDataManager } from "./database.js"
 import { PREFIX } from "./constants.js";
-import { event, getRandomInt, Version} from "./utils.js"
+import { event, getRandomInt, Version, getPoints} from "./utils.js"
 import {audit} from "./index.js"
 
 import {Client} from "photop-client"
@@ -128,6 +128,15 @@ export async function onChat(client, chat) {
           setTimeout(function( ) {
             context.userData.update()
           }, 2500)
+        }
+
+        if (context.userData.value.arena != undefined) {
+          if (context.userData.value.arena.points >= getPoints(context.userData.value.arena.rank, 'points')) {
+            context.userData.value.arena.rank = etPoints(context.userData.value.arena.rank, 'rank')
+            setTimeout(function( ) {
+              context.userData.update()
+            }, 2500)
+          }
         }
 
         await command.func(context);

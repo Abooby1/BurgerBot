@@ -117,9 +117,13 @@ client.onPost = async (post) => {
               d1.value.version = 3
               d1.value.net = 0
               post.chat(`Welcome to Season ${SeasonNum} (${SeasonName})! You got yourself 25 credits! (you are back to level 1!)`)
+              if (d1.value.spot == 'arena') {
+                post.chat('Your spot has been changed to the City Spot! (Arena has refreshed)')
+                delete d1.value.arena
+              }
               setTimeout(function( ) {
                 d1.update()
-              }, 2500)
+              }, 3000)
               break;
 
             default: 

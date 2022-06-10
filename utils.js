@@ -81,6 +81,34 @@ export const PremiumSpotID = {6: 'london'}
 export var QuestW = {}
 export var QuestS = {name: 'Work', desc: 'Work 500 times', max: 500}
 
+export function getPoints (rank, p) {
+  if (p == 'points') {
+    switch (rank.toLowerCase()) {
+      case 'bronze':
+        return 250
+      case 'silver':
+        return 500
+      case 'gold':
+        return 750
+      case 'platinum':
+        return 1000
+      case 'diamond':
+        return 'Max'
+    }
+  } else if (p == 'rank') {
+    switch (rank) {
+      case 'bronze':
+        return 'Silver'
+      case 'silver':
+        return 'Gold'
+      case 'gold':
+        return 'Platinum'
+      case 'platinum':
+        return 'Diamond'
+    }
+  }
+}
+
 function getEvent (n) {
   switch (n) {
     case 1:

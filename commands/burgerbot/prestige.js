@@ -1,3 +1,5 @@
+import {getRandomInt} from "../../utils.js"
+
 const Prestige = {
   names: ["prestige"],
   func: ({chat, client, userData})=>{
@@ -204,6 +206,30 @@ const Prestige = {
           }
         } else {
           chat.reply(`You need 1k workers to prestige...`)
+        }
+        break;
+      case 'arena':
+        if (userData.value.arena.workers >= 500) {
+          if (userData.value.arena.customers >= 2500) {
+            if (userData.value.arena.money >= 5000) {
+              const gain = getRandomInt(10, 50)
+              userData.value.exp += 25
+              userData.value.arena.money = 0
+              userData.value.arena.workers = 0
+              userData.value.arena.customers = 1
+              userData.value.arena.points += gain
+              chat.reply(`You have prestiged in the Arena Spot! (You got ${gain} points!)`)
+              setTimeout(function( ) {
+                userData.update()
+              }, 2500)
+            } else {
+              chat.reply(`You need $5k to prestige...`)
+            }
+          } else {
+            chat.reply(`You need 2.5k customers to prestige...`)
+          }
+        } else {
+          chat.reply(`You need 500 workers to prestige...`)
         }
         break;
         //event

@@ -1,4 +1,4 @@
-import {getStuff, getLet, event} from "../../utils.js"
+import {getStuff, getLet, event, SeasonNum, SeasonName} from "../../utils.js"
 import {AutoA, AutoW} from "./automate.js"
 import {working} from "./work.js"
 
@@ -24,6 +24,9 @@ const Change = {
           break;
         case 'summer':
           chat.reply(`Summer Spot | postuse: '${userData.value.postuse}' | normad: 'not supported...' | normwater: 'not supported...'`);
+          break;
+        case 'arena':
+          chat.reply(`Arena | postuse: '${userData.value.postuse}' | normad: 'not supported...' | normwater: 'not supported...'`);
           break;
         case "event":
           chat.reply(`Event Spot | postuse: '${userData.value.postuse}' | normad: 'not supported...' | normwater: 'not supported...'`);
@@ -303,6 +306,18 @@ const Change = {
                   userData.value.spot = "summer"
                   userData.value.spots.push('summer')
                   chat.reply(`You now have the Summer Spot! Have fun!`)
+                  setTimeout(function( ) {
+                    userData.update()
+                  }, 2500)
+                  break;
+                case 'arena':
+                  userData.value.spot = "arena"
+                  if (userData.value.arena != undefined) {
+                    chat.reply(`You are now in the Arena Spot!`)
+                  } else {
+                    chat.reply(`You are now participating in the Season ${SeasonNum} (${SeasonName}) Arena! You will earn rewards at the end of the season! Use b!help arena for arena help!`)
+                    userData.value.arena = {money: 0, workers: 0, customers: 1, points: 0, rank: 'Bronze'}
+                  }
                   setTimeout(function( ) {
                     userData.update()
                   }, 2500)
