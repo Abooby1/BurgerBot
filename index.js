@@ -8,7 +8,7 @@ const client = new Client({ username: "BurgerBot", password: process.env["Pass"]
 
 const noop = () => { };
 
-const VersionSay = `1. Change b!claim (you will now do "daily"/"monthly" instead of a rank) \n2. Added BurgerBot Premium https://www.patreon.com/abicambot?fan_landing=true`
+const VersionSay = `1. Added more to b!buy (verified bots only | check https://github.com/Abooby1/BurgerBot/blob/main/commands/owner/buy.js for more information)`
 
 export async function audit (m) {
   const p = await client.getPost('62a37bbc15ad3e0f9dd41a81')
