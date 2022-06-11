@@ -70,12 +70,12 @@ export const SeasonNum = 2
 export const SeasonEnd = "July 9"
 export const SeasonName = "Birmingham"
 export const SeasonSpot = 'birming'
-export const VersionID = '2.08'
+export const VersionID = '2.10'
 export const downtime = false
 export var Day = await getDay('global')
 export var event = {}
 export const d12d = false
-export const DowntimeEnd = 'July 9'
+export const DowntimeEnd = 'June 11, 12pm EST'
 export const PremiumSpotID = {6: 'london'}
 
 export var QuestW = {}

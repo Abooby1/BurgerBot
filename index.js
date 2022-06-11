@@ -8,10 +8,10 @@ const client = new Client({ username: "BurgerBot", password: process.env["Pass"]
 
 const noop = () => { };
 
-const VersionSay = `1. When you invite BurgerBot into a group, BurgerBot will join instantly!`
+const VersionSay = `1. Change b!claim (you will now do "daily"/"monthly" instead of a rank) \n2. Added BurgerBot Premium https://www.patreon.com/abicambot?fan_landing=true`
 
 export async function audit (m) {
-  const p = await client.getPost('62a0c26622eae87f3e7e4939')
+  const p = await client.getPost('62a37bbc15ad3e0f9dd41a81')
   p.chat(`${m} (${await changeTimeZone(new Date(), 'America/New_York').toLocaleString()})`)
 }
 
@@ -32,6 +32,8 @@ async function main () {
           const pp = post.text.toLowerCase().split(' ')
           post.chat('Im reconnected!')
           await post.connect(120000, () => {
+            posts.splice(posts.indexOf(posts[times]), 1)
+            db.set('posts', JSON.stringify(posts))
             post.onChat = noop;
             if (pp.includes(START)) {
               post.chat("Bot has disconnected... Reason: inactivity")
@@ -40,6 +42,8 @@ async function main () {
           post.onChat = (chat) => {
             //
             post.connect(120000, () => {
+              posts.splice(posts.indexOf(posts[times]), 1)
+              db.set('posts', JSON.stringify(posts))
               post.onChat = noop;
               if (pp.includes(START)) {
                 post.chat("Bot has disconnected... Reason: inactivity")
@@ -48,8 +52,6 @@ async function main () {
             onChat(client, chat);
             //
           }
-          posts.splice(posts.indexOf(posts[times]), 1)
-          db.set('posts', JSON.stringify(posts))
           times += 1
         }, 2500)
       } else {
@@ -81,222 +83,232 @@ client.onPost = async (post) => {
     }
   }
   if (pp.includes(START)) {
-    const posts = JSON.parse(await db.get('posts'))
-    if (posts.indexOf(post.id) < 0) {
-      posts.push(post.id)
-      db.set('posts', JSON.stringify(posts))
-    }
-    setTimeout(async function( ) {
-      resetTimeout()
-      const data = await db.get(`v1/${post.author.id}`) 
-      const d1 = await getUserDataManager(post.author.id)
-      const d2 = JSON.parse(await db.get('Banned'))
-      const d12 = JSON.stringify(defaultData)
-      const ddd = JSON.parse(await db.get('PostSay'))
-      if (data != undefined) {
-        if (ddd[post.author.id] != undefined) {
-          post.chat(ddd[post.author.id])
-          audit(`${post.author.username} connected a post`)
-        } else {
-          if (d1.value.rank != 'Banned' && !d2.includes(post.author.id)) {
-            post.chat(`Im now connected to your post ${post.author.username}! (use b!help for help!)`)
+    if (downtime == false) {
+      const posts = JSON.parse(await db.get('posts'))
+      if (posts.indexOf(post.id) < 0) {
+        posts.push(post.id)
+        db.set('posts', JSON.stringify(posts))
+      }
+      setTimeout(async function( ) {
+        resetTimeout()
+        const data = await db.get(`v1/${post.author.id}`) 
+        const d1 = await getUserDataManager(post.author.id)
+        const d2 = JSON.parse(await db.get('Banned'))
+        const d12 = JSON.stringify(defaultData)
+        const ddd = JSON.parse(await db.get('PostSay'))
+        if (data != undefined) {
+          if (ddd[post.author.id] != undefined) {
+            post.chat(ddd[post.author.id])
             audit(`${post.author.username} connected a post`)
           } else {
-            post.chat('Sorry... Youre banned from BurgerBot...')
-            post.disconnect()
-          }
-        }
-        if (d1.value.version != Version) {
-          const v = d1.value.version
-          switch (v) {
-            case 2://new season (version before the current version)
-              d1.value.exp = 0
-              d1.value.lvl = 1
-              d1.value.lastlvl = 0
-              d1.value.credits += 25
-              d1.value.version = 3
-              d1.value.net = 0
-              post.chat(`Welcome to Season ${SeasonNum} (${SeasonName})! You got yourself 25 credits! (you are back to level 1!)`)
-              if (d1.value.spot == 'arena') {
-                post.chat('Your spot has been changed to the City Spot! (Arena has refreshed)')
-                delete d1.value.arena
-              }
-              setTimeout(function( ) {
-                d1.update()
-              }, 3000)
-              break;
-
-            default: 
-              post.chat(`Hmm, it looks like there was an error (please report this to @Abooby | post has been disconnected)`)
+            if (d1.value.rank != 'Banned' && !d2.includes(post.author.id)) {
+              post.chat(`Im now connected to your post ${post.author.username}! (use b!help for help!)`)
+              audit(`${post.author.username} connected a post`)
+            } else {
+              post.chat('Sorry... Youre banned from BurgerBot...')
               post.disconnect()
+            }
           }
-        }
-        if (d1.value.spot == 'event') {
-          if (event.name != 'Spot Event') {
-            d1.value.spot = 'city'
-            d1.value.event.money = 0
-            d1.value.event.customers = 1
-            d1.value.event.workers = 0
-            d1.value.event.wage = 0
-            post.chat(`Your spot was switched to the city due to the spot event ending...`)
-            setTimeout(async function( ) {
-              d1.update()
-            }, 2500)
-          }
-        }
-        if (event.name == 'Start of Season Event') {
-          setInterval(function( ) {
-            switch (event.earn[getRandomInt(0, event.earn.length)]) {
-              case 'credits':
-                d1.value.credits += 1
+          if (d1.value.version != Version) {
+            const v = d1.value.version
+            switch (v) {
+              case 2://new season (version before the current version)
+                d1.value.exp = 0
+                d1.value.lvl = 1
+                d1.value.lastlvl = 0
+                d1.value.credits += 25
+                d1.value.version = 3
+                d1.value.net = 0
+                post.chat(`Welcome to Season ${SeasonNum} (${SeasonName})! You got yourself 25 credits! (you are back to level 1!)`)
+                if (d1.value.spot == 'arena') {
+                  post.chat('Your spot has been changed to the City Spot! (Arena has refreshed)')
+                  delete d1.value.arena
+                }
                 setTimeout(function( ) {
                   d1.update()
-                }, 2500)
+                }, 3000)
                 break;
-              case 'exp':
-                d1.value.exp += 1
-                setTimeout(function( ) {
-                  d1.update()
-                }, 2500)
-                break;
+  
+              default: 
+                post.chat(`Hmm, it looks like there was an error (please report this to @Abooby | post has been disconnected)`)
+                post.disconnect()
             }
-          }, 60000)
+          }
+          if (d1.value.spot == 'event') {
+            if (event.name != 'Spot Event') {
+              d1.value.spot = 'city'
+              d1.value.event.money = 0
+              d1.value.event.customers = 1
+              d1.value.event.workers = 0
+              d1.value.event.wage = 0
+              post.chat(`Your spot was switched to the city due to the spot event ending...`)
+              setTimeout(async function( ) {
+                d1.update()
+              }, 2500)
+            }
+          }
+          if (event.name == 'Start of Season Event') {
+            setInterval(function( ) {
+              switch (event.earn[getRandomInt(0, event.earn.length)]) {
+                case 'credits':
+                  d1.value.credits += 1
+                  setTimeout(function( ) {
+                    d1.update()
+                  }, 2500)
+                  break;
+                case 'exp':
+                  d1.value.exp += 1
+                  setTimeout(function( ) {
+                    d1.update()
+                  }, 2500)
+                  break;
+              }
+            }, 60000)
+          }
+          switch (d1.value.spot) {
+            case 'city':
+              if (d1.value.city.coowner == true) {
+                var i = setInterval(async function( ) {
+                  var earn = 0
+                  if (event.name == 'Co-Owner Event') {
+                    earn = await f('workcity', post.author.id) / 3 * 2
+                  } else {
+                    earn = await f('workcity', post.author.id) / 3
+                  }
+                  if (earn >= 500) {
+                    d1.value.city.money += earn
+                    d1.value.net += earn
+                    setTimeout(function( ) {
+                      d1.update()
+                    }, 2500)
+                  } else {
+                    clearInterval(i)
+                  }
+                }, 60000)
+              }
+              break;
+            case 'beach':
+              if (d1.value.beach.coowner == true) {
+                var i = setInterval(async function( ) {
+                  var earn = 0
+                  if (event.name == 'Co-Owner Event') {
+                    earn = await f('workbeach', post.author.id) / 3 * 2
+                  } else {
+                    earn = await f('workbeach', post.author.id) / 3
+                  }
+                  if (earn >= 500) {
+                    d1.value.beach.money += earn
+                    d1.value.net += earn
+                    setTimeout(function( ) {
+                      d1.update()
+                    }, 2500)
+                  } else {
+                    clearInterval(i)
+                  }
+                }, 60000)
+              }
+              break;
+            case 'dank':
+              if (d1.value.dank.coowner == true) {
+                var i = setInterval(async function( ) {
+                  var earn = 0
+                  if (event.name == 'Co-Owner Event') {
+                    earn = await f('workdank', post.author.id) / 3 * 2
+                  } else {
+                    earn = await f('workdank', post.author.id) / 3
+                  }
+                  if (earn >= 500) {
+                    d1.value.dank.money += earn
+                    d1.value.net += earn
+                    setTimeout(function( ) {
+                      d1.update()
+                    }, 2500)
+                  } else {
+                    clearInterval(i)
+                  }
+                }, 60000)
+              }
+              break;
+            case 'space':
+              if (d1.value.space.coowner == true) {
+                var i = setInterval(async function( ) {
+                  var earn = 0
+                  if (event.name == 'Co-Owner Event') {
+                    earn = await f('workspace', post.author.id) / 3 * 2
+                  } else {
+                    earn = await f('workspace', post.author.id) / 3
+                  }
+                  if (earn >= 500) {
+                    d1.value.space.money += earn
+                    d1.value.net += earn
+                    setTimeout(function( ) {
+                      d1.update()
+                    }, 2500)
+                  } else {
+                    clearInterval(i)
+                  }
+                }, 60000)
+              }
+              break;
+            case 'birming':
+              if (d1.value.birming.coowner == true) {
+                var i = setInterval(async function( ) {
+                  var earn = 0
+                  if (event.name == 'Co-Owner Event') {
+                    earn = await f('workbirming', post.author.id) / 3 * 2
+                  } else {
+                    earn = await f('workbirming', post.author.id) / 3
+                  }
+                  if (earn >= 500) {
+                    d1.value.birming.money += earn
+                    d1.value.net += earn
+                    setTimeout(function( ) {
+                      d1.update()
+                    }, 2500)
+                  } else {
+                    clearInterval(i)
+                  }
+                }, 60000)
+              }
+              break;
+            case 'london':
+              if (d1.value.london.coowner == true) {
+                var i = setInterval(async function( ) {
+                  var earn = 0
+                  if (event.name == 'Co-Owner Event') {
+                    earn = await f('worklondon', post.author.id) / 3 * 2
+                  } else {
+                    earn = await f('worklondon', post.author.id) / 3
+                  }
+                  if (earn >= 500) {
+                    d1.value.london.money += earn
+                    d1.value.net += earn
+                    setTimeout(function( ) {
+                      d1.update()
+                    }, 2500)
+                  } else {
+                    clearInterval(i)
+                  }
+                }, 60000)
+              }
+              break;
+          }
+        } else {
+          const d = await JSON.stringify(defaultData)
+          db.set(`v1/${post.author.id}`, d)
+          post.chat(`Welcome to BurgerBot Season ${SeasonNum} ${post.author.username}! Make sure to use b!help for help and to use b!change server <server> to change your server!`)
+          audit(`${post.author.username} made an account`)
         }
-        switch (d1.value.spot) {
-          case 'city':
-            if (d1.value.city.coowner == true) {
-              var i = setInterval(async function( ) {
-                var earn = 0
-                if (event.name == 'Co-Owner Event') {
-                  earn = await f('workcity', post.author.id) / 3 * 2
-                } else {
-                  earn = await f('workcity', post.author.id) / 3
-                }
-                if (earn >= 500) {
-                  d1.value.city.money += earn
-                  d1.value.net += earn
-                  setTimeout(function( ) {
-                    d1.update()
-                  }, 2500)
-                } else {
-                  clearInterval(i)
-                }
-              }, 60000)
-            }
-            break;
-          case 'beach':
-            if (d1.value.beach.coowner == true) {
-              var i = setInterval(async function( ) {
-                var earn = 0
-                if (event.name == 'Co-Owner Event') {
-                  earn = await f('workbeach', post.author.id) / 3 * 2
-                } else {
-                  earn = await f('workbeach', post.author.id) / 3
-                }
-                if (earn >= 500) {
-                  d1.value.beach.money += earn
-                  d1.value.net += earn
-                  setTimeout(function( ) {
-                    d1.update()
-                  }, 2500)
-                } else {
-                  clearInterval(i)
-                }
-              }, 60000)
-            }
-            break;
-          case 'dank':
-            if (d1.value.dank.coowner == true) {
-              var i = setInterval(async function( ) {
-                var earn = 0
-                if (event.name == 'Co-Owner Event') {
-                  earn = await f('workdank', post.author.id) / 3 * 2
-                } else {
-                  earn = await f('workdank', post.author.id) / 3
-                }
-                if (earn >= 500) {
-                  d1.value.dank.money += earn
-                  d1.value.net += earn
-                  setTimeout(function( ) {
-                    d1.update()
-                  }, 2500)
-                } else {
-                  clearInterval(i)
-                }
-              }, 60000)
-            }
-            break;
-          case 'space':
-            if (d1.value.space.coowner == true) {
-              var i = setInterval(async function( ) {
-                var earn = 0
-                if (event.name == 'Co-Owner Event') {
-                  earn = await f('workspace', post.author.id) / 3 * 2
-                } else {
-                  earn = await f('workspace', post.author.id) / 3
-                }
-                if (earn >= 500) {
-                  d1.value.space.money += earn
-                  d1.value.net += earn
-                  setTimeout(function( ) {
-                    d1.update()
-                  }, 2500)
-                } else {
-                  clearInterval(i)
-                }
-              }, 60000)
-            }
-            break;
-          case 'birming':
-            if (d1.value.birming.coowner == true) {
-              var i = setInterval(async function( ) {
-                var earn = 0
-                if (event.name == 'Co-Owner Event') {
-                  earn = await f('workbirming', post.author.id) / 3 * 2
-                } else {
-                  earn = await f('workbirming', post.author.id) / 3
-                }
-                if (earn >= 500) {
-                  d1.value.birming.money += earn
-                  d1.value.net += earn
-                  setTimeout(function( ) {
-                    d1.update()
-                  }, 2500)
-                } else {
-                  clearInterval(i)
-                }
-              }, 60000)
-            }
-            break;
-          case 'london':
-            if (d1.value.london.coowner == true) {
-              var i = setInterval(async function( ) {
-                var earn = 0
-                if (event.name == 'Co-Owner Event') {
-                  earn = await f('worklondon', post.author.id) / 3 * 2
-                } else {
-                  earn = await f('worklondon', post.author.id) / 3
-                }
-                if (earn >= 500) {
-                  d1.value.london.money += earn
-                  d1.value.net += earn
-                  setTimeout(function( ) {
-                    d1.update()
-                  }, 2500)
-                } else {
-                  clearInterval(i)
-                }
-              }, 60000)
-            }
-            break;
-        }
+      }, 2000)
+    } else {
+      const d11111111 = await getUserDataManager(post.author.id)
+      if (d11111111.value.rank != 'Owner') {
+        post.chat(`BurgerBot is currently in downtime until ${DowntimeEnd}...`)
+        post.disconnect()
       } else {
-        const d = await JSON.stringify(defaultData)
-        db.set(`v1/${post.author.id}`, d)
-        post.chat(`Welcome to BurgerBot Season ${SeasonNum} ${post.author.username}! Make sure to use b!help for help and to use b!change server <server> to change your server!`)
-        audit(`${post.author.username} made an account`)
+        post.chat(`You are currently testing BurgerBot...`)
       }
-    }, 2000)
+    }
   }
 
   post.onChat = (chat) => {

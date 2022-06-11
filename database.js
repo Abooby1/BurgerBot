@@ -34,13 +34,7 @@ const specialRanks = {
   "62465bdda95b113f103322d2": "Special",
   "62221daff1c22c29f8629977": "Special",
   "6255aa3c434000065016fb6f": "Special",
-  "61c875e360fe4c7b88a8d071": "Special",
-
-  "628a66938b00f740041007fe": 'Banned',
-  "61c6c9b3e1e6417b595d3dfc": 'Banned',
-  '6297fdf0f47a391ad514a437': 'Banned',
-  '622fb3400c9eb9061377ddda': 'Banned',
-  '629f96d296a9786a19fc17ad': 'Banned'
+  "61c875e360fe4c7b88a8d071": "Special"
 }
 
 export const defaultData = {
@@ -67,7 +61,8 @@ export const defaultData = {
   summer: {money: 0, customers: 1, workers: 0, wage: 0, prestige: 1},
   event: {money: 0, customers: 1, workers: 0, wage: 0},
   //
-  
+
+  recentprest: false,
   troph: false,
   buy: {month: 0, day: 0},
   month: {number: 0, day: 0, next: ''},

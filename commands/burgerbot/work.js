@@ -244,7 +244,7 @@ const Work = {
         chat.reply(`You started working for ${body} hours (time: ${body} seconds)`)
         
         setTimeout(function( ) {
-          var Earned = body * userData.value.arena.prestige * 0.01 * userData.value.arena.customers * SeasonMulti
+          var Earned = body * 0.01 * userData.value.arena.customers * SeasonMulti
           userData.value.arena.money += Earned
           userData.value.net += Earned
           if (event.name == 'End of Season Event') {

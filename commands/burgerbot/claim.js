@@ -6,7 +6,6 @@ const Claim = {
   names: ["claim"],
   func: async ({chat, body, userData})=>{
     if (userData.value.timezone != undefined) {
-      /*
       if (getRandomInt(1, 1000) == 1) {
         if (!userData.value.spots.includes(SeasonSpot)) {
           userData.value.spots.push(SeasonSpot)
@@ -19,9 +18,7 @@ const Claim = {
           userData.update()
         }, 2500)
       }
-*/
       switch (body.toLowerCase()) {
-/*
         case 'daily':
           if (userData.value.daily != await getDay(userData.value.timezone)) {
             userData.value.daily = await getDay(userData.value.timezone)
@@ -71,10 +68,10 @@ const Claim = {
                 break;
               case 'owner':
               case 'mod':
-                const rewards = ['exp', 'credit', 'money']
-                const reward = rewards[getRandomInt(1, rewards.length)]
+                const rewards1 = ['exp', 'credit', 'money']
+                const reward1 = rewards1[getRandomInt(1, rewards1.length)]
                 var gain;
-                switch (reward) {
+                switch (reward1) {
                   case 'exp':
                     if (event.name != 'Claim Event') {
                       gain =  getRandomInt(1, 20)
@@ -115,10 +112,10 @@ const Claim = {
                 break;
               case 'premium':
               case 'special':
-                const rewards = ['exp', 'credit', 'money']
-                const reward = rewards[getRandomInt(1, rewards.length)]
+                const rewards2 = ['exp', 'credit', 'money']
+                const reward2 = rewards2[getRandomInt(1, rewards2.length)]
                 var gain;
-                switch (reward) {
+                switch (reward2) {
                   case 'exp':
                     if (event.name != 'Claim Event') {
                       gain =  getRandomInt(1, 50)
@@ -160,9 +157,9 @@ const Claim = {
 
               default:
                 chat.reply(`Your rank cant use b!claim daily...`)
+                userData.value.daily -= 1
             }
           } else {
-            userData.value.daily -= 1
             chat.reply(`You cant use this command yet... (last claimed (day of month): ${userData.value.daily})`)
           }
           break;
@@ -170,13 +167,13 @@ const Claim = {
           if (userData.value.month.number != await getMonth(userData.value.timezone) && await getDay(userData.value.timezone) >= userData.value.month.day) {
             userData.value.month.number = await getMonth(userData.value.timezone)
             userData.value.month.day = await getDay(userData.value.timezone)
-            userData.value.month.next = `${await getMonth(userData.value.timezone)}/${await getDay(userData.value.timezone)}`
+            userData.value.month.next = `${await getMonth(userData.value.timezone) + 1}/${await getDay(userData.value.timezone)}`
             switch (userData.value.rank.toLowerCase()) {
               case 'normal':
-                const rewards = ['exp', 'credit', 'money']
-                const reward = rewards[getRandomInt(1, rewards.length)]
+                const rewards3 = ['exp', 'credit', 'money']
+                const reward3 = rewards3[getRandomInt(1, rewards3.length)]
                 var gain;
-                switch (reward) {
+                switch (reward3) {
                   case 'exp':
                     if (event.name != 'Claim Event') {
                       gain =  getRandomInt(1, 10)
@@ -217,10 +214,10 @@ const Claim = {
                 break;
               case 'owner':
               case 'mod':
-                const rewards = ['exp', 'credit', 'money']
-                const reward = rewards[getRandomInt(1, rewards.length)]
+                const rewards4 = ['exp', 'credit', 'money']
+                const reward4 = rewards4[getRandomInt(1, rewards4.length)]
                 var gain;
-                switch (reward) {
+                switch (reward4) {
                   case 'exp':
                     if (event.name != 'Claim Event') {
                       gain =  getRandomInt(1, 40)
@@ -261,10 +258,10 @@ const Claim = {
                 break;
               case 'premium':
               case 'special':
-                const rewards = ['exp', 'credit', 'money']
-                const reward = rewards[getRandomInt(1, rewards.length)]
+                const rewards5 = ['exp', 'credit', 'money']
+                const reward5 = rewards5[getRandomInt(1, rewards5.length)]
                 var gain;
-                switch (reward) {
+                switch (reward5) {
                   case 'exp':
                     if (event.name != 'Claim Event') {
                       gain =  getRandomInt(1, 75)
@@ -306,13 +303,12 @@ const Claim = {
 
               default:
                 chat.reply(`Your rank cant use b!claim monthly...`)
+                userData.value.month.number -= 1
             }
           } else {
-            userData.value.month.number -= 1
             chat.reply(`You cant use this command yet... (last claimed (last month): ${userData.value.month.number} | you can claim it again on ${userData.value.month.next})`)
           }
           break;
-          */
         case 'premium':
           if (userData.value.rank == 'Premium') {
             if (userData.value.buy.month != await getMonth(userData.value.timezone) && await getDay(userData.value.timezone) >= userData.value.buy.day) {
@@ -335,70 +331,6 @@ const Claim = {
             }
           } else {
             chat.reply(`You need to have BurgerBot Premium to use this command... (https://www.patreon.com/abicambot?fan_landing=true)`)
-          }
-          break;
-        case "normal":
-          if (userData.value.daily != await getDay(userData.value.timezone)) {
-            if (userData.value.rank == "Normal") {
-              if (event.name != "Claim Event") {
-                userData.value.credits += 15
-                chat.reply("You earned your rank reward (15 credits)")
-              } else {
-                userData.value.credits += 30
-                chat.reply("You earned your rank reward! (30 credits)")
-              }
-              userData.value.daily = await getDay(userData.value.timezone)
-              setTimeout(function( ) {
-                userData.update()
-              }, 2500)
-            } else {
-              chat.reply("You dont have the normal rank...")
-            }
-          } else {
-            chat.reply(`You cant use this command yet... (last claimed (day of month): ${userData.value.daily})`)
-          }
-          break;
-        case "special":
-          if (userData.value.daily != await getDay(userData.value.timezone)) {
-            if (userData.value.rank == "Special") {
-              if (event.name != "Claim Event") {
-                userData.value.credits += 250
-                chat.reply("You earned your rank reward! (250 credits)")
-              } else {
-                userData.value.credits += 300
-                chat.reply("You earned your rank reward! (300 credits)")
-              }
-              userData.value.daily = await getDay(userData.value.timezone)
-              setTimeout(function( ) {
-                userData.update()
-              }, 2500)
-            } else {
-              chat.reply("You dont have the special rank...")
-            }
-          } else {
-            chat.reply(`You cant use this command yet... (last claimed (day of month): ${userData.value.daily})`)
-          }
-          break;
-        case "owner":
-        case "mod":
-          if (userData.value.daily != await getDay(userData.value.timezone)) {
-            if (userData.value.rank == "Mod" || userData.value.rank == "Owner") {
-              if (event.name != "Claim Event") {
-                userData.value.credits += 100
-                chat.reply("You earned your rank reward! (100 credits)")
-              } else {
-                userData.value.credits += 150
-                chat.reply("You earned your rank reward! (150 credits)")
-              }
-              userData.value.daily = await getDay(userData.value.timezone)
-              setTimeout(function( ) {
-                userData.update()
-              }, 2500)
-            } else {
-              chat.reply("You dont have the mod/owner rank...")
-            }
-          } else {
-            chat.reply(`You cant use this command yet... (last claimed (day of month): ${userData.value.daily})`)
           }
           break;
         case "season":
@@ -469,7 +401,7 @@ const Claim = {
           break;
           
         default:
-          chat.reply(`Thats not an available claim...`)
+          chat.reply(`Thats not an available claim... ("daily" | "monthly" | "premium" | "season" | "event")`)
       }
     } else {
       chat.reply(`You need to set your server by using b!change server <server name ("asia", "global", "africa", "antarctica", "australia", or "europe")>`)

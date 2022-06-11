@@ -83,7 +83,7 @@ const Help = {
         break;
       case "b!claim":
       case "claim":
-        chat.reply(`b!claim <item>: claim rank/event/seasonal rewards! ("event" for event rewards! "season" for seasonal rewards (you can do this after every level up!))`)
+        chat.reply(`b!claim <item>: claim daily/monthly/premium/event/seasonal rewards!`)
         break;
         //
       case "b!change":
@@ -164,25 +164,40 @@ const Help = {
           chat.reply(`Thats not an advert...`)
         }
         break;
-        //
-        
       case 'tutorial':
-        chat.reply(``)
+        chat.reply(`To start your burger industry, use b!work. Itll give you a couple cents to start off! When you get to $15 you can do your first advert!`)
+        setTimeout(function( ) {
+          chat.reply(`Since you now have $15, you can do b!advert facebook! That will add to your customers, which makes you earn more money from b!work!`)
+          setTimeout(function( ) {
+            chat.reply(`You are now earning and using your money for customers! This will help out until you get your first worker by using b!hire (or b!hire 1)!`)
+            setTimeout(function( ) {
+              chat.reply(`Now that you have a worker, you unlocked autoing! You can now use b!auto w and b!auto a! Just make sure you profit from them!`)
+              setTimeout(function( ) {
+                chat.reply(`With those great profits, you can now start making your industry! (Make sure to change your normad by using b!change normad <advert>!)`)
+                setTimeout(function( ) {
+                  chat.reply(`If you ever need more help, you can ask the wonderful BurgerBot Community or use b!help!`)
+                }, 500)
+              }, 500)
+            }, 500)
+          }, 500)
+        }, 500)
         break;
+        //
+/*
       case 'arena':
         chat.reply(`BurgerBot Arena is a good way to get many rewards! All you do is b!change spot arena and prestige in spot to earn points to rank up! Based on your rank, at the end of the season you will earn rewards!`)
         setTimeout(function( ) {
           chat.reply(`Ranks: "Bronze" (250 points needed to go up), "Silver" (500 points needed to go up), "Gold" (750 points needed to go up), "Platinum" (1000 points needed to go up), "Diamond" (Final Rank)`)
         }, 100)
         break;
-        
+        */        
 
       default:
         chat.reply(`Commands: b!work <hours> | b!stats | b!prestige | b!hire <amount> | b!donateto <item> <value> | b!claim <item> | b!change <item> <value> | b!auto <item> <amount> | b!advert <item>`)
         setTimeout(function( ) {
           chat.reply(`b!open <crate> <amount>`)
           setTimeout(function( ) {
-            chat.reply(`Normal: "season" | "credits" | "spots" | "event" | "symbols" | "advertinfo <advert>" | "changeinfo <change name>"`)
+            chat.reply(`Normal: "season" | "credits" | "spots" | "event" | "symbols" | "tutorial" | "advertinfo <advert>" | "changeinfo <change name>"`)
           }, 100)
         }, 100)
     }

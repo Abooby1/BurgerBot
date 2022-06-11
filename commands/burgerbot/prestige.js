@@ -18,6 +18,13 @@ const Prestige = {
               userData.value.city.supervisor = false
               userData.value.city.accountant = false
               userData.value.city.coowner = false
+              userData.value.recentprest = true
+              setTimeout(function( ) {
+                userData.value.recentprest = false
+                setTimeout(function( ) {
+                  userData.update()
+                }, 2500)
+              }, 60000)
               chat.reply(`You have prestiged! You will now earn more money!`)
               setTimeout(async function( ) {
                 userData.update()
