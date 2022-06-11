@@ -49,31 +49,6 @@ const Advertise = {
             y = y * 5
           }
           break;
-        case 'london':
-          if (userData.value.london.money >= y * 6) {
-            t = true
-            y = y * 6
-          } else {
-            y = y * 6
-          }
-          break;
-        case 'summer':
-          if (userData.value.summer.money >= y / 2) {
-            t = true
-            y = y / 2
-          } else {
-            y = y / 2
-          }
-          break;
-        case 'arena':
-          if (userData.value.arena.money >= y / 3) {
-            t = true
-            y = y / 3
-          } else {
-            y = y / 3
-          }
-          break;
-          //event
         case "event":
           if (userData.value.event.money >= y / 2) {
             t = true
@@ -122,27 +97,11 @@ const Advertise = {
             userData.value.birming.workers += EarnedW
             userData.value.birming.wage += EarnedW * 51.15
             break;
-          case "london":
-            userData.value.london.money -= y
-            userData.value.london.customers += Earned
-            userData.value.london.workers += EarnedW
-            userData.value.london.wage += EarnedW * 30.69
-            break;
-          case 'summer':
-            userData.value.summer.money -= y
-            userData.value.summer.customers += Earned
-            userData.value.summer.workers += EarnedW
-            break;
-          case 'arena':
-            userData.value.arena.money -= y
-            userData.value.arena.customers += Earned
-            userData.value.arena.workers += EarnedW
-            break;
-            //event
           case "event":
             userData.value.event.money -= y
             userData.value.event.customers += Earned
             userData.value.event.workers += EarnedW
+            userData.value.event.wage += EarnedW * 5.12
             break;
         }
         chat.reply(`You earned ${Earned} customer(s) and ${EarnedW} worker(s) by using ${d.name}! (cost: $${getLet(y, 2)} | spot: ${userData.value.spot})`)

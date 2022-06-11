@@ -59,24 +59,6 @@ const Hire = {
           chat.reply(`You dont have enough to hire ${getLet(parseInt(value))} people... ($500 per person)`)
         }
         break;
-      case "london":
-        if (userData.value.london.money >= 150 * parseInt(value)) {
-          userData.value.london.workers += parseInt(value)
-          userData.value.london.money -= 150 * parseInt(value)
-          userData.value.london.wage += 30.69 * parseInt(value)
-          userData.value.exp += parseInt(value) * 2
-          if (parseInt(value) >= 2) {
-            chat.reply(`You hired ${getLet(parseInt(value))} people!`)
-          } else {
-            chat.reply(`You hired ${getLet(parseInt(value))} person!`)
-          }
-          setTimeout(function( ) {
-            userData.update()
-          }, 2500)
-        } else {
-          chat.reply(`You dont have enough to hire ${getLet(parseInt(value))} people... ($150 per person)`)
-        }
-        break;
       case "space":
         if (userData.value.space.money >= 1000 * parseInt(value)) {
           userData.value.space.workers += parseInt(value)
@@ -113,45 +95,12 @@ const Hire = {
           chat.reply(`You dont have enough to hire ${getLet(parseInt(value))} people... ($1.5k per person)`)
         }
         break;
-      case 'summer':
-        if (userData.value.summer.money >= 50 * parseInt(value)) {
-          userData.value.summer.workers += parseInt(value)
-          userData.value.summer.money -= 50 * parseInt(value)
-          userData.value.exp += parseInt(value) * 3
-          if (parseInt(value) >= 2) {
-            chat.reply(`You hired ${getLet(parseInt(value))} people!`)
-          } else {
-            chat.reply(`You hired ${getLet(parseInt(value))} person!`)
-          }
-          setTimeout(function( ) {
-            userData.update()
-          }, 2500)
-        } else {
-          chat.reply(`You dont have enough to hire ${getLet(parseInt(value))} people... ($50 per person)`)
-        }
-        break;
-      case 'arena':
-        if (userData.value.arena.money >= 50 * parseInt(value)) {
-          userData.value.arena.workers += parseInt(value)
-          userData.value.arena.money -= 50 * parseInt(value)
-          userData.value.exp += parseInt(value) * 4
-          if (parseInt(value) >= 2) {
-            chat.reply(`You hired ${getLet(parseInt(value))} people!`)
-          } else {
-            chat.reply(`You hired ${getLet(parseInt(value))} person!`)
-          }
-          setTimeout(function( ) {
-            userData.update()
-          }, 2500)
-        } else {
-          chat.reply(`You dont have enough to hire ${getLet(parseInt(value))} people... ($50 per person)`)
-        }
-        break;
         //event
       case "event":
         if (userData.value.event.money >= 50 * parseInt(value)) {
           userData.value.event.workers += parseInt(value)
           userData.value.event.money -= 50 * parseInt(value)
+          userData.value.event.wage += 5.12 * parseInt(value)
           userData.value.exp += parseInt(value) * 3
           if (parseInt(value) >= 2) {
             chat.reply(`You hired ${getLet(parseInt(value))} people!`)

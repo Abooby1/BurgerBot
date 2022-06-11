@@ -1,5 +1,3 @@
-import {getRandomInt} from "../../utils.js"
-
 const Prestige = {
   names: ["prestige"],
   func: ({chat, client, userData})=>{
@@ -18,13 +16,6 @@ const Prestige = {
               userData.value.city.supervisor = false
               userData.value.city.accountant = false
               userData.value.city.coowner = false
-              userData.value.recentprest = true
-              setTimeout(function( ) {
-                userData.value.recentprest = false
-                setTimeout(function( ) {
-                  userData.update()
-                }, 2500)
-              }, 60000)
               chat.reply(`You have prestiged! You will now earn more money!`)
               setTimeout(async function( ) {
                 userData.update()
@@ -104,35 +95,6 @@ const Prestige = {
           chat.reply(`You need 2k workers to prestige...`)
         }
         break;
-       case "london":
-        if (userData.value.london.customers >= 10000) {
-          if (userData.value.london.customers >= 1000) {
-            if (userData.value.london.money >= 100000) {
-              userData.value.london.prestige += 1
-              userData.value.exp += 60
-              userData.value.london.money = 2 * userData.value.london.prestige
-              userData.value.london.workers = 0
-              userData.value.london.customers = 1
-              userData.value.london.normad = "facebook"
-              userData.value.london.normwater = 'water1'
-              userData.value.london.wage = 0
-              userData.value.london.supervisor = false
-              userData.value.london.accountant = false
-              userData.value.london.coowner = false
-              chat.reply(`You have prestiged! You will now earn more money!`)
-              setTimeout(async function( ) {
-                userData.update()
-              }, 2500)
-            } else {
-              chat.reply(`You need $100K to prestige...`)
-            }
-          } else {
-            chat.reply(`You need 1K customers to prestige...`)
-          }
-        } else {
-          chat.reply(`You need 10K workers to prestige...`)
-        }
-        break;
       case "space":
         if (userData.value.space.workers >= 5000) {
           if (userData.value.space.customers >= 50000) {
@@ -189,54 +151,6 @@ const Prestige = {
           }
         } else {
           chat.reply(`You need 10k workers to prestige...`)
-        }
-        break;
-      case 'summer':
-        if (userData.value.summer.workers >= 1000) {
-          if (userData.value.summer.customers >= 5000) {
-            if (userData.value.summer.money >= 10000) {
-              userData.value.exp += 15
-              userData.value.summer.money = 0
-              userData.value.summer.workers = 0
-              userData.value.summer.customers = 1
-              userData.value.summer.prestige += 1
-              userData.value.summer.wage = 0
-              chat.reply(`You have prestiged! You will now earn more money!`)
-              setTimeout(function( ) {
-                userData.update()
-              }, 2500)
-            } else {
-              chat.reply(`You need $10k to prestige...`)
-            }
-          } else {
-            chat.reply(`You need 5k customers to prestige...`)
-          }
-        } else {
-          chat.reply(`You need 1k workers to prestige...`)
-        }
-        break;
-      case 'arena':
-        if (userData.value.arena.workers >= 500) {
-          if (userData.value.arena.customers >= 2500) {
-            if (userData.value.arena.money >= 5000) {
-              const gain = getRandomInt(10, 50)
-              userData.value.exp += 25
-              userData.value.arena.money = 0
-              userData.value.arena.workers = 0
-              userData.value.arena.customers = 1
-              userData.value.arena.points += gain
-              chat.reply(`You have prestiged in the Arena Spot! (You got ${gain} points!)`)
-              setTimeout(function( ) {
-                userData.update()
-              }, 2500)
-            } else {
-              chat.reply(`You need $5k to prestige...`)
-            }
-          } else {
-            chat.reply(`You need 2.5k customers to prestige...`)
-          }
-        } else {
-          chat.reply(`You need 500 workers to prestige...`)
         }
         break;
         //event

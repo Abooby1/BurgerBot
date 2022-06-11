@@ -1,4 +1,4 @@
-import {getStuff, getLet, event, SeasonNum, SeasonName} from "../../utils.js"
+import {getStuff, getLet, event} from "../../utils.js"
 import {AutoA, AutoW} from "./automate.js"
 import {working} from "./work.js"
 
@@ -18,15 +18,6 @@ const Change = {
           break;
         case "space":
           chat.reply(`Space Center | postuse: '${userData.value.postuse}' | normad: '${userData.value.space.normad}' | normwater: '${userData.value.space.normwater}'`);
-          break;
-        case 'london':
-          chat.reply(`London | postuse: '${userData.value.postuse}' | normad: '${userData.value.london.normad}' | normwater: '${userData.value.london.normwater}'`);
-          break;
-        case 'summer':
-          chat.reply(`Summer Spot | postuse: '${userData.value.postuse}' | normad: 'not supported...' | normwater: 'not supported...'`);
-          break;
-        case 'arena':
-          chat.reply(`Arena | postuse: '${userData.value.postuse}' | normad: 'not supported...' | normwater: 'not supported...'`);
           break;
         case "event":
           chat.reply(`Event Spot | postuse: '${userData.value.postuse}' | normad: 'not supported...' | normwater: 'not supported...'`);
@@ -124,22 +115,6 @@ const Change = {
             }
             break;
 
-          case "london":
-            if (getStuff(value.toLowerCase()).rank == "ad") {
-              if (userData.value.london.money >= getStuff(value.toLowerCase()).cost * 6) {
-                userData.value.london.normad = getStuff(value.toLowerCase()).id
-                chat.reply(`Your london workers will now use ${getStuff(value.toLowerCase()).name} to advertise! (spot: London)`)
-                setTimeout(function( ) {
-                  userData.update()
-                }, 2500)
-              } else {
-                chat.reply(`You cant use this advertisement... (cost $${getLet(value.toLowerCase().cost * 6, 2)})`)
-              }
-            } else {
-              chat.reply(`Thats not an ad...`)
-            }
-            break;
-
           case "birming":
             if (getStuff(value.toLowerCase()).rank == "ad") {
               if (userData.value.birming.money >= getStuff(value.toLowerCase()).cost * 6) {
@@ -207,17 +182,6 @@ const Change = {
                 chat.reply(`You dont have enough customers to have ${getStuff(value.toLowerCase()).name} as your hydrating drink... (needed: ${getLet(getStuff(value.toLowerCase()).needed * 5, 2)})`)
             }
             break;
-          case "london":
-            if (getStuff(value.toLowerCase()).needed <= userData.value.london.customers * 6) {
-              userData.value.london.normwater = getStuff(value.toLowerCase()).id
-              chat.reply(`Your workers will now use ${getStuff(value.toLowerCase()).name} to hydrate while advertising in London! (multiplier: ×${getStuff(value.toLowerCase()).multi})`)
-              setTimeout(function( ) {
-                userData.update()
-              }, 2500)
-            } else {
-                chat.reply(`You dont have enough customers to have ${getStuff(value.toLowerCase()).name} as your hydrating drink... (needed: ${getLet(getStuff(value.toLowerCase()).needed * 6, 2)})`)
-            }
-            break;
           case "birming":
             if (getStuff(value.toLowerCase()).needed <= userData.value.birming.customers * 6) {
               userData.value.birming.normwater = getStuff(value.toLowerCase()).id
@@ -235,7 +199,7 @@ const Change = {
         }
         break;
       case "spot":
-        const c = ["city", "beach", "dank", "space", "event", 'birming', 'summer']
+        const c = ["city", "beach", "dank", "space", "event", 'birming']
         if (c.includes(value.toLowerCase())) {
           if (!AutoW.includes(chat.author.id) && !AutoA.includes(chat.author.id) && !working.includes(chat.author.id)) {
             if (userData.value.spots.includes(value.toLowerCase())) {
@@ -302,27 +266,6 @@ const Change = {
                     chat.reply(`You dont have enough credits to buy a spot at Birmingham... (cost: 10k credits)`)
                   }
                   break;
-                case "summer":
-                  userData.value.spot = "summer"
-                  userData.value.spots.push('summer')
-                  chat.reply(`You now have the Summer Spot! Have fun!`)
-                  setTimeout(function( ) {
-                    userData.update()
-                  }, 2500)
-                  break;
-                case 'arena':
-                  userData.value.spot = "arena"
-                  if (userData.value.arena != undefined) {
-                    chat.reply(`You are now in the Arena Spot!`)
-                  } else {
-                    chat.reply(`You are now participating in the Season ${SeasonNum} (${SeasonName}) Arena! You will earn rewards at the end of the season! Use b!help arena for arena help!`)
-                    userData.value.arena = {money: 0, workers: 0, customers: 1, points: 0, rank: 'Bronze'}
-                  }
-                  setTimeout(function( ) {
-                    userData.update()
-                  }, 2500)
-                  break;
-                  //event
                 case "event":
                   if (event.name == "Spot Event") {
                     userData.value.spot = "event"
@@ -336,7 +279,7 @@ const Change = {
                   break;
   
                 default:
-                  chat.reply(`That spot isnt available...`)
+                  chat.reply(`Hmm, there was an error...`)
                   break;
               }
             }
@@ -661,24 +604,24 @@ const Change = {
               userData.value.timezone = 'global'
               chat.reply(`You are now in the Global server!`)
               break;
-            case 'africa':
-              userData.value.timezone = 'africa'
-              chat.reply(`You are now in the Africa server!`)
+            case 'korean':
+              userData.value.timezone = 'korean'
+              chat.reply(`You are now in the Korean server!`)
               break;
-            case 'antarctica':
-              userData.value.timezone = 'antarctica'
-              chat.reply(`You are now in the Antarctica server!`)
+            case 'japan':
+              userData.value.timezone = 'japan'
+              chat.reply(`You are now in the Japan server!`)
               break;
-            case 'australia':
-              userData.value.timezone = 'australia'
-              chat.reply(`You are now in the Australia server!`)
+            case 'china':
+              userData.value.timezone = 'china'
+              chat.reply(`You are now in the China server!`)
               break;
             case 'europe':
               userData.value.timezone = 'europe'
               chat.reply(`You are now in the Europe server!`)
               break;
             default: 
-              chat.reply(`Thats not a timezone you can change to... ("asia", "global", "africa", "antarctica", "australia", or "europe")`)
+              chat.reply(`Thats not a timezone you can change to... ("asia", "global", "korean", "china", "japan", or "europe")`)
           }
         } else {
           chat.reply(`You already have a timezone set...`)

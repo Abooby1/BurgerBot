@@ -1,4 +1,4 @@
-import {getCrate, getRandomInt, SeasonName, SeasonSpot} from "../../utils.js"
+import {getCrate, getRandomInt, SeasonName} from "../../utils.js"
 
 const Open = {
   names: ["open"],
@@ -42,11 +42,6 @@ const Open = {
                   userData.value.space.money += s
                   chat.reply(`You got $${s} (space) from ${quantity} Common Crate(s)`)
                   break;
-                case 'london':
-                  s = getRandomInt(1, parseInt(c[1])) * quantity
-                  userData.value.london.money += s
-                  chat.reply(`You got $${s} (london) from ${quantity} Common Crate(s)`)
-                  break;
                 case 'birming':
                   s = getRandomInt(1, parseInt(c[1])) * quantity
                   userData.value.birming.money += s
@@ -81,11 +76,6 @@ const Open = {
                   s = getRandomInt(1, parseInt(c[1])) * quantity
                   userData.value.space.customers += s
                   chat.reply(`You got ${s} customer(s) (space) from ${quantity} Common Crate(s)`)
-                  break;
-                case 'london':
-                  s = getRandomInt(1, parseInt(c[1])) * quantity
-                  userData.value.london.customers += s
-                  chat.reply(`You got ${s} customer(s) (london) from ${quantity} Common Crate(s)`)
                   break;
                 case 'birming':
                   s = getRandomInt(1, parseInt(c[1])) * quantity
@@ -139,11 +129,6 @@ const Open = {
                   userData.value.space.money += s
                   chat.reply(`You got $${s} (space) from ${quantity} Rare Crate(s)`)
                   break;
-                case 'london':
-                  s = getRandomInt(1, parseInt(c[1])) * quantity
-                  userData.value.london.money += s
-                  chat.reply(`You got $${s} (london) from ${quantity} Rare Crate(s)`)
-                  break;
                 case 'birming':
                   s = getRandomInt(1, parseInt(c[1])) * quantity
                   userData.value.birming.money += s
@@ -178,11 +163,6 @@ const Open = {
                   s = getRandomInt(1, parseInt(c[1])) * quantity
                   userData.value.space.customers += s
                   chat.reply(`You got ${s} customer(s) (space) from ${quantity} Rare Crate(s)`)
-                  break;
-                case 'london':
-                  s = getRandomInt(1, parseInt(c[1])) * quantity
-                  userData.value.london.customers += s
-                  chat.reply(`You got ${s} customer(s) (london) from ${quantity} Rare Crate(s)`)
                   break;
                 case 'birming':
                   s = getRandomInt(1, parseInt(c[1])) * quantity
@@ -239,11 +219,6 @@ const Open = {
                   userData.value.space.money += s
                   chat.reply(`You got $${s} (space) from ${quantity} Epic Crate(s)`)
                   break;
-                case 'london':
-                  s = getRandomInt(1, parseInt(c[1])) * quantity
-                  userData.value.london.money += s
-                  chat.reply(`You got $${s} (london) from ${quantity} Epic Crate(s)`)
-                  break;
                 case 'birming':
                   s = getRandomInt(1, parseInt(c[1])) * quantity
                   userData.value.birming.money += s
@@ -278,11 +253,6 @@ const Open = {
                   s = getRandomInt(1, parseInt(c[1])) * quantity
                   userData.value.space.customers += s
                   chat.reply(`You got ${s} customer(s) (space) from ${quantity} Epic Crate(s)`)
-                  break;
-                case 'london':
-                  s = getRandomInt(1, parseInt(c[1])) * quantity
-                  userData.value.london.customers += s
-                  chat.reply(`You got ${s} customer(s) (london) from ${quantity} Epic Crate(s)`)
                   break;
                 case 'birming':
                   s = getRandomInt(1, parseInt(c[1])) * quantity
@@ -340,11 +310,6 @@ const Open = {
                   userData.value.space.money += s
                   chat.reply(`You got $${s} (space) from ${quantity} Legendary Crate(s)`)
                   break;
-                case 'london':
-                  s = getRandomInt(1, parseInt(c[1])) * quantity
-                  userData.value.london.money += s
-                  chat.reply(`You got $${s} (london) from ${quantity} Legendary Crate(s)`)
-                  break;
                 case 'birming':
                   s = getRandomInt(1, parseInt(c[1])) * quantity
                   userData.value.birming.money += s
@@ -380,11 +345,6 @@ const Open = {
                   userData.value.space.customers += s
                   chat.reply(`You got ${s} customer(s) (space) from ${quantity} Legendary Crate(s)`)
                   break;
-                case 'london':
-                  s = getRandomInt(1, parseInt(c[1])) * quantity
-                  userData.value.london.customers += s
-                  chat.reply(`You got ${s} customer(s) (london) from ${quantity} Legendary Crate(s)`)
-                  break;
                 case 'birming':
                   s = getRandomInt(1, parseInt(c[1])) * quantity
                   userData.value.birming.customers += s
@@ -407,38 +367,34 @@ const Open = {
       case 'season':
         var quantity = parseFloat(amount) || 1
         if (userData.value.credits >= getCrate('seasoncrate').cost * quantity) {
-          if (userData.value.spots.includes(SeasonSpot)) {
-            const get = getCrate('seasoncrate').earn
-            const c = get[getRandomInt(0, get.length)].split(' ')
-            userData.value.credits -= getCrate('seasoncrate').cost * quantity
-            switch (c[0]) {
-              case 'exp':
-                s = getRandomInt(1, parseInt(c[1])) * quantity
-                userData.value.exp += s
-                chat.reply(`You got ${s} exp from ${quantity} ${SeasonName} Crate(s)`)
-                setTimeout(function( ) {
-                  userData.update()
-                }, 2500)
-                break;
-              case 'money':
-                s = getRandomInt(1, parseInt(c[1])) * quantity
-                userData.value.birming.money += s//*******
-                chat.reply(`You got $${s} (${SeasonName}) from ${quantity} ${SeasonName} Crate(s)`)
-                setTimeout(function( ) {
-                  userData.update()
-                }, 2500)
-                break;
-              case 'custom':
-                s = getRandomInt(1, parseInt(c[1])) * quantity
-                userData.value.birming.customers += s//*****
-                chat.reply(`You got ${s} customer(s) (${SeasonName}) from ${quantity} ${SeasonName} Crate(s)`)
-                setTimeout(function( ) {
-                  userData.update()
-                }, 2500)
-                break;
-            }
-          } else {
-            chat.reply(`You need to have the Season Spot to open this crate...`)
+          const get = getCrate('seasoncrate').earn
+          const c = get[getRandomInt(0, get.length)].split(' ')
+          userData.value.credits -= getCrate('seasoncrate').cost * quantity
+          switch (c[0]) {
+            case 'exp':
+              s = getRandomInt(1, parseInt(c[1])) * quantity
+              userData.value.exp += s
+              chat.reply(`You got ${s} exp from ${quantity} ${SeasonName} Crate(s)`)
+              setTimeout(function( ) {
+                userData.update()
+              }, 2500)
+              break;
+            case 'money':
+              s = getRandomInt(1, parseInt(c[1])) * quantity
+              userData.value.birming.money += s//*******
+              chat.reply(`You got $${s} (${SeasonName}) from ${quantity} ${SeasonName} Crate(s)`)
+              setTimeout(function( ) {
+                userData.update()
+              }, 2500)
+              break;
+            case 'custom':
+              s = getRandomInt(1, parseInt(c[1])) * quantity
+              userData.value.birming.customers += s//*****
+              chat.reply(`You got ${s} customer(s) (${SeasonName}) from ${quantity} ${SeasonName} Crate(s)`)
+              setTimeout(function( ) {
+                userData.update()
+              }, 2500)
+              break;
           }
         } else {
           chat.reply(`You dont have the credits to open these crates... ('${getCrate('seasoncrate').cost}' credits per crate)`)
