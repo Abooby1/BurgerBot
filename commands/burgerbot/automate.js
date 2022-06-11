@@ -181,6 +181,52 @@ const Auto = {
             }
             break;
 
+          case "london":
+            if (userData.value.london.workers >= 1) {
+              if (parseInt(body) >= 1 && parseInt(body) <= 5) {
+                AutoW.push(chat.author.id)
+                
+                var earn = await f("worklondon", chat.author.id)
+                var y = 0
+                var y1 = 0
+      
+                chat.reply(`Your workers started working in london! (please wait ${24 * parseInt(body)} seconds)`)
+      
+                var ii = setInterval(function( ) {
+                  if (y1 < parseInt(body)) {
+                    y1 += 1
+                    y += earn
+                    chat.reply(`One day has passed...`)
+                    userData.value.london.money += earn
+                    userData.value.net += earn
+                    if (userData.value.london.supervisor == true) {
+                      if (getRandomInt(1, 50) == 1) {
+                        userData.value.london.workers -= 1
+                        userData.value.london.wage -= 30.69
+                        chat.reply(getevw(getRandomInt(1, 4)))
+                      }
+                    }
+                    setTimeout(function( ) {
+                      userData.update()
+                    }, 2500)
+                  } else {
+                    if (userData.value.london.accountant == true) {
+                      chat.reply(`Your workers are done working! (total: $${getLet(y, 2)})`)
+                    } else {
+                      chat.reply(`Your workers are done working!`)
+                    }
+                    AutoW.splice(AutoW.indexOf(chat.author.id), 1)
+                    clearInterval(ii)
+                  }
+                }, 24000)
+              } else {
+                chat.reply(`You didnt specify how many days you want your workers to work... (b!auto work <days> | max: 5)`)
+              }
+            } else {
+              chat.reply(`You need at least one worker to do this...`)
+            }
+            break;
+
           case "space":
             if (userData.value.space.workers >= 1) {
               if (parseInt(body) >= 1 && parseInt(body) <= 5) {
@@ -417,6 +463,57 @@ const Auto = {
                     }, 2500)
                   } else {
                     if (userData.value.dank.accountant == true) {
+                      chat.reply(`Your workers are done advertising! (total cost: $${getLet(yy, 2)})`)
+                    } else {
+                      chat.reply(`Your workers are done advertising!`)
+                    }
+                    AutoA.splice(AutoA.indexOf(chat.author.id), 1)
+                    clearInterval(iii)
+                  }
+                }, 12000)
+              } else {
+                chat.reply(`You didnt specify how many days you want your workers to work... (b!auto advert <days> | max: 5)`)
+              }
+            } else {
+              chat.reply(`You need at least one worker to do this...`)
+            }
+            break;
+          case "london":
+            if (userData.value.london.workers >= 1) {
+              if (parseInt(body) >= 1 && parseInt(body) <= 5) {
+                AutoA.push(chat.author.id)
+                
+                var earn = await f("advertlondon", chat.author.id)
+                var yy = 0
+                var y2 = 0
+                var EarnedW = 0
+      
+                chat.reply(`Your workers started advertising in london! (please wait ${12 * parseInt(body)} seconds)`)
+      
+                var iii = setInterval(function( ) {
+                  if (y2 < parseInt(body)) {
+                    yy += earn
+                    y2 += 1
+                    const Earned = getRandomInt(0, getStuff(userData.value.london.normad).earn)
+                    if (getRandomInt(1, getStuff(userData.value.london.normad).chance) == 1) {
+                      EarnedW = getRandomInt(1, 2)
+                    }
+                    chat.reply(`One day has passed...`)
+                    userData.value.london.customers += Earned
+                    userData.value.london.workers += EarnedW
+                    userData.value.london.money -= earn
+                    if (userData.value.london.supervisor == true) {
+                      if (getRandomInt(1, 50) == 1) {
+                        userData.value.london.workers -= 1
+                        userData.value.london.wage -= 30.69
+                        chat.reply(geteva(getRandomInt(1, 3)))
+                      }
+                    }
+                    setTimeout(function( ) {
+                      userData.update()
+                    }, 2500)
+                  } else {
+                    if (userData.value.london.accountant == true) {
                       chat.reply(`Your workers are done advertising! (total cost: $${getLet(yy, 2)})`)
                     } else {
                       chat.reply(`Your workers are done advertising!`)

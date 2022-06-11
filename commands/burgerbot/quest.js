@@ -10,7 +10,7 @@ const Quest = {
         break;
 
       default:
-        chat.reply(`Thats not a quest category... ("weeky"/"season")`)
+        chat.reply(`Thats not a quest category... ("weeky" or "season")`)
     }
   },
   description: "All about quests",

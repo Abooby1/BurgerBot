@@ -36,18 +36,22 @@ const Donate = {
           const d = await getUserDataManager(user.id)
           const u = await getUserDataManager(chat.author.id)
 
-          if (u.value.city.money >= amount) {
-            u.value.city.money -= parseInt(amount)
-            d.value.inbox2 += parseInt(amount)
-            chat.reply(`You donated $${getLet(parseInt(amount), 2)} to ${id}!`)
+          if (u.value.recentprest == false) {
+            if (u.value.city.money >= amount) {
+              u.value.city.money -= parseInt(amount)
+              d.value.inbox2 += parseInt(amount)
+              chat.reply(`You donated $${getLet(parseInt(amount), 2)} to ${id}!`)
+            } else {
+              chat.reply(`You dont have the money to donate that much...`)
+            }
+  
+            setTimeout(function( ) {
+              d.update()
+              u.update()
+            }, 2500)
           } else {
-            chat.reply(`You dont have the money to donate that much...`)
+            chat.reply(`That person has recently prestiged...`)
           }
-
-          setTimeout(function( ) {
-            d.update()
-            u.update()
-          }, 2500)
         } else {
           chat.reply(`Thats not a name...`)
         }

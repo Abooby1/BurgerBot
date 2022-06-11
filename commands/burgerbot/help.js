@@ -3,17 +3,18 @@ import {db} from "../../database.js"
 
 const Help = {
   names: ["help", "about"],
-  func: ({chat, args: [body, body1], userData})=>{
+  func: async ({chat, args: [body, body1], userData})=>{
     switch(body.toLowerCase()) {
       case "event":
-        chat.reply(`Current event '${event.name}': ${event.desc}`)
+        const s = JSON.parse(await db.get('EventDay'))
+        chat.reply(`Current event '${event.name}': ${event.desc} (${s.last} day(s) remaining)`)
         break;
       case "spots":
       case "spot":
         chat.reply(`You can buy spots in b!change spot <spot you want to buy>! Each spot costs more credits!`)
         setTimeout(function( ) {
-          chat.reply(`Spots: "city" (free starter) | "beach" (5k credits) | "dank" (25k credits) | "space" (50k credits) | Birmingham (10k credits)`)
-        }, 500)
+          chat.reply(`Spots: "city" (free starter) | "beach" (5k credits) | "dank" (25k credits) | "space" (50k credits) | "birming" (10k credits) | "summer" (FREE)`)
+        }, 100)
         break;
       case "season":
         chat.reply(`Season ${SeasonNum} (${SeasonName}) ends: '${SeasonEnd}' | Earn rewards using b!claim season! (Season Multiplier: '${SeasonMulti}' | earn exp by working, events, and prestiging!)`)
@@ -56,7 +57,16 @@ const Help = {
             chat.reply(`Prestiging adds to your money earning (in the spot your prestiging in) | Requirements (Space Center): $100K, 50K customers, 5K workers!`)
             break;
           case 'birming':
-            chat.reply(`Prestiging adds to your money earning (in the spot your prestiging in) | Requirements (Space Center): $200K, 100K customers, 10K workers!`)
+            chat.reply(`Prestiging adds to your money earning (in the spot your prestiging in) | Requirements (Birmingham): $200K, 100K customers, 10K workers!`)
+            break;
+          case 'london':
+            chat.reply(`Prestiging adds to your money earning (in the spot your prestiging in) | Requirements (London): $100K, 1K customers, 10K workers!`)
+            break;
+          case 'summer':
+            chat.reply(`Prestiging adds to your money earning (in the spot your prestiging in) | Requirements (Summer Spot): $10K, 5k customers, 1k workers!`)
+            break;
+          case 'arena':
+            chat.reply(`Prestiging adds to your money earning (in the spot your prestiging in) | Requirements (Arena): $5K, 2.5k customers, 500 workers!`)
             break;
           case 'event':
             chat.reply(`Prestiging adds to your money earning (in the spot your prestiging in) | Requirements (Event Spot): $1K, 1k customers, 100 workers!`)
@@ -73,7 +83,7 @@ const Help = {
         break;
       case "b!claim":
       case "claim":
-        chat.reply(`b!claim <item>: claim rank/event/seasonal rewards! ("event" for event rewards! "season" for seasonal rewards (you can do this after every level up!))`)
+        chat.reply(`b!claim <item>: claim daily/monthly/premium/event/seasonal rewards!`)
         break;
         //
       case "b!change":
@@ -97,7 +107,7 @@ const Help = {
             break;
           case 'servers':
           case 'server':
-            chat.reply(`You can change into the "asia", "global", "korean", "china", "japan", or "europe" server`)
+            chat.reply(`You can change into the "asia", "global", "africa", "antarctica", "australia", or "europe" server`)
           default:
             chat.reply(`Thats not a change command...`)
         }
@@ -113,6 +123,9 @@ const Help = {
         chat.reply(`b!advert <item>: item: "facebook": facebook ADS, "flier": flier ADS, "radio": radio ADS, "mobile": mobile ADS, "tiktok": tiktok ADS, "youtube": youtube ADS, "tv": tv ADS`)
         setTimeout(function( ) {
           chat.reply(`"uhaul": uhaul truck ADS, "billboard": billboard ADS, "superbowl": superbowl ADS, "photopbots": photop bot ADS, "dank": dank memer ADS | "movie": movie ADS`)
+          setTimeout(function( ) {
+            chat.reply(`"birming": Birmingham ADS`)
+          }, 100)
         }, 100)
         break;
       case 'advertinfo':
@@ -129,7 +142,19 @@ const Help = {
               chat.reply(`Danker Land | Cost: $${getLet(i.cost * 3, 2)} | Max gain: ${getLet(i.earn)} | Chance of gaining worker: 1/${i.chance}`)
               break;
             case 'space':
-              chat.reply(`Space | Cost: $${getLet(i.cost * 4, 2)} | Max gain: ${getLet(i.earn)} | Chance of gaining worker: 1/${i.chance}`)
+              chat.reply(`Space Center | Cost: $${getLet(i.cost * 4, 2)} | Max gain: ${getLet(i.earn)} | Chance of gaining worker: 1/${i.chance}`)
+              break;
+            case 'birming':
+              chat.reply(`Birmingham | Cost: $${getLet(i.cost * 5, 2)} | Max gain: ${getLet(i.earn)} | Chance of gaining worker: 1/${i.chance}`)
+              break;
+            case 'london':
+              chat.reply(`Birmingham | Cost: $${getLet(i.cost * 6, 2)} | Max gain: ${getLet(i.earn)} | Chance of gaining worker: 1/${i.chance}`)
+              break;
+            case 'summer':
+              chat.reply(`Summer Spot | Cost: $${getLet(i.cost / 2, 2)} | Max gain: ${getLet(i.earn)} | Chance of gaining worker: 1/${i.chance}`)
+              break;
+            case 'arena':
+              chat.reply(`Arena | Cost: $${getLet(i.cost / 2, 2)} | Max gain: ${getLet(i.earn)} | Chance of gaining worker: 1/${i.chance}`)
               break;
             case 'event':
               chat.reply(`Event Spot | Cost: $${getLet(i.cost / 2, 2)} | Max gain: ${getLet(i.earn)} | Chance of gaining worker: 1/${i.chance}`)
@@ -139,14 +164,40 @@ const Help = {
           chat.reply(`Thats not an advert...`)
         }
         break;
+      case 'tutorial':
+        chat.reply(`To start your burger industry, use b!work. Itll give you a couple cents to start off! When you get to $15 you can do your first advert!`)
+        setTimeout(function( ) {
+          chat.reply(`Since you now have $15, you can do b!advert facebook! That will add to your customers, which makes you earn more money from b!work!`)
+          setTimeout(function( ) {
+            chat.reply(`You are now earning and using your money for customers! This will help out until you get your first worker by using b!hire (or b!hire 1)!`)
+            setTimeout(function( ) {
+              chat.reply(`Now that you have a worker, you unlocked autoing! You can now use b!auto w and b!auto a! Just make sure you profit from them!`)
+              setTimeout(function( ) {
+                chat.reply(`With those great profits, you can now start making your industry! (Make sure to change your normad by using b!change normad <advert>!)`)
+                setTimeout(function( ) {
+                  chat.reply(`If you ever need more help, you can ask the wonderful BurgerBot Community or use b!help!`)
+                }, 500)
+              }, 500)
+            }, 500)
+          }, 500)
+        }, 500)
+        break;
         //
+/*
+      case 'arena':
+        chat.reply(`BurgerBot Arena is a good way to get many rewards! All you do is b!change spot arena and prestige in spot to earn points to rank up! Based on your rank, at the end of the season you will earn rewards!`)
+        setTimeout(function( ) {
+          chat.reply(`Ranks: "Bronze" (250 points needed to go up), "Silver" (500 points needed to go up), "Gold" (750 points needed to go up), "Platinum" (1000 points needed to go up), "Diamond" (Final Rank)`)
+        }, 100)
+        break;
+        */        
 
       default:
         chat.reply(`Commands: b!work <hours> | b!stats | b!prestige | b!hire <amount> | b!donateto <item> <value> | b!claim <item> | b!change <item> <value> | b!auto <item> <amount> | b!advert <item>`)
         setTimeout(function( ) {
           chat.reply(`b!open <crate> <amount>`)
           setTimeout(function( ) {
-            chat.reply(`Normal: "season" | "credits" | "spots" | "event" | "symbols" | "advertinfo <advert>" | "changeinfo <change name>"`)
+            chat.reply(`Normal: "season" | "credits" | "spots" | "event" | "symbols" | "tutorial" | "advertinfo <advert>" | "changeinfo <change name>"`)
           }, 100)
         }, 100)
     }

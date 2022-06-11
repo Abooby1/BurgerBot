@@ -34,19 +34,13 @@ const specialRanks = {
   "62465bdda95b113f103322d2": "Special",
   "62221daff1c22c29f8629977": "Special",
   "6255aa3c434000065016fb6f": "Special",
-  "61c875e360fe4c7b88a8d071": "Special",
-
-  "628a66938b00f740041007fe": 'Banned',
-  "61c6c9b3e1e6417b595d3dfc": 'Banned',
-  '6297fdf0f47a391ad514a437': 'Banned',
-
-  "622fb3400c9eb9061377ddda": 'Banned'//Yudz
+  "61c875e360fe4c7b88a8d071": "Special"
 }
 
 export const defaultData = {
   rankshow: true,
   postuse: false,
-  version: 2,
+  version: 3,
 
   rank: "Normal",
   daily: 0,
@@ -63,10 +57,15 @@ export const defaultData = {
   dank: {money: 0, customers: 1, workers: 0, wage: 0, prestige: 1, normad: 'facebook', normwater: 'water1', supervisor: false, accountant: false, coowner: false},
   space: {money: 0, customers: 1, workers: 0, wage: 0, prestige: 1, normad: 'facebook', normwater: 'water1', supervisor: false, accountant: false, coowner: false},
   birming: {money: 0, customers: 1, workers: 0, wage: 0, prestige: 1, normad: 'facebook', normwater: 'water1', supervisor: false, accountant: false, coowner: false},
+  london: {money: 0, customers: 1, workers: 0, wage: 0, prestige: 1, normad: 'facebook', normwater: 'water1', supervisor: false, accountant: false, coowner: false},
+  summer: {money: 0, customers: 1, workers: 0, wage: 0, prestige: 1},
   event: {money: 0, customers: 1, workers: 0, wage: 0},
   //
-  
+
+  recentprest: false,
   troph: false,
+  buy: {month: 0, day: 0},
+  month: {number: 0, day: 0, next: ''},
 
   inbox: 0,
   inbox2: 0,
@@ -101,7 +100,9 @@ class UserDataManager {
   }
   applyRanks(){
     if (specialRanks[this.userid]) {
-        result.rank = specialRanks[this.userid];
+      this.value.rank = specialRanks[this.userid];
+    } else {
+      this.value.rank = 'Normal'
     }
   }
   async save(){
