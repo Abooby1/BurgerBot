@@ -3,46 +3,22 @@ import {getLet} from "../../utils.js"
 
 const Donate = {
   names: ["donateto"],
-  func: async ({chat, client, args: [type, id, amount]})=>{
-    if (id && type && amount && parseFloat(amount) >= 0) {
-      //name
-      if (type.toLowerCase() == "credits" || type.toLowerCase() == "credit") {
-        const user = await client.getUserFromUsername(id)
-        if (user != undefined) {
-          const d = await getUserDataManager(user.id)
-          const u = await getUserDataManager(chat.author.id)
-
-          if (u.value.credits >= amount) {
-            u.value.credits -= parseInt(amount)
-            d.value.inbox += parseInt(amount)
-            chat.reply(`You donated ${getLet(parseInt(amount))} credits to ${id}!`)
-          } else {
-            chat.reply(`You dont have the credits to donate that much...`)
-          }
-
-          setTimeout(function( ) {
-            d.update()
-            u.update()
-          }, 2500)
-        } else {
-          chat.reply(`Thats not a name...`)
-        }
-      }
-
-      //money
-      if (type.toLowerCase() == "money" || type.toLowerCase() == "$") {
-        const user = await client.getUserFromUsername(id)
-        if (user != undefined) {
-          const d = await getUserDataManager(user.id)
-          const u = await getUserDataManager(chat.author.id)
-
-          if (u.value.recentprest == false) {
-            if (u.value.city.money >= amount) {
-              u.value.city.money -= parseInt(amount)
-              d.value.inbox2 += parseInt(amount)
-              chat.reply(`You donated $${getLet(parseInt(amount), 2)} to ${id}!`)
+  func: async ({chat, client, args: [type, id, amount], userData})=>{
+    if (userData.value.version != 'Beta') {
+      if (id && type && amount && parseFloat(amount) >= 0) {
+        //name
+        if (type.toLowerCase() == "credits" || type.toLowerCase() == "credit") {
+          const user = await client.getUserFromUsername(id)
+          if (user != undefined) {
+            const d = await getUserDataManager(user.id)
+            const u = await getUserDataManager(chat.author.id)
+  
+            if (u.value.credits >= amount) {
+              u.value.credits -= parseInt(amount)
+              d.value.inbox += parseInt(amount)
+              chat.reply(`You donated ${getLet(parseInt(amount))} credits to ${id}!`)
             } else {
-              chat.reply(`You dont have the money to donate that much...`)
+              chat.reply(`You dont have the credits to donate that much...`)
             }
   
             setTimeout(function( ) {
@@ -50,14 +26,42 @@ const Donate = {
               u.update()
             }, 2500)
           } else {
-            chat.reply(`That person has recently prestiged...`)
+            chat.reply(`Thats not a name...`)
           }
-        } else {
-          chat.reply(`Thats not a name...`)
         }
+  
+        //money
+        if (type.toLowerCase() == "money" || type.toLowerCase() == "$") {
+          const user = await client.getUserFromUsername(id)
+          if (user != undefined) {
+            const d = await getUserDataManager(user.id)
+            const u = await getUserDataManager(chat.author.id)
+  
+            if (u.value.recentprest == false) {
+              if (u.value.city.money >= amount) {
+                u.value.city.money -= parseInt(amount)
+                d.value.inbox2 += parseInt(amount)
+                chat.reply(`You donated $${getLet(parseInt(amount), 2)} to ${id}!`)
+              } else {
+                chat.reply(`You dont have the money to donate that much...`)
+              }
+    
+              setTimeout(function( ) {
+                d.update()
+                u.update()
+              }, 2500)
+            } else {
+              chat.reply(`That person has recently prestiged...`)
+            }
+          } else {
+            chat.reply(`Thats not a name...`)
+          }
+        }
+      } else {
+        chat.reply(`Please complete the command... (b!donateto <type> <person> <amount>)`)
       }
     } else {
-      chat.reply(`Please complete the command... (b!donateto <type> <person> <amount>)`)
+      chat.reply(`Youre currently in Beta Testing... (please use b!beta revoke to end your beta testing session)`)
     }
   },
   description: "Donate to people",

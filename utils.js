@@ -70,13 +70,21 @@ export const SeasonNum = 2
 export const SeasonEnd = "July 9"
 export const SeasonName = "Birmingham"
 export const SeasonSpot = 'birming'
-export const VersionID = '2.11'
+export const VersionID = '2.12'
 export const downtime = false
 export var Day = await getDay('global')
 export var event = {}
 export const d12d = false
-export const DowntimeEnd = 'June 11, 12pm EST'
+export const DowntimeEnd = 'June 18, 12pm EST'
 export const PremiumSpotID = {6: 'london'}
+
+export const BetaID = {
+  '2.20': {
+    name: 'V2.30 Beta 1',
+    day: 11,
+    month: 6
+  }
+}
 
 export var QuestW = {}
 export var QuestS = {name: 'Work', desc: 'Work 500 times', max: 500}
@@ -84,6 +92,8 @@ export var QuestS = {name: 'Work', desc: 'Work 500 times', max: 500}
 export function getPoints (rank, p) {
   if (p == 'points') {
     switch (rank.toLowerCase()) {
+      case 'noobie':
+        return 100
       case 'bronze':
         return 250
       case 'silver':
@@ -96,7 +106,9 @@ export function getPoints (rank, p) {
         return 'Max'
     }
   } else if (p == 'rank') {
-    switch (rank) {
+    switch (rank.toLowerCase()) {
+      case 'noobie':
+        return 'Bronze'
       case 'bronze':
         return 'Silver'
       case 'silver':
@@ -207,6 +219,10 @@ function getQuest (n) {
         desc: 'Get customers from adverts until completed!',
         earn: ['money 100', 'credits 25'],
         max: getRandomInt(100, 250)
+      }
+    case 3:
+      return {
+        name: ''
       }
   }
 }

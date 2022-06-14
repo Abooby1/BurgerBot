@@ -14,6 +14,8 @@ ranks:
 const specialRanks = {
   "6154f0d0a8d6d106c5b869b6": "Owner",//3
   "60ca4bc6f6bf2c044d2c11e6": "Owner",
+
+  "625b04b643400006501c26a8": 'Tester',
   
   "61f9afa941a9e239b62ec6f5": "Bot",
   "624884d0a95b113f10356a47": "Bot",

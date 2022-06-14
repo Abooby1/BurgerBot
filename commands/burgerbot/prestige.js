@@ -1,8 +1,8 @@
-import {getRandomInt} from "../../utils.js"
+import {getRandomInt, getPoints} from "../../utils.js"
 
 const Prestige = {
   names: ["prestige"],
-  func: ({chat, client, userData})=>{
+  func: async ({chat, client, userData})=>{
     switch (userData.value.spot.toLowerCase()) {
       case "city":
         if (userData.value.city.workers >= 500) {
@@ -14,6 +14,7 @@ const Prestige = {
               userData.value.city.workers = 0
               userData.value.city.customers = 1
               userData.value.city.normad = "flier"
+              userData.value.city.normwater = "water1"
               userData.value.city.wage = 0
               userData.value.city.supervisor = false
               userData.value.city.accountant = false
@@ -225,7 +226,13 @@ const Prestige = {
               userData.value.arena.workers = 0
               userData.value.arena.customers = 1
               userData.value.arena.points += gain
-              chat.reply(`You have prestiged in the Arena Spot! (You got ${gain} points!)`)
+              if (userData.value.arena.points >= getPoints(userData.value.arena.rank, 'points')) {
+                chat.reply(`You have prestiged in the Arena Spot! (You ranked up to ${await getPoints(userData.value.arena.rank, 'rank')}!)`)
+                userData.value.arena.points = 0
+                userData.value.arena.rank = await getPoints(userData.value.arena.rank, 'rank')
+              } else {
+                chat.reply(`You have prestiged in the Arena Spot! (You got ${gain} points!)`)
+              }
               setTimeout(function( ) {
                 userData.update()
               }, 2500)

@@ -131,37 +131,43 @@ const Help = {
       case 'advertinfo':
         const i = getStuff(body1)
         if (i != 'false') {
-          switch (userData.value.spot) {
-            case 'city':
-              chat.reply(`City | Cost: $${getLet(i.cost, 2)} | Max gain: ${getLet(i.earn)} | Chance of gaining worker: 1/${i.chance}`)
-              break;
-            case 'beach':
-              chat.reply(`Beach | Cost: $${getLet(i.cost * 2, 2)} | Max gain: ${getLet(i.earn)} | Chance of gaining worker: 1/${i.chance}`)
-              break;
-            case 'dank':
-              chat.reply(`Danker Land | Cost: $${getLet(i.cost * 3, 2)} | Max gain: ${getLet(i.earn)} | Chance of gaining worker: 1/${i.chance}`)
-              break;
-            case 'space':
-              chat.reply(`Space Center | Cost: $${getLet(i.cost * 4, 2)} | Max gain: ${getLet(i.earn)} | Chance of gaining worker: 1/${i.chance}`)
-              break;
-            case 'birming':
-              chat.reply(`Birmingham | Cost: $${getLet(i.cost * 5, 2)} | Max gain: ${getLet(i.earn)} | Chance of gaining worker: 1/${i.chance}`)
-              break;
-            case 'london':
-              chat.reply(`Birmingham | Cost: $${getLet(i.cost * 6, 2)} | Max gain: ${getLet(i.earn)} | Chance of gaining worker: 1/${i.chance}`)
-              break;
-            case 'summer':
-              chat.reply(`Summer Spot | Cost: $${getLet(i.cost / 2, 2)} | Max gain: ${getLet(i.earn)} | Chance of gaining worker: 1/${i.chance}`)
-              break;
-            case 'arena':
-              chat.reply(`Arena | Cost: $${getLet(i.cost / 2, 2)} | Max gain: ${getLet(i.earn)} | Chance of gaining worker: 1/${i.chance}`)
-              break;
-            case 'event':
-              chat.reply(`Event Spot | Cost: $${getLet(i.cost / 2, 2)} | Max gain: ${getLet(i.earn)} | Chance of gaining worker: 1/${i.chance}`)
-              break;
+          if (i.rank == 'ad') {
+            switch (userData.value.spot) {
+              case 'city':
+                chat.reply(`City | Cost: $${getLet(i.cost, 2)} | Max gain: ${getLet(i.earn)} | Chance of gaining worker: 1/${i.chance}`)
+                break;
+              case 'beach':
+                chat.reply(`Beach | Cost: $${getLet(i.cost * 2, 2)} | Max gain: ${getLet(i.earn)} | Chance of gaining worker: 1/${i.chance}`)
+                break;
+              case 'dank':
+                chat.reply(`Danker Land | Cost: $${getLet(i.cost * 3, 2)} | Max gain: ${getLet(i.earn)} | Chance of gaining worker: 1/${i.chance}`)
+                break;
+              case 'space':
+                chat.reply(`Space Center | Cost: $${getLet(i.cost * 4, 2)} | Max gain: ${getLet(i.earn)} | Chance of gaining worker: 1/${i.chance}`)
+                break;
+              case 'birming':
+                chat.reply(`Birmingham | Cost: $${getLet(i.cost * 5, 2)} | Max gain: ${getLet(i.earn)} | Chance of gaining worker: 1/${i.chance}`)
+                break;
+              case 'london':
+                chat.reply(`Birmingham | Cost: $${getLet(i.cost * 6, 2)} | Max gain: ${getLet(i.earn)} | Chance of gaining worker: 1/${i.chance}`)
+                break;
+              case 'summer':
+                chat.reply(`Summer Spot | Cost: $${getLet(i.cost / 2, 2)} | Max gain: ${getLet(i.earn)} | Chance of gaining worker: 1/${i.chance}`)
+                break;
+              case 'arena':
+                chat.reply(`Arena | Cost: $${getLet(i.cost / 2, 2)} | Max gain: ${getLet(i.earn)} | Chance of gaining worker: 1/${i.chance}`)
+                break;
+              case 'event':
+                chat.reply(`Event Spot | Cost: $${getLet(i.cost / 2, 2)} | Max gain: ${getLet(i.earn)} | Chance of gaining worker: 1/${i.chance}`)
+                break;
+            }
+          } else if(i.rank == 'water') {
+            chat.reply(`${i.name} | Multiplier: ×${i.multi}`)
+          } else {
+            chat.reply(`Hmm, there was an error... Please report this to @Abooby!`)
           }
         } else {
-          chat.reply(`Thats not an advert...`)
+          chat.reply(`Looks like thats not an advert or a water bottle...`)
         }
         break;
       case 'tutorial':

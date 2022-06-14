@@ -2,13 +2,13 @@ import { Client } from "photop-client";
 import { onChat } from "./commands_entry.js";
 import { START, PREFIX } from "./constants.js";
 import {db, defaultData, getUserDataManager} from "./database.js"
-import {Version, VersionID, SeasonNum, f, event, getRandomInt, SeasonName, downtime, DowntimeEnd, changeTimeZone} from "./utils.js"
+import {Version, VersionID, SeasonNum, f, event, getRandomInt, SeasonName, downtime, DowntimeEnd, changeTimeZone, BetaID} from "./utils.js"
 
 const client = new Client({ username: "BurgerBot", password: process.env["Pass"] }, { logSocketMessages: false });
 
 const noop = () => { };
 
-const VersionSay = `1. Added more to b!buy (verified bots only | check https://github.com/Abooby1/BurgerBot/blob/test/commands/owner/buy.js for more information)`
+const VersionSay = `1. Added BurgerBot Testing (starting after the V2.20 update | verified accounts only (to verify: dm @Abooby in discord (Abooby#5598)))`
 
 export async function audit (m) {
   const p = await client.getPost('62a37bbc15ad3e0f9dd41a81')
@@ -109,29 +109,53 @@ client.onPost = async (post) => {
               post.disconnect()
             }
           }
-          if (d1.value.version != Version) {
-            const v = d1.value.version
-            switch (v) {
-              case 2://new season (version before the current version)
-                d1.value.exp = 0
-                d1.value.lvl = 1
-                d1.value.lastlvl = 0
-                d1.value.credits += 25
-                d1.value.version = 3
-                d1.value.net = 0
-                post.chat(`Welcome to Season ${SeasonNum} (${SeasonName})! You got yourself 25 credits! (you are back to level 1!)`)
-                if (d1.value.spot == 'arena') {
-                  post.chat('Your spot has been changed to the City Spot! (Arena has refreshed)')
-                  delete d1.value.arena
-                }
-                setTimeout(function( ) {
-                  d1.update()
-                }, 3000)
-                break;
-  
-              default: 
-                post.chat(`Hmm, it looks like there was an error (please report this to @Abooby | post has been disconnected)`)
-                post.disconnect()
+          if (typeof d1.value.version != 'string') {
+            if (d1.value.version != Version) {
+              const v = d1.value.version
+              switch (v) {
+                case 2://new season (version before the current version)
+                  d1.value.exp = 0
+                  d1.value.lvl = 1
+                  d1.value.lastlvl = 0
+                  d1.value.credits += 25
+                  d1.value.version = 3
+                  d1.value.net = 0
+                  post.chat(`Welcome to Season ${SeasonNum} (${SeasonName})! You got yourself 25 credits! (you are back to level 1!)`)
+                  if (d1.value.arena != undefined) {
+                    post.chat(`Your arena rewards have been given to you!`)
+                    delete d1.value.arena
+                    if (d1.value.arena.rank != 'Noobie') {
+                      const get = parseFloat(getPoints(d1.value.arena.rank, 'points')) || 1500 / 8
+                      d1.value.credits += get.toString().split('.')[0]
+                    }
+                  }
+                  if (d1.value.spot == 'arena') {
+                    post.chat('Your spot has been changed to the City Spot! (Arena has refreshed | rewards have been given to you!)')
+                    d1.value.spot = 'city'
+                  }
+                  setTimeout(function( ) {
+                    d1.update()
+                  }, 3000)
+                  break;
+    
+                default: 
+                  post.chat(`Hmm, it looks like there was an error (please report this to @Abooby | post has been disconnected)`)
+                  post.disconnect()
+              }
+            }
+          } else {
+            const ver = d1.value.version.split(' ')
+            if (BetaID[ver[1]] == undefined) {
+              post.chat(`Youre currently in an outdated beta test... (data has been refreshed)`)
+              audit(`${post.author.username} has been refreshed from an outdated beta version`)
+              const data = await getUserDataManager(post.author.id);
+
+              data.value = JSON.parse(JSON.stringify(defaultData));
+              data.applyRanks();
+          
+              setTimeout(function() {
+                data.update();
+              }, 1500)
             }
           }
           if (d1.value.spot == 'event') {

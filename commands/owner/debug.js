@@ -1,11 +1,63 @@
 import { defaultData, getUserDataManager, db } from "../../database.js";
-import {getDay} from '../../utils.js'
+import {getDay, BetaID, VersionID, getMonth} from '../../utils.js'
 import {audit} from "../../index.js"
 
 const isNaN = function(value) {
     const n = Number(value);
     return n !== n;
 };
+
+const BetaTest = {
+  names: ['beta'],
+  func: async ({chat, args: [type], userData})=>{
+    switch (type) {
+      case 'update':
+        const ver1 = userData.value.version.toString().split(' ')
+        if (ver1[0] != 'Beta') {
+          if (BetaID[VersionID] != undefined) {
+            if (await getDay(userData.value.timezone) >= BetaID[VersionID].day && await getMonth(userData.value.timezone) >= BetaID[VersionID].month) {
+              chat.reply(`Your account is now in beta testing! (use b!resetdata to reset your data if you encounter bugs that break your data (you will have to re-enter the beta) | report these bugs in the Tester Group)`)
+              userData.value.version = `Beta ${BetaID[VersionID].id}`
+              audit(`${chat.author.username} has joined ${BetaID[VersionID].name}!`)
+              //add code for data
+              setTimeout(function( ) {
+                userData.update()
+              }, 2500)
+            } else {
+              chat.reply(`It is currently not the date for ${BetaID[VersionID].name} (You can try again after ${BetaID[VersionID].month}/${BetaID[VersionID].day})`)
+            }
+          } else {
+            chat.reply(`This version doesnt have a beta right now...`)
+          }
+        } else {
+          chat.reply(`You are already in a beta... (use b!beta revoke, then redo b!beta update to have the latest beta!)`)
+        }
+        break;
+      case 'revoke':
+      case 'end':
+        const ver = userData.value.version.toString().split(' ')
+        if (ver[0] == 'Beta') {
+          const data = await getUserDataManager(chat.author.id);
+
+          data.value = JSON.parse(JSON.stringify(defaultData));
+          data.applyRanks();
+      
+          setTimeout(function() {
+            data.update();
+          }, 1500)
+          chat.reply(`Your account has been refreshed!`)
+          audit(`${chat.author.username} has left the beta stage!`)
+        } else {
+          chat.reply(`You arent in a BurgerBot Beta currently...`)
+        }
+        break;
+      default:
+        chat.reply(`Thats not a type... (b!beta <type>)`)
+    }
+  },
+  hidden: true,
+  permission: rank => rank == 'Owner' || rank == 'Tester'
+}
 
 const TempBan = {
   names: ["ban"],
@@ -90,10 +142,10 @@ const AddSay = {
 
 const ResetData = {
   names: ["resetdata"],
-  func: async ({ chat, args: [userid] }) => {
+  func: async ({ chat, args: [userid], userData }) => {
     if (userid == "6154f0d0a8d6d106c5b869b6") return;
-    if (userid === "@me") {
-      userid = chat.user.id;
+    if (userid === "@me" || userData.value.rank == 'Tester' || userid == undefined) {
+      userid = chat.author.id;
     }
     const data = await getUserDataManager(userid);
 
@@ -103,12 +155,16 @@ const ResetData = {
 
     setTimeout(function() {
       data.update();
-      chat.reply("I reset their data!")
+      if (userid != chat.author.id) {
+        chat.reply("I reset their data!")
+      } else {
+        chat.reply(`I reset your data!`)
+      }
     }, 1500)
   },
   hidden: true,
   description: "Resets a specific substat of a user to its default value. Note: Ranks are hard coded and cannot be reset.",
-  permission: rank => rank == "Owner" || rank == "Mod",
+  permission: rank => rank == "Owner" || rank == "Mod" || rank == 'Tester',
 }
 
 const SetMoney = {
@@ -236,4 +292,4 @@ const AddSpot = {
   permission: "Owner"
 };
 
-export {SetMoney, TempBan, SetCustoms, SetWorker, ResetData, AddSpot, SetPrestige, SetCredit, AddSay, TempBan2}
+export {SetMoney, TempBan, SetCustoms, SetWorker, ResetData, AddSpot, SetPrestige, SetCredit, AddSay, TempBan2, BetaTest}
