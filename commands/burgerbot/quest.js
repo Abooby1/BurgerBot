@@ -1,3 +1,5 @@
+import {QuestW, QuestS} from '../../utils.js'
+
 const Quest = {
   names: ["quest"],
   func: ({chat, args: [type], userData})=>{

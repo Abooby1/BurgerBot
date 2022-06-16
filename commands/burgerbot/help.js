@@ -14,6 +14,11 @@ const Help = {
         chat.reply(`You can buy spots in b!change spot <spot you want to buy>! Each spot costs more credits!`)
         setTimeout(function( ) {
           chat.reply(`Spots: "city" (free starter) | "beach" (5k credits) | "dank" (25k credits) | "space" (50k credits) | "birming" (10k credits) | "summer" (FREE)`)
+          setTimeout(function( ) {
+            const items = []
+            const y = userData.value.spots.forEach(x => items.push(`"${x}"`))
+            chat.reply(`Your spots: ${items.join(' | ')}`)
+          }, 100)
         }, 100)
         break;
       case "season":
@@ -27,7 +32,7 @@ const Help = {
         break;
       case "symbols":
       case "symbol":
-        chat.reply(`Symbols | 'K': thousand | 'M': million | 'B': billion | 'T': trillion | 'P': quadrillion | 'E': quintillion | 'Z': sextillion | 'Y': septillion`)
+        chat.reply(`Symbols | 'K': thousand | 'M': million | 'B': billion | 'T': trillion | 'P': quadrillion | 'E': quintillion | 'Z': sextillion | 'Y': septillion | 'A': octillion | 'F': nonillion | 'L': decillion`)
         break;
       case 'b!open':
       case 'open':
@@ -115,7 +120,7 @@ const Help = {
         //
       case "b!auto":
       case "auto":
-        chat.reply(`b!auto <item> <amount>: item: "work"/"advert", value: the days you want your workers to work (max: 5)`)
+        chat.reply(`b!auto <item> <amount>: item: "work"/"advert" | amount: the days you want your workers to work (max: 5)`)
         break;
         //
       case "b!advert":
@@ -191,9 +196,9 @@ const Help = {
         //
 /*
       case 'arena':
-        chat.reply(`BurgerBot Arena is a good way to get many rewards! All you do is b!change spot arena and prestige in spot to earn points to rank up! Based on your rank, at the end of the season you will earn rewards!`)
+        chat.reply(`BurgerBot Arena is a good way to get credits! All you do is b!change spot arena and prestige in the spot to earn points to rank up! Based on your rank, at the end of the season you will earn credits!`)
         setTimeout(function( ) {
-          chat.reply(`Ranks: "Bronze" (250 points needed to go up), "Silver" (500 points needed to go up), "Gold" (750 points needed to go up), "Platinum" (1000 points needed to go up), "Diamond" (Final Rank)`)
+          chat.reply(`Ranks: "Noobie" (100 points) "Bronze" (250 points), "Silver" (500 points), "Gold" (750 points), "Platinum" (1000 points), "Diamond" (Final Rank)`)
         }, 100)
         break;
         */        

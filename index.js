@@ -8,7 +8,7 @@ const client = new Client({ username: "BurgerBot", password: process.env["Pass"]
 
 const noop = () => { };
 
-const VersionSay = `1. Added BurgerBot Testing (starting after the V2.20 update | verified accounts only (to verify: dm @Abooby in discord (Abooby#5598)))`
+const VersionSay = `1. Added new symbols ('A': octillion | 'F': nonillion | 'L': decillion)`
 
 export async function audit (m) {
   const p = await client.getPost('62a37bbc15ad3e0f9dd41a81')

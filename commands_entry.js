@@ -26,6 +26,7 @@ export async function onChat(client, chat) {
       const [_, commandName, _body] = match;
       const body = _body.trim();
       const command = commands[commandName.toLowerCase()]
+      audit(`${chat.author.username} used b!${commandName}`)
       if (command) {
         const args = body.split(/\s+/);
         const context = { client, chat, args, body, commands }
@@ -139,11 +140,7 @@ export async function onChat(client, chat) {
           }
         }
 
-        await command.func(context);
-        
-        setTimeout(function( ) {
-          audit(`${chat.author.username} used b!${commandName}`)
-        }, 2500)
+        await command.func(context)
         // command not found
       } else {
         chat.reply("Hmmm, please try that command again... (Most likely its not a command)")

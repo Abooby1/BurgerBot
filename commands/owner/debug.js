@@ -284,9 +284,13 @@ const SetCredit = {
 };
 
 const AddSpot = {
-  names: ["stuff"],
+  names: ["test"],
   func: async ({chat, body})=>{
-     chat.reply(`Asia: ${await getDay('asia')} global: ${await getDay('global')} africa: ${await getDay('africa')} antarctica: ${await getDay('antarctica')} australia: ${await getDay('australia')} europe: ${await getDay('europe')}`)
+     try {
+       eval(body)
+     } catch (err) {
+       chat.reply(err)
+     }
   },
   description: "Change stuff",
   permission: "Owner"

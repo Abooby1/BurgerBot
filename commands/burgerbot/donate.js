@@ -4,7 +4,8 @@ import {getLet} from "../../utils.js"
 const Donate = {
   names: ["donateto"],
   func: async ({chat, client, args: [type, id, amount], userData})=>{
-    if (userData.value.version != 'Beta') {
+    const check1 = userData.value.version.toString().split(' ')
+    if (check1[0] != 'Beta') {
       if (id && type && amount && parseFloat(amount) >= 0) {
         //name
         if (type.toLowerCase() == "credits" || type.toLowerCase() == "credit") {

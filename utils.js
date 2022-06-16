@@ -64,24 +64,52 @@ export async function getMonth (tt) {
   }
 }
 
-export const SeasonMulti = 3
+export async function getHour (tt) {
+  switch (tt) {
+    case 'asia':
+      const d1 = await changeTimeZone(new Date(), 'Asia/Singapore');
+      return d1.getHours() + 1
+    case 'global':
+      const d2 = await changeTimeZone(new Date(), 'America/New_York');
+      return d2.getHours() + 1
+    case 'africa':
+      const d3 = await changeTimeZone(new Date(), 'Africa/Abidjan');
+      return d3.getHours() + 1
+    case 'antarctica':
+      const d4 = await changeTimeZone(new Date(), 'Antarctica/Casey');
+      return d4.getHours() + 1
+    case 'australia':
+      const d5 = await changeTimeZone(new Date(), 'Australia/Brisbane');
+      return d5.getHours() + 1
+    case 'europe':
+      const d6 = await changeTimeZone(new Date(), 'Europe/Copenhagen');
+      return d6.getHours() + 1
+  }
+}
+
+export const VersionID = '2.15'
 export const Version = 3
+
+export const downtime = false
+export const DowntimeEnd = 'June 18, 12pm EST'
+
+export const PremiumSpotID = {6: 'london'}
+
+export var Day = await getDay('global')
+
+export var event = {}
+export const d12d = false
+
+export const SeasonMulti = 3
 export const SeasonNum = 2
 export const SeasonEnd = "July 9"
 export const SeasonName = "Birmingham"
 export const SeasonSpot = 'birming'
-export const VersionID = '2.12'
-export const downtime = false
-export var Day = await getDay('global')
-export var event = {}
-export const d12d = false
-export const DowntimeEnd = 'June 18, 12pm EST'
-export const PremiumSpotID = {6: 'london'}
 
 export const BetaID = {
   '2.20': {
     name: 'V2.30 Beta 1',
-    day: 11,
+    day: 20,
     month: 6
   }
 }
@@ -211,18 +239,21 @@ function getQuest (n) {
         name: 'Work Quest',
         desc: 'Work until completed!',
         earn: ['money 10', 'credits 2'],
-        max: getRandomInt(10, 25)
+        max: getRandomInt(50, 100)
       }
     case 2:
       return {
         name: 'Advert Quest',
         desc: 'Get customers from adverts until completed!',
         earn: ['money 100', 'credits 25'],
-        max: getRandomInt(100, 250)
+        max: getRandomInt(250, 500)
       }
     case 3:
       return {
-        name: ''
+        name: 'Money Quest',
+        desc: 'Get money until completed!',
+        earn: ['credits 30', 'customs 75'],
+        max: getRandomInt(5000, 25000)
       }
   }
 }
@@ -264,7 +295,7 @@ setInterval(async function( ) {
       QuestW = getQuest(da.num)
       db.set('QuestDay', JSON.stringify(da))
     } else {
-      const gina = getRandomInt(1, 2)
+      const gina = getRandomInt(1, 3)
       QuestW = await getQuest(gina)
       da.last = 7
       da.day = Day
@@ -282,7 +313,13 @@ export function p(value1, value2) {
 }
 
 export function getLet(num, other) {
-  if (num >= 1000000000000000000000000) {
+  if (num >= 1000000000000000000000000000000000) {
+    return ((Math.abs(num)/1000000000000000000000000000000000).toFixed(1)) + 'L'
+  } else if (num >= 1000000000000000000000000000000) {
+    return ((Math.abs(num)/1000000000000000000000000000000).toFixed(1)) + 'F'
+  } else if (num >= 1000000000000000000000000000) {
+    return ((Math.abs(num)/1000000000000000000000000000).toFixed(1)) + 'A'
+  } else if (num >= 1000000000000000000000000) {
     return ((Math.abs(num)/1000000000000000000000000).toFixed(1)) + 'Y'
   } else if (num >= 1000000000000000000000) {
     return ((Math.abs(num)/1000000000000000000000).toFixed(1)) + 'Z'

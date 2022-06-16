@@ -13,6 +13,10 @@ function getevw (n) {
       return `One of your workers were taking money from the cash register... (they were fired by your supervisor)`
     case 4:
       return  `One of your workers tried to start a riot... (they were fired by your supervisor)`
+    case 5:
+      return `One of your workers started acting like Amber Heard... (they were fired by your supervisor)`
+    case 6:
+      return `One of your workers urinated on some of the burgers... (they were fired by your supervisor)`
   }
 }
 
@@ -24,6 +28,8 @@ function geteva (n) {
       return `One of your workers broke a window... (they were fired by your supervisor)`
     case 3:
       return `One of your workers were twerking on someone... (they were fired by your supervisor)`
+    case 4:
+      return `One of your workers were wrestling "demons" in the bathroom... (they were fired by your supervisor)`
   }
 }
 
@@ -67,7 +73,7 @@ const Auto = {
                       if (getRandomInt(1, 50) == 1) {
                         userData.value.city.workers -= 1
                         userData.value.city.wage -= 10.23
-                        chat.reply(getevw(getRandomInt(1, 4)))
+                        chat.reply(getevw(getRandomInt(1, 6)))
                       }
                     }
                     setTimeout(function( ) {
@@ -112,7 +118,7 @@ const Auto = {
                       if (getRandomInt(1, 50) == 1) {
                         userData.value.beach.workers -= 1
                         userData.value.beach.wage -= 20.46
-                        chat.reply(getevw(getRandomInt(1, 4)))
+                        chat.reply(getevw(getRandomInt(1, 6)))
                       }
                     }
                     setTimeout(function( ) {
@@ -157,7 +163,7 @@ const Auto = {
                       if (getRandomInt(1, 50) == 1) {
                         userData.value.dank.workers -= 1
                         userData.value.dank.wage -= 30.69
-                        chat.reply(getevw(getRandomInt(1, 4)))
+                        chat.reply(getevw(getRandomInt(1, 6)))
                       }
                     }
                     setTimeout(function( ) {
@@ -203,7 +209,7 @@ const Auto = {
                       if (getRandomInt(1, 50) == 1) {
                         userData.value.london.workers -= 1
                         userData.value.london.wage -= 30.69
-                        chat.reply(getevw(getRandomInt(1, 4)))
+                        chat.reply(getevw(getRandomInt(1, 6)))
                       }
                     }
                     setTimeout(function( ) {
@@ -249,7 +255,7 @@ const Auto = {
                       if (getRandomInt(1, 50) == 1) {
                         userData.value.space.workers -= 1
                         userData.value.space.wage -= 40.92
-                        chat.reply(getevw(getRandomInt(1, 4)))
+                        chat.reply(getevw(getRandomInt(1, 6)))
                       }
                     }
                     setTimeout(function( ) {
@@ -294,7 +300,7 @@ const Auto = {
                       if (getRandomInt(1, 50) == 1) {
                         userData.value.birming.workers -= 1
                         userData.value.birming.wage -= 51.15
-                        chat.reply(getevw(getRandomInt(1, 4)))
+                        chat.reply(getevw(getRandomInt(1, 6)))
                       }
                     }
                     setTimeout(function( ) {
@@ -353,7 +359,7 @@ const Auto = {
                       if (getRandomInt(1, 50) == 1) {
                         userData.value.city.workers -= 1
                         userData.value.city.wage -= 10.23
-                        chat.reply(geteva(getRandomInt(1, 3)))
+                        chat.reply(geteva(getRandomInt(1, 4)))
                       }
                     }
                     setTimeout(function( ) {
@@ -404,7 +410,7 @@ const Auto = {
                       if (getRandomInt(1, 50) == 1) {
                         userData.value.beach.workers -= 1
                         userData.value.beach.wage -= 20.46
-                        chat.reply(geteva(getRandomInt(1, 3)))
+                        chat.reply(geteva(getRandomInt(1, 4)))
                       }
                     }
                     setTimeout(function( ) {
@@ -455,7 +461,7 @@ const Auto = {
                       if (getRandomInt(1, 50) == 1) {
                         userData.value.dank.workers -= 1
                         userData.value.dank.wage -= 30.69
-                        chat.reply(geteva(getRandomInt(1, 3)))
+                        chat.reply(geteva(getRandomInt(1, 4)))
                       }
                     }
                     setTimeout(function( ) {
@@ -506,7 +512,7 @@ const Auto = {
                       if (getRandomInt(1, 50) == 1) {
                         userData.value.london.workers -= 1
                         userData.value.london.wage -= 30.69
-                        chat.reply(geteva(getRandomInt(1, 3)))
+                        chat.reply(geteva(getRandomInt(1,4)))
                       }
                     }
                     setTimeout(function( ) {
@@ -557,7 +563,7 @@ const Auto = {
                       if (getRandomInt(1, 50) == 1) {
                         userData.value.space.workers -= 1
                         userData.value.space.wage -= 40.92
-                        chat.reply(geteva(getRandomInt(1, 3)))
+                        chat.reply(geteva(getRandomInt(1, 4)))
                       }
                     }
                     setTimeout(function( ) {
@@ -608,7 +614,7 @@ const Auto = {
                       if (getRandomInt(1, 50) == 1) {
                         userData.value.birming.workers -= 1
                         userData.value.birming.wage -= 51.15
-                        chat.reply(geteva(getRandomInt(1, 3)))
+                        chat.reply(geteva(getRandomInt(1, 4)))
                       }
                     }
                     setTimeout(function( ) {
