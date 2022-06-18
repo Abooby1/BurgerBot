@@ -235,7 +235,7 @@ const Change = {
         }
         break;
       case "spot":
-        const c = ["city", "beach", "dank", "space", "event", 'birming', 'summer']
+        const c = ["city", "beach", "dank", "space", "event", 'birming', 'summer', 'arena']
         if (c.includes(value.toLowerCase())) {
           if (!AutoW.includes(chat.author.id) && !AutoA.includes(chat.author.id) && !working.includes(chat.author.id)) {
             if (userData.value.spots.includes(value.toLowerCase())) {
@@ -316,7 +316,7 @@ const Change = {
                     chat.reply(`You are now in the Arena Spot!`)
                   } else {
                     chat.reply(`You are now participating in the Season ${SeasonNum} (${SeasonName}) Arena! You will earn rewards at the end of the season! Use b!help arena for arena help!`)
-                    userData.value.arena = {money: 0, workers: 0, customers: 1, points: 0, rank: 'Bronze'}
+                    userData.value.arena = {money: 0, workers: 0, customers: 1, points: 0, rank: 'Noobie'}
                   }
                   setTimeout(function( ) {
                     userData.update()

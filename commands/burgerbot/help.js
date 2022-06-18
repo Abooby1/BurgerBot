@@ -25,7 +25,7 @@ const Help = {
         chat.reply(`Season ${SeasonNum} (${SeasonName}) ends: '${SeasonEnd}' | Earn rewards using b!claim season! (Season Multiplier: '${SeasonMulti}' | earn exp by working, events, and prestiging!)`)
         break;
       case "credits":
-        chat.reply(`You can use credits for buying spots and buying crates!`)
+        chat.reply(`You can use credits for buying spots (b!change spot <spot id>) and opening crates (b!open <crate id>)!`)
         break;
       case 'multiplier':
         chat.reply(`The Season Multiplier adds to how much you earn from b!work and how many credits you earn when using b!claim season`)
@@ -160,7 +160,7 @@ const Help = {
                 chat.reply(`Summer Spot | Cost: $${getLet(i.cost / 2, 2)} | Max gain: ${getLet(i.earn)} | Chance of gaining worker: 1/${i.chance}`)
                 break;
               case 'arena':
-                chat.reply(`Arena | Cost: $${getLet(i.cost / 2, 2)} | Max gain: ${getLet(i.earn)} | Chance of gaining worker: 1/${i.chance}`)
+                chat.reply(`Arena | Cost: $${getLet(i.cost / 3, 2)} | Max gain: ${getLet(i.earn)} | Chance of gaining worker: 1/${i.chance}`)
                 break;
               case 'event':
                 chat.reply(`Event Spot | Cost: $${getLet(i.cost / 2, 2)} | Max gain: ${getLet(i.earn)} | Chance of gaining worker: 1/${i.chance}`)
@@ -193,22 +193,20 @@ const Help = {
           }, 500)
         }, 500)
         break;
-        //
-/*
       case 'arena':
-        chat.reply(`BurgerBot Arena is a good way to get credits! All you do is b!change spot arena and prestige in the spot to earn points to rank up! Based on your rank, at the end of the season you will earn credits!`)
+        chat.reply(`BurgerBot Arena is a good way to get credits! All you do is b!change spot arena and prestige in the spot to earn points to rank up! Based on your rank at the end of the season, you will earn credits!`)
         setTimeout(function( ) {
           chat.reply(`Ranks: "Noobie" (100 points) "Bronze" (250 points), "Silver" (500 points), "Gold" (750 points), "Platinum" (1000 points), "Diamond" (Final Rank)`)
         }, 100)
         break;
-        */        
+        //    
 
       default:
         chat.reply(`Commands: b!work <hours> | b!stats | b!prestige | b!hire <amount> | b!donateto <item> <value> | b!claim <item> | b!change <item> <value> | b!auto <item> <amount> | b!advert <item>`)
         setTimeout(function( ) {
           chat.reply(`b!open <crate> <amount>`)
           setTimeout(function( ) {
-            chat.reply(`Normal: "season" | "credits" | "spots" | "event" | "symbols" | "tutorial" | "advertinfo <advert>" | "changeinfo <change name>"`)
+            chat.reply(`Normal: "season" | "credits" | "spots" | "event" | "symbols" | "tutorial" | "arena" | "advertinfo <advert>" | "changeinfo <change name>"`)
           }, 100)
         }, 100)
     }

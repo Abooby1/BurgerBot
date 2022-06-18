@@ -30,9 +30,9 @@ const Claim = {
                 switch (reward) {
                   case 'exp':
                     if (event.name != 'Claim Event') {
-                      gain =  getRandomInt(1, 5)
+                      gain = getRandomInt(1, 5)
                     } else {
-                      gain =  getRandomInt(1, 10)
+                      gain = getRandomInt(1, 10)
                     }
                     userData.value.exp += gain
                     chat.reply(`You got ${gain} exp from your daily claim!`)
@@ -42,9 +42,9 @@ const Claim = {
                     break;
                   case 'credit':
                     if (event.name != 'Claim Event') {
-                      gain =  getRandomInt(1, 15)
+                      gain = getRandomInt(1, 15)
                     } else {
-                      gain =  getRandomInt(1, 30)
+                      gain = getRandomInt(1, 30)
                     }
                     userData.value.credits += gain
                     chat.reply(`You got ${gain} credit(s) from your daily claim!`)
@@ -54,9 +54,9 @@ const Claim = {
                     break;
                   case 'money':
                     if (event.name != 'Claim Event') {
-                      gain =  getRandomInt(1, 100)
+                      gain = getRandomInt(1, 100)
                     } else {
-                      gain =  getRandomInt(1, 200)
+                      gain = getRandomInt(1, 200)
                     }
                     userData.value.city.money += gain
                     chat.reply(`You got $${gain} from your daily claim!`)
@@ -358,23 +358,23 @@ const Claim = {
                 case "beach":
                   userData.value.credits += 1
                   userData.value.beach.money += 10
-                  chat.reply(`You claimed your event rewards! (you can claim them again in 2 minutes! | $10 (beach) and 1 credit)`)
+                  chat.reply(`You claimed your event rewards! (you can claim them again in 1 minute and 30 seconds! | $10 (beach) and 1 credit)`)
                   break;
                 case "space":
                   userData.value.credits += 1
                   userData.value.space.money += 10
-                  chat.reply(`You claimed your event rewards! (you can claim them again in 2 minutes! | $10 (space) and 1 credit)`)
+                  chat.reply(`You claimed your event rewards! (you can claim them again in 1 minute and 30 seconds! | $10 (space) and 1 credit)`)
                   break;
                 case 'birming':
                   userData.value.credits += 1
                   userData.value.birming.money += 10
-                  chat.reply('You claimed your event rewards! (you can claim them again in 2 minutes! | $10 (birmingham) and 1 credit)')
+                  chat.reply('You claimed your event rewards! (you can claim them again in 1 minute and 30 seconds! | $10 (birmingham) and 1 credit)')
                   break;
   
                 default:
                   userData.value.credits += 1
                   userData.value.city.money += 5
-                  chat.reply(`You claimed your event rewards! (you can claim them again in 2 minutes! | $5 (city) and 1 credit)`)
+                  chat.reply(`You claimed your event rewards! (you can claim them again in 1 minute and 30 seconds! | $5 (city) and 1 credit)`)
                   break;
               }
               
@@ -382,7 +382,7 @@ const Claim = {
                 userData.update()
               }, 2500)
   
-              y1[chat.author.id] = 120
+              y1[chat.author.id] = 90
               var o = setInterval(function( ) {
                 if (y1[chat.author.id] > 0) {
                   y1[chat.author.id] -= 1

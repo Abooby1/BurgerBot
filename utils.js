@@ -87,7 +87,7 @@ export async function getHour (tt) {
   }
 }
 
-export const VersionID = '2.15'
+export const VersionID = '2.20'
 export const Version = 3
 
 export const downtime = false

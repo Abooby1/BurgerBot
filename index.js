@@ -8,7 +8,7 @@ const client = new Client({ username: "BurgerBot", password: process.env["Pass"]
 
 const noop = () => { };
 
-const VersionSay = `1. Added new symbols ('A': octillion | 'F': nonillion | 'L': decillion)`
+const VersionSay = `1. Added Arena (use b!change spot arena to change into the spot | use b!help arena for arena help)`
 
 export async function audit (m) {
   const p = await client.getPost('62a37bbc15ad3e0f9dd41a81')
@@ -348,11 +348,10 @@ client.onPost = async (post) => {
 }
 
 client.onReady = async () => {
-  console.log("Bot is ready!")
   setTimeout(async function( ) {
     const v = await db.get('Version')
     if (v != VersionID) {
-      const post = await client.post(`V${VersionID}: \n${VersionSay}\n\nPost "startburger" to connect me!`)
+      const post = await client.post(`V${VersionID}: \n${VersionSay}\n\nPost "startburger" to connect me!\n\n#BurgerBot #BurgerBotUpdate`)
       db.set('Version', VersionID)
       setTimeout(function( ) {
         post.chat('Have fun with the update!')
@@ -375,6 +374,7 @@ client.onReady = async () => {
   //post saving
   let interval = setInterval(()=>{
     if (client._network.simpleSocket.secureID) {
+      console.log("Bot is ready!")
       main();
       clearInterval(interval)
     }
