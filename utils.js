@@ -87,7 +87,7 @@ export async function getHour (tt) {
   }
 }
 
-export const VersionID = '2.20'
+export const VersionID = '2.21'
 export const Version = 3
 
 export const downtime = false
@@ -107,7 +107,7 @@ export const SeasonName = "Birmingham"
 export const SeasonSpot = 'birming'
 
 export const BetaID = {
-  '2.20': {
+  '2.21': {
     name: 'V2.30 Beta 1',
     day: 20,
     month: 6
@@ -146,6 +146,34 @@ export function getPoints (rank, p) {
       case 'platinum':
         return 'Diamond'
     }
+  }
+}
+
+export function getPlant (rank, type) {
+  switch (type) {
+    case 'plantrank':
+      switch (rank) {
+        case 'Common':
+          return 'Rare'
+        case 'Rare':
+          return 'Epic'
+        case 'Epic':
+          return 'Legendary'
+        case 'Legendary':
+          return 'Yuniom'
+      }
+      break;
+    case 'planthour':
+      switch(rank) {
+        case 'Common':
+          return 5
+        case 'Rare':
+          return 10
+        case 'Epic':
+          return 24
+        case 'Legendary':
+          return 36
+      }
   }
 }
 

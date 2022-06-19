@@ -1,5 +1,6 @@
 import JSONdb from 'simple-json-db'
 export const db = new JSONdb('storage.json');
+export const db2 = new JSONdb('auditlog.json')
 import {DATABASE_PREFIX} from "./constants.js";
 
 /*
@@ -16,6 +17,8 @@ const specialRanks = {
   "60ca4bc6f6bf2c044d2c11e6": "Owner",
 
   "625b04b643400006501c26a8": 'Tester',
+  "6298e5f6902a4a272a8100e0": 'Tester',
+  "623cd8caaa79727482b4f649": 'Tester',
   
   "61f9afa941a9e239b62ec6f5": "Bot",
   "624884d0a95b113f10356a47": "Bot",

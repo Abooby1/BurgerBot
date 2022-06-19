@@ -1,18 +1,19 @@
 import { Client } from "photop-client";
 import { onChat } from "./commands_entry.js";
 import { START, PREFIX } from "./constants.js";
-import {db, defaultData, getUserDataManager} from "./database.js"
-import {Version, VersionID, SeasonNum, f, event, getRandomInt, SeasonName, downtime, DowntimeEnd, changeTimeZone, BetaID} from "./utils.js"
+import {db, defaultData, getUserDataManager, db2} from "./database.js"
+import {Version, VersionID, SeasonNum, f, event, getRandomInt, SeasonName, downtime, DowntimeEnd, changeTimeZone, BetaID, getLet} from "./utils.js"
 
 const client = new Client({ username: "BurgerBot", password: process.env["Pass"] }, { logSocketMessages: false });
 
 const noop = () => { };
 
-const VersionSay = `1. Added Arena (use b!change spot arena to change into the spot | use b!help arena for arena help)`
+const VersionSay = `1. Added stats of BurgerBot in BurgerBots bio`
 
 export async function audit (m) {
-  const p = await client.getPost('62a37bbc15ad3e0f9dd41a81')
-  p.chat(`${m} (${await changeTimeZone(new Date(), 'America/New_York').toLocaleString()})`)
+  const p = JSON.parse(await db2.get('audit'))
+  p.push(`${m} (${await changeTimeZone(new Date(), 'America/New_York').toLocaleString()})`)
+  db2.set('audit', JSON.stringify(p))
 }
 
 client.onInvite = async (invite) => {
@@ -369,7 +370,27 @@ client.onReady = async () => {
   if (downtime == true) {
     client.editor().setDescription(`Currently in downtime until ${DowntimeEnd}... \n\nMade by @Abooby`).save()
   } else {
-    client.editor().setDescription(`Online with V${VersionID} \nSeason ${SeasonNum} (${SeasonName})\n\nMake sure to connect me by posting "startburger"\nBot made by @Abooby`).save()
+    setInterval(function() {
+      var money = 0
+      var net = 0
+      var amount = 0
+      const keys = Object.keys(db.JSON())
+      keys.forEach(async h => {
+        if (h.startsWith('v1/')) {
+          amount += 1
+          const key = h.replace('v1/', '')
+          const data = await getUserDataManager(key)
+          money += data.value.city.money
+          money += data.value.beach.money
+          money += data.value.dank.money
+          money += data.value.birming.money
+          net += data.value.net
+        }
+      })
+      setTimeout(function( ) {
+        client.editor().setDescription(`Online with V${VersionID} \nSeason ${SeasonNum} (${SeasonName})\n\nMoney across all users: $${getLet(money, 2)}\nMoney earned this season: $${getLet(net, 2)}\nUsers: ${getLet(amount)}\n\nMake sure to connect me by posting "startburger"\nBot made by @Abooby`).save()
+      }, 5000)
+    }, 15000)
   }
   //post saving
   let interval = setInterval(()=>{

@@ -20,6 +20,7 @@ const BetaTest = {
               userData.value.version = `Beta ${BetaID[VersionID].id}`
               audit(`${chat.author.username} has joined ${BetaID[VersionID].name}!`)
               //add code for data
+              userData.value.plant = {rank: 'Common', nextweed: 0}
               setTimeout(function( ) {
                 userData.update()
               }, 2500)
