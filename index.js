@@ -2,13 +2,13 @@ import { Client } from "photop-client";
 import { onChat } from "./commands_entry.js";
 import { START, PREFIX } from "./constants.js";
 import {db, defaultData, getUserDataManager, db2} from "./database.js"
-import {Version, VersionID, SeasonNum, f, event, getRandomInt, SeasonName, downtime, DowntimeEnd, changeTimeZone, BetaID, getLet} from "./utils.js"
+import {Version, VersionID, SeasonNum, f, event, getRandomInt, SeasonName, downtime, DowntimeEnd, changeTimeZone, getLet} from "./utils.js"
 
 const client = new Client({ username: "BurgerBot", password: process.env["Pass"] }, { logSocketMessages: false });
 
 const noop = () => { };
 
-const VersionSay = `1. Added stats of BurgerBot in BurgerBots bio`
+const VersionSay = `1. No more beta testing (Testers will be able to play BurgerBot while BurgerBot is in downtime)`
 
 export async function audit (m) {
   const p = JSON.parse(await db2.get('audit'))
@@ -143,20 +143,6 @@ client.onPost = async (post) => {
                   post.chat(`Hmm, it looks like there was an error (please report this to @Abooby | post has been disconnected)`)
                   post.disconnect()
               }
-            }
-          } else {
-            const ver = d1.value.version.split(' ')
-            if (BetaID[ver[1]] == undefined) {
-              post.chat(`Youre currently in an outdated beta test... (data has been refreshed)`)
-              audit(`${post.author.username} has been refreshed from an outdated beta version`)
-              const data = await getUserDataManager(post.author.id);
-
-              data.value = JSON.parse(JSON.stringify(defaultData));
-              data.applyRanks();
-          
-              setTimeout(function() {
-                data.update();
-              }, 1500)
             }
           }
           if (d1.value.spot == 'event') {
@@ -327,7 +313,7 @@ client.onPost = async (post) => {
       }, 2000)
     } else {
       const d11111111 = await getUserDataManager(post.author.id)
-      if (d11111111.value.rank != 'Owner') {
+      if (d11111111.value.rank != 'Owner' || d11111111.value.rank != 'Tester') {
         post.chat(`BurgerBot is currently in downtime until ${DowntimeEnd}...`)
         post.disconnect()
       } else {

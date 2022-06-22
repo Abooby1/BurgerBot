@@ -87,7 +87,7 @@ export async function getHour (tt) {
   }
 }
 
-export const VersionID = '2.21'
+export const VersionID = '2.22'
 export const Version = 3
 
 export const downtime = false
@@ -105,14 +105,6 @@ export const SeasonNum = 2
 export const SeasonEnd = "July 9"
 export const SeasonName = "Birmingham"
 export const SeasonSpot = 'birming'
-
-export const BetaID = {
-  '2.21': {
-    name: 'V2.30 Beta 1',
-    day: 20,
-    month: 6
-  }
-}
 
 export var QuestW = {}
 export var QuestS = {name: 'Work', desc: 'Work 500 times', max: 500}
@@ -146,34 +138,6 @@ export function getPoints (rank, p) {
       case 'platinum':
         return 'Diamond'
     }
-  }
-}
-
-export function getPlant (rank, type) {
-  switch (type) {
-    case 'plantrank':
-      switch (rank) {
-        case 'Common':
-          return 'Rare'
-        case 'Rare':
-          return 'Epic'
-        case 'Epic':
-          return 'Legendary'
-        case 'Legendary':
-          return 'Yuniom'
-      }
-      break;
-    case 'planthour':
-      switch(rank) {
-        case 'Common':
-          return 5
-        case 'Rare':
-          return 10
-        case 'Epic':
-          return 24
-        case 'Legendary':
-          return 36
-      }
   }
 }
 
@@ -260,6 +224,12 @@ function getEvent (n) {
   }
 }
 
+export function getRandomInt(min, max) {  
+  return Math.floor(
+    Math.random() * (max - min) + min
+  )
+}
+
 function getQuest (n) {
   switch (n) {
     case 1:
@@ -284,12 +254,6 @@ function getQuest (n) {
         max: getRandomInt(5000, 25000)
       }
   }
-}
-
-export function getRandomInt(min, max) {  
-  return Math.floor(
-    Math.random() * (max - min) + min
-  )
 }
 
 setInterval(async function( ) {

@@ -87,15 +87,14 @@ const Stats = {
         
     }
 
-    var Say2 = `Main | Credits: ${getLet(userData.value.credits)} | Level: ${userData.value.lvl} | Net: $${getLet(userData.value.net, 2)} | Rank: ${userData.value.rank} | Season ${SeasonNum} (${SeasonName}) ends: '${SeasonEnd}' | (for event help use: <b!help event>)`
+    var Say2 = `Main | Credits: ${getLet(userData.value.credits)} | Level: ${userData.value.lvl} | Net: $${getLet(userData.value.net, 2)} | Rank: ${userData.value.rank} | Season ${SeasonNum} (${SeasonName}) ends: '${SeasonEnd}' | (for event help use: <b!help event>)`     
 
-    
     setTimeout(function( ) {
       chat.reply(Say)
-      setTimeout(function( ) {
-        chat.reply(Say2)
-      }, 100)
-    }, 500)
+        setTimeout(function( ) {
+          chat.reply(Say2)
+        }, 100)
+    }, 250)
   },
   description: "Check your stats!",
   permission: rank => rank != "Banned"
