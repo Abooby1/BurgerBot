@@ -1,4 +1,4 @@
-import {getLet, getStuff, getRandomInt, event, f} from "../../utils.js"
+import {getLet, getStuff, getRandomInt, event, f, p} from "../../utils.js"
 
 export var AutoA = []
 export var AutoW = []
@@ -66,6 +66,11 @@ const Auto = {
                   if (t1 < parseInt(body)) {
                     t1 += 1
                     t += earn
+                    if (userData.value.city.loan != undefined) {
+                      userData.value.city.loan -= p(10, userData.value.city.loan)
+                      userData.value.city.money -= p(10, userData.value.city.loan)
+                      t -= p(10, userData.value.city.loan)
+                    }
                     chat.reply(`One day has passed...`)
                     userData.value.city.money += earn
                     userData.value.net += earn
@@ -111,6 +116,11 @@ const Auto = {
                   if (t2 < parseInt(body)) {
                     tt += earn
                     t2 += 1
+                    if (userData.value.beach.loan != undefined) {
+                      userData.value.beach.loan -= p(10, userData.value.beach.loan)
+                      userData.value.beach.money -= p(10, userData.value.beach.loan)
+                      tt -= p(10, userData.value.beach.loan)
+                    }
                     chat.reply(`One day has passed...`)
                     userData.value.beach.money += earn
                     userData.value.net += earn
@@ -156,6 +166,11 @@ const Auto = {
                   if (y1 < parseInt(body)) {
                     y1 += 1
                     y += earn
+                    if (userData.value.dank.loan != undefined) {
+                      userData.value.dank.loan -= p(10, userData.value.dank.loan)
+                      userData.value.dank.money -= p(10, userData.value.dank.loan)
+                      y -= p(10, userData.value.dank.loan)
+                    }
                     chat.reply(`One day has passed...`)
                     userData.value.dank.money += earn
                     userData.value.net += earn
@@ -202,6 +217,11 @@ const Auto = {
                   if (y1 < parseInt(body)) {
                     y1 += 1
                     y += earn
+                    if (userData.value.london.loan != undefined) {
+                      userData.value.london.loan -= p(10, userData.value.london.loan)
+                      userData.value.london.money -= p(10, userData.value.london.loan)
+                      y -= p(10, userData.value.london.loan)
+                    }
                     chat.reply(`One day has passed...`)
                     userData.value.london.money += earn
                     userData.value.net += earn
@@ -248,6 +268,11 @@ const Auto = {
                   if (w1 < parseInt(body)) {
                     w1 += 1
                     w += earn
+                    if (userData.value.space.loan != undefined) {
+                      userData.value.space.loan -= p(10, userData.value.space.loan)
+                      userData.value.space.money -= p(10, userData.value.space.loan)
+                      w -= p(10, userData.value.space.loan)
+                    }
                     chat.reply(`One day has passed...`)
                     userData.value.space.money += earn
                     userData.value.net += earn
@@ -293,6 +318,11 @@ const Auto = {
                   if (birming1 < parseInt(body)) {
                     birming1 += 1
                     birming += earn
+                    if (userData.value.birming.loan != undefined) {
+                      userData.value.birming.loan -= p(10, userData.value.birming.loan)
+                      userData.value.birming.money -= p(10, userData.value.birming.loan)
+                      birming -= p(10, userData.value.birming.loan)
+                    }
                     chat.reply(`One day has passed...`)
                     userData.value.birming.money += earn
                     userData.value.net += earn
@@ -347,6 +377,11 @@ const Auto = {
                   if (t3 < parseInt(body)) {
                     ttt += earn
                     t3 += 1
+                    if (userData.value.city.loan != undefined) {
+                      userData.value.city.loan -= p(10, userData.value.city.loan)
+                      userData.value.city.money -= p(10, userData.value.city.loan)
+                      ttt += p(10, userData.value.city.loan)
+                    }
                     const Earned = getRandomInt(0, getStuff(userData.value.city.normad).earn)
                     if (getRandomInt(1, getStuff(userData.value.city.normad).chance) == 1) {
                       EarnedW = getRandomInt(1, 2)
@@ -398,6 +433,11 @@ const Auto = {
                   if (t4 < parseInt(body)) {
                     tttt += earn
                     t4 += 1
+                    if (userData.value.beach.loan != undefined) {
+                      userData.value.beach.loan -= p(10, userData.value.beach.loan)
+                      userData.value.beach.money -= p(10, userData.value.beach.loan)
+                      tttt += p(10, userData.value.beach.loan)
+                    }
                     const Earned = getRandomInt(0, getStuff(userData.value.beach.normad).earn)
                     if (getRandomInt(1, getStuff(userData.value.beach.normad).chance) == 1) {
                       EarnedW = getRandomInt(1, 2)
@@ -449,6 +489,11 @@ const Auto = {
                   if (y2 < parseInt(body)) {
                     yy += earn
                     y2 += 1
+                    if (userData.value.dank.loan != undefined) {
+                      userData.value.dank.loan -= p(10, userData.value.dank.loan)
+                      userData.value.dank.money -= p(10, userData.value.dank.loan)
+                      yy += p(10, userData.value.dank.loan)
+                    }
                     const Earned = getRandomInt(0, getStuff(userData.value.dank.normad).earn)
                     if (getRandomInt(1, getStuff(userData.value.dank.normad).chance) == 1) {
                       EarnedW = getRandomInt(1, 2)
@@ -500,6 +545,11 @@ const Auto = {
                   if (y2 < parseInt(body)) {
                     yy += earn
                     y2 += 1
+                    if (userData.value.london.loan != undefined) {
+                      userData.value.london.loan -= p(10, userData.value.london.loan)
+                      userData.value.london.money -= p(10, userData.value.london.loan)
+                      yy += p(10, userData.value.london.loan)
+                    }
                     const Earned = getRandomInt(0, getStuff(userData.value.london.normad).earn)
                     if (getRandomInt(1, getStuff(userData.value.london.normad).chance) == 1) {
                       EarnedW = getRandomInt(1, 2)
@@ -551,6 +601,11 @@ const Auto = {
                   if (space2 < parseInt(body)) {
                     space += earn
                     space2 += 1
+                    if (userData.value.space.loan != undefined) {
+                      userData.value.space.loan -= p(10, userData.value.space.loan)
+                      userData.value.space.money -= p(10, userData.value.space.loan)
+                      space += p(10, userData.value.space.loan)
+                    }
                     const Earned = getRandomInt(0, getStuff(userData.value.space.normad).earn)
                     if (getRandomInt(1, getStuff(userData.value.space.normad).chance) == 1) {
                       EarnedW = getRandomInt(1, 2)
@@ -602,6 +657,11 @@ const Auto = {
                   if (birming4 < parseInt(body)) {
                     birming3 += earn
                     birming4 += 1
+                    if (userData.value.birming.loan != undefined) {
+                      userData.value.birming.loan -= p(10, userData.value.birming.loan)
+                      userData.value.birming.money -= p(10, userData.value.birming.loan)
+                      birming3 += p(10, userData.value.birming.loan)
+                    }
                     const Earned = getRandomInt(0, getStuff(userData.value.birming.normad).earn)
                     if (getRandomInt(1, getStuff(userData.value.birming.normad).chance) == 1) {
                       EarnedW = getRandomInt(1, 2)

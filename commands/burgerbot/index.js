@@ -9,6 +9,7 @@ import {Change} from "./change.js"
 import {Donate, Inbox, Collect} from "./donate.js"
 import {Help} from "./help.js"
 import {Open} from './open.js'
+import {Payoff, Loan, Bank} from './bank.js'
 
 export const Coms = [
   Hire,
@@ -23,5 +24,8 @@ export const Coms = [
   Inbox,
   Collect,
   Help,
-  Open
+  Open,
+  Payoff,
+  Loan,
+  Bank
 ]

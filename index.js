@@ -8,7 +8,7 @@ const client = new Client({ username: "BurgerBot", password: process.env["Pass"]
 
 const noop = () => { };
 
-const VersionSay = `1. No more beta testing (Testers will be able to play BurgerBot while BurgerBot is in downtime)`
+const VersionSay = `1. Added loans! (use b!loan <amount> to get a loan | use b!payoff to pay off your loan fully | use b!bank to check your loan payoff amount | loans are slowly paid off after working/autoing)`
 
 export async function audit (m) {
   const p = JSON.parse(await db2.get('audit'))

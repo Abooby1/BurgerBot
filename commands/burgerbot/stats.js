@@ -91,9 +91,9 @@ const Stats = {
 
     setTimeout(function( ) {
       chat.reply(Say)
-        setTimeout(function( ) {
-          chat.reply(Say2)
-        }, 100)
+      setTimeout(function( ) {
+        chat.reply(Say2)
+      }, 100)
     }, 250)
   },
   description: "Check your stats!",

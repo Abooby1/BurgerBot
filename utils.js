@@ -87,11 +87,11 @@ export async function getHour (tt) {
   }
 }
 
-export const VersionID = '2.22'
+export const VersionID = '2.30'
 export const Version = 3
 
 export const downtime = false
-export const DowntimeEnd = 'June 18, 12pm EST'
+export const DowntimeEnd = 'July 2, 12pm EST'
 
 export const PremiumSpotID = {6: 'london'}
 
@@ -257,6 +257,7 @@ function getQuest (n) {
 }
 
 setInterval(async function( ) {
+  Day = await getDay('global')
   var d = JSON.parse(await db.get('EventDay'))
   if (Day != d.day) {
     if (d.last > 1) {
@@ -300,8 +301,8 @@ setInterval(async function( ) {
 }, 100)
 */
 
-export function p(value1, value2) {
-  return (100 * value1) / value2;
+export function p(value1, value2) {//value1 = percent | value2 = amount
+  return 100 * value1 / value2;
 }
 
 export function getLet(num, other) {

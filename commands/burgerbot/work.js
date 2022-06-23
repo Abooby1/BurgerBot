@@ -1,4 +1,4 @@
-import {getLet, getStuff, SeasonMulti, event, d12d} from "../../utils.js"
+import {getLet, getStuff, SeasonMulti, event, d12d, p} from "../../utils.js"
 
 export var working = []
 
@@ -26,6 +26,11 @@ const Work = {
           var Earned = body * userData.value.city.prestige * 0.01 * userData.value.city.customers * SeasonMulti
           userData.value.city.money += Earned
           userData.value.net += Earned
+          if (userData.value.city.loan != undefined) {
+            userData.value.city.loan -= p(10, userData.value.city.loan)
+            userData.value.city.money -= p(10, userData.value.city.loan)
+            Earned -= p(10, userData.value.city.loan)
+          }
           if (event.name == 'End of Season Event') {
             userData.value.exp += 10
           } else {
@@ -58,6 +63,11 @@ const Work = {
           var Earned = body * userData.value.beach.prestige * 0.01 * userData.value.beach.customers * SeasonMulti
           userData.value.beach.money += Earned
           userData.value.net += Earned
+          if (userData.value.beach.loan != undefined) {
+            userData.value.beach.loan -= p(10, userData.value.beach.loan)
+            userData.value.beach.money -= p(10, userData.value.beach.loan)
+            Earned -= p(10, userData.value.beach.loan)
+          }
           if (event.name == 'End of Season Event') {
             userData.value.exp += 15
           } else {
@@ -87,6 +97,11 @@ const Work = {
           var Earned = body * userData.value.dank.prestige * 0.01 * userData.value.dank.customers *SeasonMulti
           userData.value.dank.money += Earned
           userData.value.net += Earned
+          if (userData.value.dank.loan != undefined) {
+            userData.value.dank.loan -= p(10, userData.value.dank.loan)
+            userData.value.dank.money -= p(10, userData.value.dank.loan)
+            Earned -= p(10, userData.value.dank.loan)
+          }
           if (event.name == 'End of Season Event') {
             userData.value.exp += 20
           } else {
@@ -119,6 +134,11 @@ const Work = {
           var Earned = body * userData.value.space.prestige * 0.01 * userData.value.space.customers * SeasonMulti
           userData.value.space.money += Earned
           userData.value.net += Earned
+          if (userData.value.space.loan != undefined) {
+            userData.value.space.loan -= p(10, userData.value.space.loan)
+            userData.value.space.money -= p(10, userData.value.space.loan)
+            Earned -= p(10, userData.value.space.loan)
+          }
           if (event.name == 'End of Season Event') {
             userData.value.exp += 25
           } else {
@@ -151,6 +171,11 @@ const Work = {
           var Earned = body * userData.value.london.prestige * 0.01 * userData.value.london.customers * SeasonMulti
           userData.value.london.money += Earned
           userData.value.net += Earned
+          if (userData.value.london.loan != undefined) {
+            userData.value.london.loan -= p(10, userData.value.london.loan)
+            userData.value.london.money -= p(10, userData.value.london.loan)
+            Earned -= p(10, userData.value.london.loan)
+          }
           if (event.name == 'End of Season Event') {
             userData.value.exp += 30
           } else {
@@ -183,6 +208,11 @@ const Work = {
           var Earned = body * userData.value.birming.prestige * 0.01 * userData.value.birming.customers * SeasonMulti
           userData.value.birming.money += Earned
           userData.value.net += Earned
+          if (userData.value.birming.loan != undefined) {
+            userData.value.birming.loan -= p(10, userData.value.birming.loan)
+            userData.value.birming.money -= p(10, userData.value.birming.loan)
+            Earned -= p(10, userData.value.birming.loan)
+          }
           if (event.name == 'End of Season Event') {
             userData.value.exp += 30
           } else {
