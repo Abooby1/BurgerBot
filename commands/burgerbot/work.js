@@ -22,14 +22,14 @@ const Work = {
         }, 2500)
         chat.reply(`You started working for ${body} hours (time: ${body} seconds)`)
         
-        setTimeout(function( ) {
+        setTimeout(async function( ) {
           var Earned = body * userData.value.city.prestige * 0.01 * userData.value.city.customers * SeasonMulti
           userData.value.city.money += Earned
           userData.value.net += Earned
           if (userData.value.city.loan != undefined) {
-            userData.value.city.loan -= p(10, userData.value.city.loan)
-            userData.value.city.money -= p(10, userData.value.city.loan)
-            Earned -= p(10, userData.value.city.loan)
+            userData.value.city.loan -= Earned / 100
+            userData.value.city.money -= Earned / 100
+            Earned -= Earned / 100
           }
           if (event.name == 'End of Season Event') {
             userData.value.exp += 10
@@ -59,14 +59,14 @@ const Work = {
         }, 2500)
         chat.reply(`You started working for ${body} hours (time: ${body} seconds)`)
         
-        setTimeout(function( ) {
+        setTimeout(async function( ) {
           var Earned = body * userData.value.beach.prestige * 0.01 * userData.value.beach.customers * SeasonMulti
           userData.value.beach.money += Earned
           userData.value.net += Earned
           if (userData.value.beach.loan != undefined) {
-            userData.value.beach.loan -= p(10, userData.value.beach.loan)
-            userData.value.beach.money -= p(10, userData.value.beach.loan)
-            Earned -= p(10, userData.value.beach.loan)
+            userData.value.beach.loan -= Earned / 100
+            userData.value.beach.money -= Earned / 100
+            Earned -= Earned / 100
           }
           if (event.name == 'End of Season Event') {
             userData.value.exp += 15
@@ -93,14 +93,14 @@ const Work = {
         }
         chat.reply(`You started working for ${body} hours (time: ${body} seconds)`)
         
-        setTimeout(function( ) {
+        setTimeout(async function( ) {
           var Earned = body * userData.value.dank.prestige * 0.01 * userData.value.dank.customers *SeasonMulti
           userData.value.dank.money += Earned
           userData.value.net += Earned
           if (userData.value.dank.loan != undefined) {
-            userData.value.dank.loan -= p(10, userData.value.dank.loan)
-            userData.value.dank.money -= p(10, userData.value.dank.loan)
-            Earned -= p(10, userData.value.dank.loan)
+            userData.value.dank.loan -= Earned / 100
+            userData.value.dank.money -= Earned / 100
+            Earned -= Earned / 100
           }
           if (event.name == 'End of Season Event') {
             userData.value.exp += 20
@@ -130,14 +130,14 @@ const Work = {
         }, 2500)
         chat.reply(`You started working for ${body} hours (time: ${body} seconds)`)
         
-        setTimeout(function( ) {
+        setTimeout(async function( ) {
           var Earned = body * userData.value.space.prestige * 0.01 * userData.value.space.customers * SeasonMulti
           userData.value.space.money += Earned
           userData.value.net += Earned
           if (userData.value.space.loan != undefined) {
-            userData.value.space.loan -= p(10, userData.value.space.loan)
-            userData.value.space.money -= p(10, userData.value.space.loan)
-            Earned -= p(10, userData.value.space.loan)
+            userData.value.space.loan -= Earned / 100
+            userData.value.space.money -= Earned / 100
+            Earned -= Earned / 100
           }
           if (event.name == 'End of Season Event') {
             userData.value.exp += 25
@@ -162,19 +162,19 @@ const Work = {
           break;
         }
         working.push(chat.author.id)
-        setTimeout(function( ) {
+        setTimeout(async function( ) {
           userData.update()
         }, 2500)
         chat.reply(`You started working for ${body} hours (time: ${body} seconds)`)
         
-        setTimeout(function( ) {
+        setTimeout(async function( ) {
           var Earned = body * userData.value.london.prestige * 0.01 * userData.value.london.customers * SeasonMulti
           userData.value.london.money += Earned
           userData.value.net += Earned
           if (userData.value.london.loan != undefined) {
-            userData.value.london.loan -= p(10, userData.value.london.loan)
-            userData.value.london.money -= p(10, userData.value.london.loan)
-            Earned -= p(10, userData.value.london.loan)
+            userData.value.london.loan -= Earned / 100
+            userData.value.london.money -= Earned / 100
+            Earned -= Earned / 100
           }
           if (event.name == 'End of Season Event') {
             userData.value.exp += 30
@@ -204,14 +204,14 @@ const Work = {
         }, 2500)
         chat.reply(`You started working for ${body} hours (time: ${body} seconds)`)
         
-        setTimeout(function( ) {
+        setTimeout(async function( ) {
           var Earned = body * userData.value.birming.prestige * 0.01 * userData.value.birming.customers * SeasonMulti
           userData.value.birming.money += Earned
           userData.value.net += Earned
           if (userData.value.birming.loan != undefined) {
-            userData.value.birming.loan -= p(10, userData.value.birming.loan)
-            userData.value.birming.money -= p(10, userData.value.birming.loan)
-            Earned -= p(10, userData.value.birming.loan)
+            userData.value.birming.loan -= Earned / 100
+            userData.value.birming.money -= Earned / 100
+            Earned -= Earned / 100
           }
           if (event.name == 'End of Season Event') {
             userData.value.exp += 30
@@ -241,7 +241,7 @@ const Work = {
         }, 2500)
         chat.reply(`You started working for ${body} hours (time: ${body} seconds)`)
         
-        setTimeout(function( ) {
+        setTimeout(async function( ) {
           var Earned = body * userData.value.summer.prestige * 0.01 * userData.value.summer.customers * SeasonMulti
           userData.value.summer.money += Earned
           userData.value.net += Earned

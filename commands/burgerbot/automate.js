@@ -1,4 +1,4 @@
-import {getLet, getStuff, getRandomInt, event, f, p} from "../../utils.js"
+import {getLet, getStuff, getRandomInt, event, f} from "../../utils.js"
 
 export var AutoA = []
 export var AutoW = []
@@ -62,14 +62,17 @@ const Auto = {
       
                 chat.reply(`Your workers started working in the city! (please wait ${24 * parseInt(body)} seconds)`)
       
-                var i = setInterval(function( ) {
+                var i = setInterval(async function( ) {
                   if (t1 < parseInt(body)) {
                     t1 += 1
                     t += earn
                     if (userData.value.city.loan != undefined) {
-                      userData.value.city.loan -= p(10, userData.value.city.loan)
-                      userData.value.city.money -= p(10, userData.value.city.loan)
-                      t -= p(10, userData.value.city.loan)
+                      userData.value.city.loan -= earn / 100
+                      userData.value.city.money -= earn / 100
+                      t -= earn / 100
+                      if (userData.value.city.loan <= 0) {
+                        userData.value.city.loan = undefined
+                      }
                     }
                     chat.reply(`One day has passed...`)
                     userData.value.city.money += earn
@@ -112,14 +115,17 @@ const Auto = {
       
                 chat.reply(`Your workers started working on the beach! (please wait ${12 * parseInt(body)} seconds)`)
       
-                var o = setInterval(function( ) {
+                var o = setInterval(async function( ) {
                   if (t2 < parseInt(body)) {
                     tt += earn
                     t2 += 1
                     if (userData.value.beach.loan != undefined) {
-                      userData.value.beach.loan -= p(10, userData.value.beach.loan)
-                      userData.value.beach.money -= p(10, userData.value.beach.loan)
-                      tt -= p(10, userData.value.beach.loan)
+                      userData.value.beach.loan -= earn / 100
+                      userData.value.beach.money -= earn / 100
+                      tt -= earn / 100
+                      if (userData.value.beach.loan <= 0) {
+                        userData.value.beach.loan = undefined
+                      }
                     }
                     chat.reply(`One day has passed...`)
                     userData.value.beach.money += earn
@@ -162,14 +168,17 @@ const Auto = {
       
                 chat.reply(`Your workers started working in the city! (please wait ${24 * parseInt(body)} seconds)`)
       
-                var ii = setInterval(function( ) {
+                var ii = setInterval(async function( ) {
                   if (y1 < parseInt(body)) {
                     y1 += 1
                     y += earn
                     if (userData.value.dank.loan != undefined) {
-                      userData.value.dank.loan -= p(10, userData.value.dank.loan)
-                      userData.value.dank.money -= p(10, userData.value.dank.loan)
-                      y -= p(10, userData.value.dank.loan)
+                      userData.value.dank.loan -= earn / 100
+                      userData.value.dank.money -= earn / 100
+                      y -= earn / 100
+                      if (userData.value.dank.loan <= 0) {
+                        userData.value.dank.loan = undefined
+                      }
                     }
                     chat.reply(`One day has passed...`)
                     userData.value.dank.money += earn
@@ -213,14 +222,17 @@ const Auto = {
       
                 chat.reply(`Your workers started working in london! (please wait ${24 * parseInt(body)} seconds)`)
       
-                var ii = setInterval(function( ) {
+                var ii = setInterval(async function( ) {
                   if (y1 < parseInt(body)) {
                     y1 += 1
                     y += earn
                     if (userData.value.london.loan != undefined) {
-                      userData.value.london.loan -= p(10, userData.value.london.loan)
-                      userData.value.london.money -= p(10, userData.value.london.loan)
-                      y -= p(10, userData.value.london.loan)
+                      userData.value.london.loan -= earn / 100
+                      userData.value.london.money -= earn / 100
+                      y -= earn / 100
+                      if (userData.value.london.loan <= 0) {
+                        userData.value.london.loan = undefined
+                      }
                     }
                     chat.reply(`One day has passed...`)
                     userData.value.london.money += earn
@@ -264,14 +276,17 @@ const Auto = {
       
                 chat.reply(`Your workers started working in the Space Center! (please wait ${24 * parseInt(body)} seconds)`)
       
-                var ww = setInterval(function( ) {
+                var ww = setInterval(async function( ) {
                   if (w1 < parseInt(body)) {
                     w1 += 1
                     w += earn
                     if (userData.value.space.loan != undefined) {
-                      userData.value.space.loan -= p(10, userData.value.space.loan)
-                      userData.value.space.money -= p(10, userData.value.space.loan)
-                      w -= p(10, userData.value.space.loan)
+                      userData.value.space.loan -= earn / 100
+                      userData.value.space.money -= earn / 100
+                      w -= earn / 100
+                      if (userData.value.space.loan <= 0) {
+                        userData.value.space.loan = undefined
+                      }
                     }
                     chat.reply(`One day has passed...`)
                     userData.value.space.money += earn
@@ -314,14 +329,17 @@ const Auto = {
       
                 chat.reply(`Your workers started working in Birmingham! (please wait ${24 * parseInt(body)} seconds)`)
       
-                var birming2 = setInterval(function( ) {
+                var birming2 = setInterval(async function( ) {
                   if (birming1 < parseInt(body)) {
                     birming1 += 1
                     birming += earn
                     if (userData.value.birming.loan != undefined) {
-                      userData.value.birming.loan -= p(10, userData.value.birming.loan)
-                      userData.value.birming.money -= p(10, userData.value.birming.loan)
-                      birming -= p(10, userData.value.birming.loan)
+                      userData.value.birming.loan -= earn / 100
+                      userData.value.birming.money -= earn / 100
+                      birming -= earn / 100
+                      if (userData.value.birming.loan <= 0) {
+                        userData.value.birming.loan = undefined
+                      }
                     }
                     chat.reply(`One day has passed...`)
                     userData.value.birming.money += earn
@@ -373,14 +391,17 @@ const Auto = {
       
                 chat.reply(`Your workers started advertising in the city! (please wait ${24 * parseInt(body)} seconds)`)
       
-                var oo = setInterval(function( ) {
+                var oo = setInterval(async function( ) {
                   if (t3 < parseInt(body)) {
                     ttt += earn
                     t3 += 1
                     if (userData.value.city.loan != undefined) {
-                      userData.value.city.loan -= p(10, userData.value.city.loan)
-                      userData.value.city.money -= p(10, userData.value.city.loan)
-                      ttt += p(10, userData.value.city.loan)
+                      userData.value.city.loan -= earn / 100
+                      userData.value.city.money -= earn / 100
+                      ttt += earn / 100
+                      if (userData.value.city.loan <= 0) {
+                        userData.value.city.loan = undefined
+                      }
                     }
                     const Earned = getRandomInt(0, getStuff(userData.value.city.normad).earn)
                     if (getRandomInt(1, getStuff(userData.value.city.normad).chance) == 1) {
@@ -429,14 +450,17 @@ const Auto = {
       
                 chat.reply(`Your workers started advertising on the beach! (please wait ${12 * parseInt(body)} seconds)`)
       
-                var ooo = setInterval(function( ) {
+                var ooo = setInterval(async function( ) {
                   if (t4 < parseInt(body)) {
                     tttt += earn
                     t4 += 1
                     if (userData.value.beach.loan != undefined) {
-                      userData.value.beach.loan -= p(10, userData.value.beach.loan)
-                      userData.value.beach.money -= p(10, userData.value.beach.loan)
-                      tttt += p(10, userData.value.beach.loan)
+                      userData.value.beach.loan -= earn / 100
+                      userData.value.beach.money -= earn / 100
+                      tttt += earn / 100
+                      if (userData.value.beach.loan <= 0) {
+                        userData.value.beach.loan = undefined
+                      }
                     }
                     const Earned = getRandomInt(0, getStuff(userData.value.beach.normad).earn)
                     if (getRandomInt(1, getStuff(userData.value.beach.normad).chance) == 1) {
@@ -485,14 +509,17 @@ const Auto = {
       
                 chat.reply(`Your workers started advertising on Danker Land! (please wait ${12 * parseInt(body)} seconds)`)
       
-                var iii = setInterval(function( ) {
+                var iii = setInterval(async function( ) {
                   if (y2 < parseInt(body)) {
                     yy += earn
                     y2 += 1
                     if (userData.value.dank.loan != undefined) {
-                      userData.value.dank.loan -= p(10, userData.value.dank.loan)
-                      userData.value.dank.money -= p(10, userData.value.dank.loan)
-                      yy += p(10, userData.value.dank.loan)
+                      userData.value.dank.loan -= earn / 100
+                      userData.value.dank.money -= earn / 100
+                      yy += earn / 100
+                      if (userData.value.dank.loan <= 0) {
+                        userData.value.dank.loan = undefined
+                      }
                     }
                     const Earned = getRandomInt(0, getStuff(userData.value.dank.normad).earn)
                     if (getRandomInt(1, getStuff(userData.value.dank.normad).chance) == 1) {
@@ -541,14 +568,17 @@ const Auto = {
       
                 chat.reply(`Your workers started advertising in london! (please wait ${12 * parseInt(body)} seconds)`)
       
-                var iii = setInterval(function( ) {
+                var iii = setInterval(async function( ) {
                   if (y2 < parseInt(body)) {
                     yy += earn
                     y2 += 1
                     if (userData.value.london.loan != undefined) {
-                      userData.value.london.loan -= p(10, userData.value.london.loan)
-                      userData.value.london.money -= p(10, userData.value.london.loan)
-                      yy += p(10, userData.value.london.loan)
+                      userData.value.london.loan -= earn / 100
+                      userData.value.london.money -= earn / 100
+                      yy += earn / 100
+                      if (userData.value.london.loan <= 0) {
+                        userData.value.london.loan = undefined
+                      }
                     }
                     const Earned = getRandomInt(0, getStuff(userData.value.london.normad).earn)
                     if (getRandomInt(1, getStuff(userData.value.london.normad).chance) == 1) {
@@ -597,14 +627,17 @@ const Auto = {
       
                 chat.reply(`Your workers started advertising in the Space Center! (please wait ${12 * parseInt(body)} seconds)`)
       
-                var iii = setInterval(function( ) {
+                var iii = setInterval(async function( ) {
                   if (space2 < parseInt(body)) {
                     space += earn
                     space2 += 1
                     if (userData.value.space.loan != undefined) {
-                      userData.value.space.loan -= p(10, userData.value.space.loan)
-                      userData.value.space.money -= p(10, userData.value.space.loan)
-                      space += p(10, userData.value.space.loan)
+                      userData.value.space.loan -= earn / 100
+                      userData.value.space.money -= earn / 100
+                      space += earn / 100
+                      if (userData.value.space.loan <= 0) {
+                        userData.value.space.loan = undefined
+                      }
                     }
                     const Earned = getRandomInt(0, getStuff(userData.value.space.normad).earn)
                     if (getRandomInt(1, getStuff(userData.value.space.normad).chance) == 1) {
@@ -653,14 +686,17 @@ const Auto = {
       
                 chat.reply(`Your workers started advertising in Birmingham! (please wait ${12 * parseInt(body)} seconds)`)
       
-                var birming5 = setInterval(function( ) {
+                var birming5 = setInterval(async function( ) {
                   if (birming4 < parseInt(body)) {
                     birming3 += earn
                     birming4 += 1
                     if (userData.value.birming.loan != undefined) {
-                      userData.value.birming.loan -= p(10, userData.value.birming.loan)
-                      userData.value.birming.money -= p(10, userData.value.birming.loan)
-                      birming3 += p(10, userData.value.birming.loan)
+                      userData.value.birming.loan -= earn / 100
+                      userData.value.birming.money -= earn / 100
+                      birming3 += earn / 100
+                      if (userData.value.birming.loan <= 0) {
+                        userData.value.birming.loan = undefined
+                      }
                     }
                     const Earned = getRandomInt(0, getStuff(userData.value.birming.normad).earn)
                     if (getRandomInt(1, getStuff(userData.value.birming.normad).chance) == 1) {
@@ -702,6 +738,9 @@ const Auto = {
             chat.reply(`Hmm, it looks like this spot doesnt support automation...`)
             break;
         }
+
+      default:
+        chat.reply(`Thats not an auto type...`)
     }
   },
   description: "Automate and earn",

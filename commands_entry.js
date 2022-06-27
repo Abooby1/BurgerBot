@@ -77,7 +77,7 @@ export async function onChat(client, chat) {
           }
         }
 
-        if (event.name == "Reward Event") {
+        if (event.name == "Reward Event" || event.name == "User Milestone Event") {
           if (getRandomInt(1, 50) <= 5) {
             switch (event.earn[getRandomInt(0, event.earn.length)]) {
               case "credits":

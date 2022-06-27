@@ -1,5 +1,5 @@
-import { defaultData, getUserDataManager, db } from "../../database.js";
-import {getDay, VersionID, getMonth} from '../../utils.js'
+import { defaultData, getUserDataManager, db, db2 } from "../../database.js";
+import {getDay, VersionID, getMonth, getLet, Version, d12d} from '../../utils.js'
 import {audit} from "../../index.js"
 
 const isNaN = function(value) {
@@ -86,6 +86,18 @@ const AddSay = {
   },
   description: "Add a post entry",
   permission: 'Owner'
+};
+
+const Nerdy = {
+  names: ["nerdy"],
+  func: async ({chat, userData})=>{
+    chat.reply(`UID: ${chat.author.id} | V${VersionID} | Data version: ${Version} | Audit Log length: ${getLet(JSON.parse(await db2.get('audit')).length)} | d12d: ${d12d}`)
+    setTimeout(async function( ) {
+      chat.reply(`Event stats: ${db.get('EventDay')}`)
+    }, 100)
+  },
+  description: "",
+  permission: rank => rank != 'Banned'
 };
 
 const ResetData = {
@@ -244,4 +256,4 @@ const AddSpot = {
   permission: "Owner"
 };
 
-export {SetMoney, TempBan, SetCustoms, SetWorker, ResetData, AddSpot, SetPrestige, SetCredit, AddSay, TempBan2}
+export {SetMoney, TempBan, SetCustoms, SetWorker, ResetData, AddSpot, SetPrestige, SetCredit, AddSay, TempBan2, Nerdy}

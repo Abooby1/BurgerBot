@@ -87,7 +87,7 @@ export async function getHour (tt) {
   }
 }
 
-export const VersionID = '2.30'
+export const VersionID = '2.33'
 export const Version = 3
 
 export const downtime = false
@@ -199,6 +199,15 @@ function getEvent (n) {
 
         last: 2,
         earn: null
+      }
+
+    case 'UE':
+      return {
+        name: 'User Milestone Event',
+        desc: 'The user event is activated when a user count milestone is reached! This event gives random rewards from using commands!',
+
+        last: 7,
+        earn: ["worker", "customs", "credits", "exp"]
       }
 
     case 'ESE':
@@ -519,6 +528,19 @@ const ba = {
   chance: 10
 }
 
+const rpgbot = {
+  name: "RPGBot ADS",
+  id: "rpgbot",
+
+  rank: "ad",
+
+  costshow: "25m",
+  cost: 25000000,
+  earn: 35000,
+
+  chance: 5
+}
+
 const water1 = {
   name: "Great Value Water",
   id: "water1",
@@ -672,6 +694,9 @@ export function getStuff (name) {
 
     case 'birming':
       return ba;
+
+    case 'rpgbot':
+      return rpgbot;
 
     case "water1":
       return water1;

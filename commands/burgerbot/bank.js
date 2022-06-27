@@ -319,6 +319,9 @@ const Bank = {
           chat.reply(`You need an accountant to check loans...`)
         }
         break;
+
+      default:
+        chat.reply(`That spot doesnt support loans...`)
     }
   },
   description: "",

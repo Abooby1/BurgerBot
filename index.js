@@ -8,7 +8,7 @@ const client = new Client({ username: "BurgerBot", password: process.env["Pass"]
 
 const noop = () => { };
 
-const VersionSay = `1. Added loans! (use b!loan <amount> to get a loan | use b!payoff to pay off your loan fully | use b!bank to check your loan payoff amount | loans are slowly paid off after working/autoing)`
+const VersionSay = `1. Added b!nerdy (for those nerds out there 🥴)\n2. Changed some bio stats`
 
 export async function audit (m) {
   const p = JSON.parse(await db2.get('audit'))
@@ -356,7 +356,7 @@ client.onReady = async () => {
   if (downtime == true) {
     client.editor().setDescription(`Currently in downtime until ${DowntimeEnd}... \n\nMade by @Abooby`).save()
   } else {
-    setInterval(function() {
+    setInterval(async function() {
       var money = 0
       var net = 0
       var amount = 0
@@ -370,11 +370,15 @@ client.onReady = async () => {
           money += data.value.beach.money
           money += data.value.dank.money
           money += data.value.birming.money
-          net += data.value.net
+          if (data.value.version == Version) {
+            net += data.value.net
+          }
         }
       })
+      const auditread = JSON.parse(await db.get('posts'))
+      const that = auditread.length
       setTimeout(function( ) {
-        client.editor().setDescription(`Online with V${VersionID} \nSeason ${SeasonNum} (${SeasonName})\n\nMoney across all users: $${getLet(money, 2)}\nMoney earned this season: $${getLet(net, 2)}\nUsers: ${getLet(amount)}\n\nMake sure to connect me by posting "startburger"\nBot made by @Abooby`).save()
+        client.editor().setDescription(`Online with V${VersionID} \nSeason ${SeasonNum} (${SeasonName})\n\nMoney across all users: $${getLet(money, 2)}\nMoney earned this season: $${getLet(net, 2)}\nPosts connected now: ${that}\nUsers: ${getLet(amount)}\n\nMake sure to connect me by posting "startburger"\nBot made by @Abooby`).save()
       }, 5000)
     }, 15000)
   }
