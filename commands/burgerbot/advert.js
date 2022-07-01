@@ -150,7 +150,7 @@ const Advertise = {
           userData.update()
         }, 2500)
       } else {
-        chat.reply(`You dont have enough to advertise with ${d.name}... (cost: $${getLet(y, 2)})`)
+        chat.reply(`You dont have enough money to advertise with ${d.name}... (cost: $${getLet(y, 2)})`)
       }
     } else {
       chat.reply(`Please finish the command... (b!advert <item>)`)

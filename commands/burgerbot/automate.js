@@ -38,12 +38,12 @@ const Auto = {
   func: async ({chat, args: [item, body], userData})=>{
     if (item.toLowerCase() == "work" || item.toLowerCase() == 'w') {
       if (AutoW.includes(chat.author.id)) {
-        chat.reply(`Your workers are already working...`)
+        chat.reply(`Your workers are already working... Give them a break, geez.`)
         return;
       }
     } else {
       if (AutoA.includes(chat.author.id)) {
-        chat.reply(`Your workers are already advertising...`)
+        chat.reply(`Your workers are already advertising... Give them a break, geez.`)
         return;
       }
     }
@@ -738,6 +738,7 @@ const Auto = {
             chat.reply(`Hmm, it looks like this spot doesnt support automation...`)
             break;
         }
+        break;
 
       default:
         chat.reply(`Thats not an auto type...`)

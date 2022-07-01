@@ -48,7 +48,7 @@ export async function onChat(client, chat) {
         if (data.value.postuse == false) {
           if (chat.author.id != chat.post.author.id) {
             if (chat.author.id != '6154f0d0a8d6d106c5b869b6') {
-              chat.reply(`This person has their postuse turned to 'false' (you cant use commands on their connected post) try connecting your own post! ("startburger")`)
+              chat.reply(`This person has their postuse on false... (you cant use the connected posts made by ${post.author.id}...) | You can connect your own post by posting "startburger"!`)
               return;
             }
           }
@@ -143,7 +143,7 @@ export async function onChat(client, chat) {
         await command.func(context)
         // command not found
       } else {
-        chat.reply("Hmmm, please try that command again... (Most likely its not a command)")
+        chat.reply("Hmm, that command doesnt look right...")
       }
     } else {
       // tell the user bad syntax

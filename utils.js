@@ -87,7 +87,7 @@ export async function getHour (tt) {
   }
 }
 
-export const VersionID = '2.33'
+export const VersionID = '2.34'
 export const Version = 3
 
 export const downtime = false
@@ -146,7 +146,7 @@ function getEvent (n) {
     case 1:
       return {
         name: "Spot Event",
-        desc: "The spot event adds a spot you can freely change to using <b!change spot event>! (when prestiging, you will get the rewards)",
+        desc: "The spot event adds a spot you can freely change to by using <b!change spot event>! (when prestiging, you will earn rewards)",
       
         last: 5,
         earn: null
@@ -154,7 +154,7 @@ function getEvent (n) {
     case 2:
       return {
         name: "Command Event",
-        desc: "The command event adds to b!claim! To claim rewards use <b!claim event>",
+        desc: "The command event adds to b!claim! To claim rewards, use <b!claim event>",
       
         last: 2,
         earn: null

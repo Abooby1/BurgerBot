@@ -12,7 +12,7 @@ const Loan = {
               if (parseInt(money) >= 0) {
                 userData.value.city.loan = amount
                 userData.value.city.money += parseInt(money)
-                chat.reply(`You got $${getLet(parseInt(money))} added to your account! (you will have to pay $${getLet(amount)} off to the bank to finish your loan)`)
+                chat.reply(`You got $${getLet(parseInt(money))} added to your account! (use "b!bank" to check how much you need to pay to the bank until you can get another loan!)`)
                 setTimeout(function( ) {
                   userData.update()
                 }, 2500)
@@ -23,7 +23,7 @@ const Loan = {
               chat.reply(`You already have a loan...`)
             }
           } else {
-            chat.reply(`You need an accountant to get loans...`)
+            chat.reply(`You need an accountant to unlock loans...`)
           }
           break;
         case 'beach':
@@ -33,7 +33,7 @@ const Loan = {
               if (parseInt(money) >= 0) {
                 userData.value.beach.loan = amount
                 userData.value.beach.money += parseInt(money)
-                chat.reply(`You got $${getLet(parseInt(money))} added to your account! (you will have to pay $${getLet(amount)} off to the bank to finish your loan)`)
+                chat.reply(`You got $${getLet(parseInt(money))} added to your account! (use "b!bank" to check how much you need to pay to the bank until you can get another loan!)`)
                 setTimeout(function( ) {
                   userData.update()
                 }, 2500)
@@ -44,7 +44,7 @@ const Loan = {
               chat.reply(`You already have a loan...`)
             }
           } else {
-            chat.reply(`You need an accountant to get loans...`)
+            chat.reply(`You need an accountant to unloack loans...`)
           }
           break;
         case 'dank':
@@ -54,7 +54,7 @@ const Loan = {
               if (parseInt(money) >= 0) {
                 userData.value.dank.loan = amount
                 userData.value.dank.money += parseInt(money)
-                chat.reply(`You got $${getLet(parseInt(money))} added to your account! (you will have to pay $${getLet(amount)} off to the bank to finish your loan)`)
+                chat.reply(`You got $${getLet(parseInt(money))} added to your account! (use "b!bank" to check how much you need to pay to the bank until you can get another loan!)`)
                 setTimeout(function( ) {
                   userData.update()
                 }, 2500)
@@ -65,7 +65,7 @@ const Loan = {
               chat.reply(`You already have a loan...`)
             }
           } else {
-            chat.reply(`You need an accountant to get loans...`)
+            chat.reply(`You need an accountant to unlock loans...`)
           }
           break;
         case 'space':
@@ -75,7 +75,7 @@ const Loan = {
               if (parseInt(money) >= 0) {
                 userData.value.space.loan = amount
                 userData.value.space.money += parseInt(money)
-                chat.reply(`You got $${getLet(parseInt(money))} added to your account! (you will have to pay $${getLet(amount)} off to the bank to finish your loan)`)
+                chat.reply(`You got $${getLet(parseInt(money))} added to your account! (use "b!bank" to check how much you need to pay to the bank until you can get another loan!)`)
                 setTimeout(function( ) {
                   userData.update()
                 }, 2500)
@@ -86,7 +86,7 @@ const Loan = {
               chat.reply(`You already have a loan...`)
             }
           } else {
-            chat.reply(`You need an accountant to get loans...`)
+            chat.reply(`You need an accountant to unlock loans...`)
           }
           break;
         case 'london':
@@ -96,7 +96,7 @@ const Loan = {
               if (parseInt(money) >= 0) {
                 userData.value.london.loan = amount
                 userData.value.london.money += parseInt(money)
-                chat.reply(`You got $${getLet(parseInt(money))} added to your account! (you will have to pay $${getLet(amount)} off to the bank to finish your loan)`)
+                chat.reply(`You got $${getLet(parseInt(money))} added to your account! (use "b!bank" to check how much you need to pay to the bank until you can get another loan!)`)
                 setTimeout(function( ) {
                   userData.update()
                 }, 2500)
@@ -107,7 +107,7 @@ const Loan = {
               chat.reply(`You already have a loan...`)
             }
           } else {
-            chat.reply(`You need an accountant to get loans...`)
+            chat.reply(`You need an accountant to unlock loans...`)
           }
           break;
         case 'birming':
@@ -117,7 +117,7 @@ const Loan = {
               if (parseInt(money) >= 0) {
                 userData.value.birming.loan = amount
                 userData.value.birming.money += parseInt(money)
-                chat.reply(`You got $${getLet(parseInt(money))} added to your account! (you will have to pay $${getLet(amount)} off to the bank to finish your loan)`)
+                chat.reply(`You got $${getLet(parseInt(money))} added to your account! (use "b!bank" to check how much you need to pay to the bank until you can get another loan!)`)
                 setTimeout(function( ) {
                   userData.update()
                 }, 2500)
@@ -128,7 +128,7 @@ const Loan = {
               chat.reply(`You already have a loan...`)
             }
           } else {
-            chat.reply(`You need an accountant to get loans...`)
+            chat.reply(`You need an accountant to unlock loans...`)
           }
           break;
 

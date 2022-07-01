@@ -46,7 +46,7 @@ const Change = {
             break;
           case "false":
             userData.value.postuse = false
-            chat.reply(`Other people can now not use commands on your connected post!`)
+            chat.reply(`Other people cant use commands on your connected post!`)
             setTimeout(function( ) {
               userData.update()
             }, 2500)
@@ -69,7 +69,7 @@ const Change = {
                   userData.update()
                 }, 2500)
               } else {
-                chat.reply(`You cant use this advertisement... (cost $${getStuff(value.toLowerCase()).costshow})`)
+                chat.reply(`Youre too poor to use this advertisement... (cost $${getStuff(value.toLowerCase()).costshow})`)
               }
             } else {
               chat.reply(`Thats not an ad...`)
@@ -85,7 +85,7 @@ const Change = {
                   userData.update()
                 }, 2500)
               } else {
-                chat.reply(`You cant use this advertisement... (cost $${getLet(value.toLowerCase().cost *2, 2)})`)
+                chat.reply(`Youre too poor to use this advertisement... (cost $${getLet(value.toLowerCase().cost *2, 2)})`)
               }
             } else {
               chat.reply(`Thats not an ad...`)
@@ -101,7 +101,7 @@ const Change = {
                   userData.update()
                 }, 2500)
               } else {
-                chat.reply(`You cant use this advertisement... (cost $${getLet(value.toLowerCase().cost * 10, 2)})`)
+                chat.reply(`Youre too poor to use this advertisement... (cost $${getLet(value.toLowerCase().cost * 10, 2)})`)
               }
             } else {
               chat.reply(`Thats not an ad...`)
@@ -117,7 +117,7 @@ const Change = {
                   userData.update()
                 }, 2500)
               } else {
-                chat.reply(`You cant use this advertisement... (cost $${getLet(value.toLowerCase().cost * 5, 2)})`)
+                chat.reply(`Youre too poor to use this advertisement... (cost $${getLet(value.toLowerCase().cost * 5, 2)})`)
               }
             } else {
               chat.reply(`Thats not an ad...`)
@@ -133,7 +133,7 @@ const Change = {
                   userData.update()
                 }, 2500)
               } else {
-                chat.reply(`You cant use this advertisement... (cost $${getLet(value.toLowerCase().cost * 6, 2)})`)
+                chat.reply(`Youre too poor to use this advertisement... (cost $${getLet(value.toLowerCase().cost * 6, 2)})`)
               }
             } else {
               chat.reply(`Thats not an ad...`)
@@ -149,7 +149,7 @@ const Change = {
                   userData.update()
                 }, 2500)
               } else {
-                chat.reply(`You cant use this advertisement... (cost $${getLet(value.toLowerCase().cost * 6, 2)})`)
+                chat.reply(`Youre too poor to use this advertisement... (cost $${getLet(value.toLowerCase().cost * 6, 2)})`)
               }
             } else {
               chat.reply(`Thats not an ad...`)
@@ -265,7 +265,7 @@ const Change = {
                   break;
                 case "dank":
                   if (userData.value.credits >= 25000) {
-                    chat.reply(`You bought a spot at the Danker Land! Have fun!`)
+                    chat.reply(`You bought a spot at Danker Land! Have fun!`)
                     userData.value.credits -= 25000
                     userData.value.spot = "dank"
                     userData.value.spots.push("dank")
@@ -278,7 +278,7 @@ const Change = {
                   break;
                 case "space":
                   if (userData.value.credits >= 50000) {
-                    chat.reply(`You bought a spot on the Space Center! Have fun!`)
+                    chat.reply(`You bought a spot at the Space Center! Have fun!`)
                     userData.value.credits -= 50000
                     userData.value.spot = "space"
                     userData.value.spots.push("space")
@@ -299,7 +299,7 @@ const Change = {
                       userData.update()
                     }, 2500)
                   } else {
-                    chat.reply(`You dont have enough credits to buy a spot at Birmingham... (cost: 10k credits)`)
+                    chat.reply(`You dont have enough credits to buy a spot in Birmingham... (cost: 10k credits)`)
                   }
                   break;
                 case "summer":

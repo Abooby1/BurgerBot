@@ -8,7 +8,7 @@ const client = new Client({ username: "BurgerBot", password: process.env["Pass"]
 
 const noop = () => { };
 
-const VersionSay = `1. Added b!nerdy (for those nerds out there 🥴)\n2. Changed some bio stats`
+const VersionSay = `1. Grammar checked around 20 files for yall :c`
 
 export async function audit (m) {
   const p = JSON.parse(await db2.get('audit'))
@@ -17,9 +17,9 @@ export async function audit (m) {
 }
 
 client.onInvite = async (invite) => {
-  audit(`${invite.From} invited BurgerBot into ${invite.Name}`)
+  audit(`${invite.From} invited BurgerBot into "${invite.Name}"`)
   await client.joinGroup(invite._id)
-  client.groups[invite._id].post(`Im now in the ${invite.Name} group! Make sure to connect me by posting "startburger"! (All commands used are recorded | No AFKing/bot automations)`)
+  client.groups[invite._id].post(`Im now in the "${invite.Name}" group! Make sure to connect me by posting "startburger"! (All commands used are recorded | No AFKing/bot automations)`)
 }
 
 async function main () {
@@ -103,7 +103,7 @@ client.onPost = async (post) => {
             audit(`${post.author.username} connected a post`)
           } else {
             if (d1.value.rank != 'Banned' && !d2.includes(post.author.id)) {
-              post.chat(`Im now connected to your post ${post.author.username}! (use b!help for help!)`)
+              post.chat(`Hey ${post.author.id}! Im connected to your post... Make sure to use "b!help" for help!`)
               audit(`${post.author.username} connected a post`)
             } else {
               post.chat('Sorry... Youre banned from BurgerBot...')
@@ -121,9 +121,9 @@ client.onPost = async (post) => {
                   d1.value.credits += 25
                   d1.value.version = 3
                   d1.value.net = 0
-                  post.chat(`Welcome to Season ${SeasonNum} (${SeasonName})! You got yourself 25 credits! (you are back to level 1!)`)
+                  post.chat(`Welcome to Season ${SeasonNum} (${SeasonName})! You earned 25 credits! (youre back to level 1!)`)
                   if (d1.value.arena != undefined) {
-                    post.chat(`Your arena rewards have been given to you!`)
+                    post.chat(`Your arena rewards have been added to your account!`)
                     delete d1.value.arena
                     if (d1.value.arena.rank != 'Noobie') {
                       const get = parseFloat(getPoints(d1.value.arena.rank, 'points')) || 1500 / 8
@@ -131,7 +131,7 @@ client.onPost = async (post) => {
                     }
                   }
                   if (d1.value.spot == 'arena') {
-                    post.chat('Your spot has been changed to the City Spot! (Arena has refreshed | rewards have been given to you!)')
+                    post.chat('You are back to the City spot! (Arena has refreshed | rewards have been added to your account!)')
                     d1.value.spot = 'city'
                   }
                   setTimeout(function( ) {
@@ -152,7 +152,7 @@ client.onPost = async (post) => {
               d1.value.event.customers = 1
               d1.value.event.workers = 0
               d1.value.event.wage = 0
-              post.chat(`Your spot was switched to the city due to the spot event ending...`)
+              post.chat(`The spot event has ended... (You are back at the City!)`)
               setTimeout(async function( ) {
                 d1.update()
               }, 2500)
@@ -307,7 +307,7 @@ client.onPost = async (post) => {
         } else {
           const d = await JSON.stringify(defaultData)
           db.set(`v1/${post.author.id}`, d)
-          post.chat(`Welcome to BurgerBot Season ${SeasonNum} ${post.author.username}! Make sure to use b!help for help and to use b!change server <server> to change your server!`)
+          post.chat(`Welcome ${post.author.id} to BurgerBot Season ${SeasonNum} (${SeasonName})! Make sure to use "b!help" for some help! ("b!help tutorial" is a good command to use too!)`)
           audit(`${post.author.username} made an account`)
         }
       }, 2000)
@@ -378,7 +378,7 @@ client.onReady = async () => {
       const auditread = JSON.parse(await db.get('posts'))
       const that = auditread.length
       setTimeout(function( ) {
-        client.editor().setDescription(`Online with V${VersionID} \nSeason ${SeasonNum} (${SeasonName})\n\nMoney across all users: $${getLet(money, 2)}\nMoney earned this season: $${getLet(net, 2)}\nPosts connected now: ${that}\nUsers: ${getLet(amount)}\n\nMake sure to connect me by posting "startburger"\nBot made by @Abooby`).save()
+        client.editor().setDescription(`Online with V${VersionID} \nSeason ${SeasonNum} (${SeasonName})\n\nMoney across all users: $${getLet(money, 2)}\nMoney earned this season: $${getLet(net, 2)}\nCurrent post connections: ${that}\nUsers: ${getLet(amount)}\n\nMake sure to connect me by posting "startburger"\nBot made by @Abooby`).save()
       }, 5000)
     }, 15000)
   }
