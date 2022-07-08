@@ -229,6 +229,43 @@ const Work = {
           }, 2500)
         }, body * 1000)
         break;
+      case "kyiv":
+        body = parseFloat(body) || 25;
+        if (body * 1 > 25 || body < 0) {
+          chat.reply(`You cant work that many hours... (max: '25')`)
+          break;
+        }
+        working.push(chat.author.id)
+        setTimeout(function( ) {
+          userData.update()
+        }, 2500)
+        chat.reply(`You started working for ${body} hours (time: ${body} seconds)`)
+        
+        setTimeout(async function( ) {
+          var Earned = body * userData.value.kyiv.prestige * 0.01 * userData.value.kyiv.customers * SeasonMulti
+          userData.value.kyiv.money += Earned
+          userData.value.net += Earned
+          if (userData.value.kyiv.loan != undefined) {
+            userData.value.kyiv.loan -= Earned / 100
+            userData.value.kyiv.money -= Earned / 100
+            Earned -= Earned / 100
+          }
+          if (event.name == 'End of Season Event') {
+            userData.value.exp += 30
+          } else {
+            if (d12d == false) {
+              userData.value.exp += 10
+            } else {
+              userData.value.exp += 15
+            }
+          }
+          chat.reply(`You worked for ${body} hours and earned $${getLet(Earned, 2)}!`)
+          working.splice(working.indexOf(chat.author.id), 1)
+          setTimeout(function( ) {
+            userData.update()
+          }, 2500)
+        }, body * 1000)
+        break;
       case "summer":
         body = parseFloat(body) || 35;
         if (body * 1 > 35 || body < 0) {

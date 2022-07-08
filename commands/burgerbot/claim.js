@@ -6,7 +6,7 @@ const Claim = {
   names: ["claim"],
   func: async ({chat, body, userData})=>{
     if (userData.value.timezone != undefined) {
-      if (getRandomInt(1, 1000) == 1) {
+      if (getRandomInt(1, 1000) == 1) {///------------------------------
         if (!userData.value.spots.includes(SeasonSpot)) {
           userData.value.spots.push(SeasonSpot)
           chat.reply(`You got the seasons spot!`)
@@ -369,6 +369,11 @@ const Claim = {
                   userData.value.credits += 1
                   userData.value.birming.money += 10
                   chat.reply('You claimed your event rewards! (you can claim them again in 1 minute and 30 seconds! | $10 (birmingham) and 1 credit)')
+                  break;
+                case 'kyiv':
+                  userData.value.credits += 2
+                  userData.value.kyiv.money += 15
+                  chat.reply('You claimed your event rewards! (you can claim them again in 1 minute and 30 seconds! | $15 (kyiv) and 2 credits)')
                   break;
   
                 default:

@@ -13,7 +13,7 @@ const Help = {
       case "spot":
         chat.reply(`You can buy/switch spots in b!change spot <spot you want to buy>! Each spot costs more credits!`)
         setTimeout(function( ) {
-          chat.reply(`Spots: "city" (free starter) | "beach" (5k credits) | "dank" (25k credits) | "space" (50k credits) | "birming" (10k credits) | "summer" (FREE)`)
+          chat.reply(`Spots: "city" (free starter) | "beach" (5k credits) | "dank" (25k credits) | "space" (50k credits) | "birming" (10k credits) | "****" (5k credits) | "summer" (FREE)`)
           setTimeout(function( ) {
             const items = []
             const y = userData.value.spots.forEach(x => items.push(`"${x}"`))
@@ -63,6 +63,9 @@ const Help = {
             break;
           case 'birming':
             chat.reply(`Prestiging adds to your money earning (in the spot your prestiging in) | Requirements (Birmingham): $200K, 100K customers, 10K workers!`)
+            break;
+          case 'kyiv':
+            chat.reply(`Prestiging adds to your money earning (in the spot your prestiging in) | Requirements (kyiv): $300K, 150K customers, 15K workers!`)
             break;
           case 'london':
             chat.reply(`Prestiging adds to your money earning (in the spot your prestiging in) | Requirements (London): $100K, 1K customers, 10K workers!`)
@@ -153,8 +156,11 @@ const Help = {
               case 'birming':
                 chat.reply(`Birmingham | Cost: $${getLet(i.cost * 5, 2)} | Max gain: ${getLet(i.earn)} | Chance of gaining worker: 1/${i.chance}`)
                 break;
+              case 'kyiv':
+                chat.reply(`Kyiv | Cost: $${getLet(i.cost * 6, 2)} | Max gain: ${getLet(i.earn)} | Chance of gaining worker: 1/${i.chance}`)
+                break;
               case 'london':
-                chat.reply(`Birmingham | Cost: $${getLet(i.cost * 6, 2)} | Max gain: ${getLet(i.earn)} | Chance of gaining worker: 1/${i.chance}`)
+                chat.reply(`London | Cost: $${getLet(i.cost * 6, 2)} | Max gain: ${getLet(i.earn)} | Chance of gaining worker: 1/${i.chance}`)
                 break;
               case 'summer':
                 chat.reply(`Summer Spot | Cost: $${getLet(i.cost / 2, 2)} | Max gain: ${getLet(i.earn)} | Chance of gaining worker: 1/${i.chance}`)

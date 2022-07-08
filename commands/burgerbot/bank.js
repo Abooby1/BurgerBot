@@ -131,6 +131,27 @@ const Loan = {
             chat.reply(`You need an accountant to unlock loans...`)
           }
           break;
+        case 'kyiv':
+          if (userData.value.kyiv.accountant == true) {
+            if (userData.value.kyiv.loan == undefined) {
+              const amount = parseInt(money) + await p(5, parseFloat(money) || 0)
+              if (parseInt(money) >= 0) {
+                userData.value.kyiv.loan = amount
+                userData.value.kyiv.money += parseInt(money)
+                chat.reply(`You got $${getLet(parseInt(money))} added to your account! (use "b!bank" to check how much you need to pay to the bank until you can get another loan!)`)
+                setTimeout(function( ) {
+                  userData.update()
+                }, 2500)
+              } else {
+                chat.reply(`You need to get more than $0...`)
+              }
+            } else {
+              chat.reply(`You already have a loan...`)
+            }
+          } else {
+            chat.reply(`You need an accountant to unlock loans...`)
+          }
+          break;
 
         default:
           chat.reply(`The spot youre currently at cant get loans`)
@@ -243,6 +264,22 @@ const Payoff = {
           chat.reply(`You dont have a loan to pay off...`)
         }
         break;
+      case 'kyiv':
+        if (userData.value.kyiv.loan != undefined) {
+          if (userData.value.kyiv.money >= userData.value.kyiv.loan) {
+            userData.value.kyiv.money -= userData.value.kyiv.loan
+            userData.value.kyiv.loan = undefined
+            chat.reply(`You paid off your loan!`)
+            setTimeout(function() {
+              userData.update()
+            }, 2500)
+          } else {
+            chat.reply(`You dont have the money to pay off your loan...`)
+          }
+        } else {
+          chat.reply(`You dont have a loan to pay off...`)
+        }
+        break;
     }
   },
   description: "",
@@ -312,6 +349,17 @@ const Bank = {
         if (userData.value.birming.accountant != undefined) {
           if (userData.value.birming.loan != undefined) {
             chat.reply(`You have to pay $${getLet(userData.value.birming.loan)} for your loan to be paid off`)
+          } else {
+            chat.reply(`You dont have a loan to pay!`)
+          }
+        } else {
+          chat.reply(`You need an accountant to check loans...`)
+        }
+        break;
+      case 'kyiv':
+        if (userData.value.kyiv.accountant != undefined) {
+          if (userData.value.kyiv.loan != undefined) {
+            chat.reply(`You have to pay $${getLet(userData.value.kyiv.loan)} for your loan to be paid off`)
           } else {
             chat.reply(`You dont have a loan to pay!`)
           }

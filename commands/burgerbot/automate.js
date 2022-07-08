@@ -372,6 +372,60 @@ const Auto = {
             }
             break;
 
+          case "kyiv":
+            if (userData.value.kyiv.workers >= 1) {
+              if (parseInt(body) >= 1 && parseInt(body) <= 5) {
+                AutoW.push(chat.author.id)
+                
+                var earn = await f("workkyiv", chat.author.id)
+                var kyiv = 0
+                var kyiv1 = 0
+      
+                chat.reply(`Your workers started working in Kyiv! (please wait ${24 * parseInt(body)} seconds)`)
+      
+                var kyiv2 = setInterval(async function( ) {
+                  if (kyiv1 < parseInt(body)) {
+                    kyiv1 += 1
+                    kyiv += earn
+                    if (userData.value.kyiv.loan != undefined) {
+                      userData.value.kyiv.loan -= earn / 100
+                      userData.value.kyiv.money -= earn / 100
+                      kyiv -= earn / 100
+                      if (userData.value.kyiv.loan <= 0) {
+                        userData.value.kyiv.loan = undefined
+                      }
+                    }
+                    chat.reply(`One day has passed...`)
+                    userData.value.kyiv.money += earn
+                    userData.value.net += earn
+                    if (userData.value.kyiv.supervisor == true) {
+                      if (getRandomInt(1, 50) == 1) {
+                        userData.value.kyiv.workers -= 1
+                        userData.value.kyiv.wage -= 61.38
+                        chat.reply(getevw(getRandomInt(1, 6)))
+                      }
+                    }
+                    setTimeout(function( ) {
+                      userData.update()
+                    }, 2500)
+                  } else {
+                    if (userData.value.kyiv.accountant == true) {
+                      chat.reply(`Your workers are done working! (total: $${getLet(kyiv, 2)})`)
+                    } else {
+                      chat.reply(`Your workers are done working!`)
+                    }
+                    AutoW.splice(AutoW.indexOf(chat.author.id), 1)
+                    clearInterval(kyiv2)
+                  }
+                }, 24000)
+              } else {
+                chat.reply(`You didnt specify how many days you want your workers to work... (b!auto work <days> | max: 5)`)
+              }
+            } else {
+              chat.reply(`You need at least one worker to do this...`)
+            }
+            break;
+
           default:
             chat.reply(`Hmm, looks like this spot doesnt support automation...`)
         }
@@ -724,6 +778,66 @@ const Auto = {
                     }
                     AutoA.splice(AutoA.indexOf(chat.author.id), 1)
                     clearInterval(birming5)
+                  }
+                }, 12000)
+              } else {
+                chat.reply(`You didnt specify how many days you want your workers to work... (b!auto advert <days> | max: 5)`)
+              }
+            } else {
+              chat.reply(`You need at least one worker to do this...`)
+            }
+            break;
+
+          case "kyiv":
+            if (userData.value.kyiv.workers >= 1) {
+              if (parseInt(body) >= 1 && parseInt(body) <= 5) {
+                AutoA.push(chat.author.id)
+                
+                var earn = await f("advertkyiv", chat.author.id)
+                var kyiv3 = 0
+                var kyiv4 = 0
+                var EarnedW = 0
+      
+                chat.reply(`Your workers started advertising in Kyiv! (please wait ${12 * parseInt(body)} seconds)`)
+      
+                var kyiv5 = setInterval(async function( ) {
+                  if (kyiv4 < parseInt(body)) {
+                    kyiv3 += earn
+                    kyiv4 += 1
+                    if (userData.value.kyiv.loan != undefined) {
+                      userData.value.kyiv.loan -= earn / 100
+                      userData.value.kyiv.money -= earn / 100
+                      kyiv3 += earn / 100
+                      if (userData.value.kyiv.loan <= 0) {
+                        userData.value.kyiv.loan = undefined
+                      }
+                    }
+                    const Earned = getRandomInt(0, getStuff(userData.value.kyiv.normad).earn)
+                    if (getRandomInt(1, getStuff(userData.value.kyiv.normad).chance) == 1) {
+                      EarnedW = getRandomInt(1, 2)
+                    }
+                    chat.reply(`One day has passed...`)
+                    userData.value.kyiv.customers += Earned
+                    userData.value.kyiv.workers += EarnedW
+                    userData.value.kyiv.money -= earn
+                    if (userData.value.kyiv.supervisor == true) {
+                      if (getRandomInt(1, 50) == 1) {
+                        userData.value.kyiv.workers -= 1
+                        userData.value.kyiv.wage -= 61.38
+                        chat.reply(geteva(getRandomInt(1, 4)))
+                      }
+                    }
+                    setTimeout(function( ) {
+                      userData.update()
+                    }, 2500)
+                  } else {
+                    if (userData.value.kyiv.accountant == true) {
+                      chat.reply(`Your workers are done advertising! (total cost: $${getLet(kyiv3, 2)})`)
+                    } else {
+                      chat.reply(`Your workers are done advertising!`)
+                    }
+                    AutoA.splice(AutoA.indexOf(chat.author.id), 1)
+                    clearInterval(kyiv5)
                   }
                 }, 12000)
               } else {

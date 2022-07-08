@@ -16,6 +16,8 @@ const Stats = {
     const earn10 = await f('advertbirming', chat.author.id)
     const earn11 = await f('worklondon', chat.author.id)
     const earn12 = await f('advertlondon', chat.author.id)
+    const earn13 = await f('workkyiv', chat.author.id)
+    const earn14 = await f('advertkyiv', chat.author.id)
 
     const c1 = userData.value.city.wage
     const c2 = userData.value.beach.wage
@@ -23,6 +25,7 @@ const Stats = {
     const c4 = userData.value.space.wage
     const c5 = userData.value.birming.wage
     const c6 = userData.value.london.wage
+    const c7 = userData.value.kyiv.wage
     var Say = ``
 
     switch (userData.value.spot.toLowerCase()) {
@@ -63,6 +66,14 @@ const Stats = {
           Say = `Birmingham | Money: $${getLet(userData.value.birming.money, 2)} | Workers: ${getLet(userData.value.birming.workers)} | Wage: $${getLet(c5, 2)} | Customers: ${getLet(userData.value.birming.customers)} | Prestige: ${userData.value.birming.prestige} | Earn (b!auto w): $${getLet(earn9, 2)} | Cost (b!auto a): $${getLet(earn10, 2)}`
         } else {
           Say = `Birmingham | Money: $${getLet(userData.value.birming.money, 2)} | Workers: ${getLet(userData.value.birming.workers)} | Wage: $${getLet(c5, 2)} | Customers: ${getLet(userData.value.birming.customers)} | Prestige: ${userData.value.birming.prestige}`
+        }
+        break;
+
+      case "kyiv":
+        if (userData.value.kyiv.accountant == true) {
+          Say = `Kyiv | Money: $${getLet(userData.value.kyiv.money, 2)} | Workers: ${getLet(userData.value.kyiv.workers)} | Wage: $${getLet(c6, 2)} | Customers: ${getLet(userData.value.kyiv.customers)} | Prestige: ${userData.value.kyiv.prestige} | Earn (b!auto w): $${getLet(earn13, 2)} | Cost (b!auto a): $${getLet(earn14, 2)}`
+        } else {
+          Say = `Kyiv | Money: $${getLet(userData.value.kyiv.money, 2)} | Workers: ${getLet(userData.value.kyiv.workers)} | Wage: $${getLet(c7, 2)} | Customers: ${getLet(userData.value.kyiv.customers)} | Prestige: ${userData.value.kyiv.prestige}`
         }
         break;
 

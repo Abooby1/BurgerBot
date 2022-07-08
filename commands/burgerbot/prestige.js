@@ -216,6 +216,39 @@ const Prestige = {
           chat.reply(`You need 10k workers to prestige...`)
         }
         break;
+      case "kyiv":
+        if (userData.value.kyiv.workers >= 15000) {
+          if (userData.value.kyiv.customers >= 150000) {
+            if (userData.value.kyiv.money >= 300000) {
+              if (userData.value.kyiv.loan == undefined) {
+                userData.value.kyiv.prestige += 1
+                userData.value.exp += 55
+                userData.value.kyiv.money = 2 * userData.value.kyiv.prestige
+                userData.value.kyiv.workers = 0
+                userData.value.kyiv.customers = 1
+                userData.value.kyiv.normad = "facebook"
+                userData.value.kyiv.normwater = 'water1'
+                userData.value.kyiv.wage = 0
+                userData.value.kyiv.supervisor = false
+                userData.value.kyiv.accountant = false
+                userData.value.kyiv.coowner = false
+                chat.reply(`You have prestiged! You will now earn more money!`)
+                setTimeout(async function( ) {
+                  userData.update()
+                }, 2500)
+              } else {
+                chat.reply(`You cant prestige while having a loan... (use b!payoff to pay off your whole loan)`)
+              }
+            } else {
+              chat.reply(`You need $300k to prestige...`)
+            }
+          } else {
+            chat.reply(`You need 150k customers to prestige...`)
+          }
+        } else {
+          chat.reply(`You need 15k workers to prestige...`)
+        }
+        break;
       case 'summer':
         if (userData.value.summer.workers >= 1000) {
           if (userData.value.summer.customers >= 5000) {

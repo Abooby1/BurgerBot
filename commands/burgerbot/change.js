@@ -22,6 +22,12 @@ const Change = {
         case 'london':
           chat.reply(`London | postuse: '${userData.value.postuse}' | normad: '${userData.value.london.normad}' | normwater: '${userData.value.london.normwater}'`);
           break;
+        case 'birming':
+          chat.reply(`Birmingham | postuse: '${userData.value.postuse}' | normad: '${userData.value.birming.normad}' | normwater: '${userData.value.birming.normwater}'`);
+          break;
+        case 'kyiv':
+          chat.reply(`Kyiv | postuse: '${userData.value.postuse}' | normad: '${userData.value.kyiv.normad}' | normwater: '${userData.value.kyiv.normwater}'`);
+          break;
         case 'summer':
           chat.reply(`Summer Spot | postuse: '${userData.value.postuse}' | normad: 'not supported...' | normwater: 'not supported...'`);
           break;
@@ -156,6 +162,22 @@ const Change = {
             }
             break;
 
+          case "kyiv":
+            if (getStuff(value.toLowerCase()).rank == "ad") {
+              if (userData.value.kyiv.money >= getStuff(value.toLowerCase()).cost * 7) {
+                userData.value.kyiv.normad = getStuff(value.toLowerCase()).id
+                chat.reply(`Your Kyiv workers will now use ${getStuff(value.toLowerCase()).name} to advertise! (spot: Kyiv)`)
+                setTimeout(function( ) {
+                  userData.update()
+                }, 2500)
+              } else {
+                chat.reply(`Youre too poor to use this advertisement... (cost $${getLet(value.toLowerCase().cost * 7, 2)})`)
+              }
+            } else {
+              chat.reply(`Thats not an ad...`)
+            }
+            break;
+
           default:
             chat.reply(`Hmm, looks like this spot doesnt support ad changes...`)
         }
@@ -221,12 +243,24 @@ const Change = {
           case "birming":
             if (getStuff(value.toLowerCase()).needed <= userData.value.birming.customers * 6) {
               userData.value.birming.normwater = getStuff(value.toLowerCase()).id
-              chat.reply(`Your workers will now use ${getStuff(value.toLowerCase()).name} to hydrate while advertising on the Space Center! (multiplier: ×${getStuff(value.toLowerCase()).multi})`)
+              chat.reply(`Your workers will now use ${getStuff(value.toLowerCase()).name} to hydrate while advertising in Birmingham! (multiplier: ×${getStuff(value.toLowerCase()).multi})`)
               setTimeout(function( ) {
                 userData.update()
               }, 2500)
             } else {
                 chat.reply(`You dont have enough customers to have ${getStuff(value.toLowerCase()).name} as your hydrating drink... (needed: ${getLet(getStuff(value.toLowerCase()).needed * 6, 2)})`)
+            }
+            break;
+
+          case "kyiv":
+            if (getStuff(value.toLowerCase()).needed <= userData.value.kyiv.customers * 7) {
+              userData.value.kyiv.normwater = getStuff(value.toLowerCase()).id
+              chat.reply(`Your workers will now use ${getStuff(value.toLowerCase()).name} to hydrate while advertising on Kyiv! (multiplier: ×${getStuff(value.toLowerCase()).multi})`)
+              setTimeout(function( ) {
+                userData.update()
+              }, 2500)
+            } else {
+                chat.reply(`You dont have enough customers to have ${getStuff(value.toLowerCase()).name} as your hydrating drink... (needed: ${getLet(getStuff(value.toLowerCase()).needed * 7, 2)})`)
             }
             break;
 
@@ -300,6 +334,19 @@ const Change = {
                     }, 2500)
                   } else {
                     chat.reply(`You dont have enough credits to buy a spot in Birmingham... (cost: 10k credits)`)
+                  }
+                  break;
+                case "kyiv":
+                  if (userData.value.credits >= 5000) {
+                    chat.reply(`You bought a spot in Kyiv!`)
+                    userData.value.credits -= 5000
+                    userData.value.spot = "kyiv"
+                    userData.value.spots.push("kyiv")
+                    setTimeout(function( ) {
+                      userData.update()
+                    }, 2500)
+                  } else {
+                    chat.reply(`You dont have enough credits to buy a spot in Kyiv... (cost: 5k credits)`)
                   }
                   break;
                 case "summer":
@@ -442,6 +489,24 @@ const Change = {
                   chat.reply(`You already have a supervisor...`)
                 }
                 break;
+              case 'kyiv':
+                if (userData.value.kyiv.supervisor == false) {
+                  if (userData.value.kyiv.workers >= 10) {
+                    userData.value.kyiv.workers -= 1
+                    userData.value.kyiv.wage -= 61.38
+                    userData.value.kyiv.supervisor = true
+                    userData.value.kyiv.wage += 71.61
+                    chat.reply(`You have promoted one of your workers into a supervisor!`)
+                    setTimeout(function( ) {
+                      userData.update()
+                    }, 2500)
+                  } else {
+                    chat.reply(`You need at least 10 workers to do this...`)
+                  }
+                } else {
+                  chat.reply(`You already have a supervisor...`)
+                }
+                break;
 
               default:
                 chat.reply(`Hmm, looks like this spot doesnt support supervisors...`)
@@ -540,6 +605,24 @@ const Change = {
                   chat.reply(`You already have an accountant...`)
                 }
                 break;
+              case 'kyiv':
+                if (userData.value.kyiv.accountant == false) {
+                  if (userData.value.kyiv.workers >= 20) {
+                    userData.value.kyiv.workers -= 1
+                    userData.value.kyiv.wage -= 61.38
+                    userData.value.kyiv.accountant = true
+                    userData.value.kyiv.wage += 81.84
+                    chat.reply(`You have promoted one of your workers into an accountant!`)
+                    setTimeout(function( ) {
+                      userData.update()
+                    }, 2500)
+                  } else {
+                    chat.reply(`You need at least 20 workers to do this...`)
+                  }
+                } else {
+                  chat.reply(`You already have an accountant...`)
+                }
+                break;
 
               default:
                 chat.reply(`Hmm, looks like this spot doesnt support accountants...`)
@@ -627,6 +710,24 @@ const Change = {
                     userData.value.birming.wage -= 51.15
                     userData.value.birming.coowner = true
                     userData.value.birming.wage += 81.84
+                    chat.reply(`You have promoted one of your workers into an co-owner!`)
+                    setTimeout(function( ) {
+                      userData.update()
+                    }, 2500)
+                  } else {
+                    chat.reply(`You need at least 50 workers to do this...`)
+                  }
+                } else {
+                  chat.reply(`You already have a co-owner...`)
+                }
+                break;
+              case 'kyiv':
+                if (userData.value.kyiv.coowner == false) {
+                  if (userData.value.kyiv.workers >= 50) {
+                    userData.value.kyiv.workers -= 1
+                    userData.value.kyiv.wage -= 61.38
+                    userData.value.kyiv.coowner = true
+                    userData.value.kyiv.wage += 92.07
                     chat.reply(`You have promoted one of your workers into an co-owner!`)
                     setTimeout(function( ) {
                       userData.update()

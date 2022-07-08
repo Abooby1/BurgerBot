@@ -282,6 +282,27 @@ client.onPost = async (post) => {
                 }, 60000)
               }
               break;
+            case 'kyiv':
+              if (d1.value.kyiv.coowner == true) {
+                var i = setInterval(async function( ) {
+                  var earn = 0
+                  if (event.name == 'Co-Owner Event') {
+                    earn = await f('workkyiv', post.author.id) / 3 * 2
+                  } else {
+                    earn = await f('workkyiv', post.author.id) / 3
+                  }
+                  if (earn >= 500) {
+                    d1.value.kyiv.money += earn
+                    d1.value.net += earn
+                    setTimeout(function( ) {
+                      d1.update()
+                    }, 2500)
+                  } else {
+                    clearInterval(i)
+                  }
+                }, 60000)
+              }
+              break;
             case 'london':
               if (d1.value.london.coowner == true) {
                 var i = setInterval(async function( ) {
@@ -370,6 +391,7 @@ client.onReady = async () => {
           money += data.value.beach.money
           money += data.value.dank.money
           money += data.value.birming.money
+          //money += data.value.kyiv.money
           if (data.value.version == Version) {
             net += data.value.net
           }

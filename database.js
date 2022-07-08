@@ -63,6 +63,7 @@ export const defaultData = {
   space: {money: 0, customers: 1, workers: 0, wage: 0, prestige: 1, normad: 'facebook', normwater: 'water1', supervisor: false, accountant: false, coowner: false},
   birming: {money: 0, customers: 1, workers: 0, wage: 0, prestige: 1, normad: 'facebook', normwater: 'water1', supervisor: false, accountant: false, coowner: false},
   london: {money: 0, customers: 1, workers: 0, wage: 0, prestige: 1, normad: 'facebook', normwater: 'water1', supervisor: false, accountant: false, coowner: false},
+  kyiv: {money: 0, customers: 1, workers: 0, wage: 0, prestige: 1, normad: 'facebook', normwater: 'water1', supervisor: false, accountant: false, coowner: false},
   summer: {money: 0, customers: 1, workers: 0, wage: 0, prestige: 1},
   event: {money: 0, customers: 1, workers: 0, wage: 0},
   //

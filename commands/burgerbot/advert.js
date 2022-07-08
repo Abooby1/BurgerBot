@@ -57,6 +57,14 @@ const Advertise = {
             y = y * 6
           }
           break;
+        case 'kyiv':
+          if (userData.value.kyiv.money >= y * 6) {
+            t = true
+            y = y * 6
+          } else {
+            y = y * 6
+          }
+          break;
         case 'summer':
           if (userData.value.summer.money >= y / 2) {
             t = true
@@ -121,6 +129,12 @@ const Advertise = {
             userData.value.birming.customers += Earned
             userData.value.birming.workers += EarnedW
             userData.value.birming.wage += EarnedW * 51.15
+            break;
+          case "kyiv":
+            userData.value.kyiv.money -= y
+            userData.value.kyiv.customers += Earned
+            userData.value.kyiv.workers += EarnedW
+            userData.value.kyiv.wage += EarnedW * 61.38
             break;
           case "london":
             userData.value.london.money -= y

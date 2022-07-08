@@ -91,7 +91,7 @@ export const VersionID = '2.34'
 export const Version = 3
 
 export const downtime = false
-export const DowntimeEnd = 'July 2, 12pm EST'
+export const DowntimeEnd = 'July 16, 12pm EST'
 
 export const PremiumSpotID = {6: 'london'}
 
@@ -100,11 +100,11 @@ export var Day = await getDay('global')
 export var event = {}
 export const d12d = false
 
-export const SeasonMulti = 3
+export const SeasonMulti = 3//2
 export const SeasonNum = 2
-export const SeasonEnd = "July 9"
-export const SeasonName = "Birmingham"
-export const SeasonSpot = 'birming'
+export const SeasonEnd = "July 16"//august 20
+export const SeasonName = "Birmingham"//Kyiv
+export const SeasonSpot = 'birming'//kyiv
 
 export var QuestW = {}
 export var QuestS = {name: 'Work', desc: 'Work 500 times', max: 500}
@@ -201,10 +201,19 @@ function getEvent (n) {
         earn: null
       }
 
+    case 8:
+      return {
+        name: 'Auto Event',
+        desc: 'The auto event adds to the max days available to use in auto w/a. With this event, the max is set to 7!',
+
+        last: 2,
+        earn: null
+      }
+
     case 'UE':
       return {
         name: 'User Milestone Event',
-        desc: 'The user event is activated when a user count milestone is reached! This event gives random rewards from using commands!',
+        desc: 'The user milestone event is activated when a certain user count is reached! This event gives random rewards from using commands!',
 
         last: 7,
         earn: ["worker", "customs", "credits", "exp"]
@@ -245,21 +254,21 @@ function getQuest (n) {
       return {
         name: 'Work Quest',
         desc: 'Work until completed!',
-        earn: ['money 10', 'credits 2'],
+        earn: ['money 100', 'credits 5'],
         max: getRandomInt(50, 100)
       }
     case 2:
       return {
         name: 'Advert Quest',
-        desc: 'Get customers from adverts until completed!',
-        earn: ['money 100', 'credits 25'],
+        desc: 'Earn customers from adverts until completed!',
+        earn: ['money 500', 'credits 25'],
         max: getRandomInt(250, 500)
       }
     case 3:
       return {
         name: 'Money Quest',
-        desc: 'Get money until completed!',
-        earn: ['credits 30', 'customs 75'],
+        desc: 'Earn money until completed!',
+        earn: ['credits 25', 'customs 60'],
         max: getRandomInt(5000, 25000)
       }
   }
@@ -881,6 +890,33 @@ export async function f (type, uid) {
       }
       const c7 = a4 * userData.value.london.workers + w12
       return c7
+      break;
+
+    case "workkyiv":
+      var w13 = 0
+      if (event.name == "Worker Event") {
+        w13 = userData.value.kyiv.wage / 2
+      } else {
+        w13 = userData.value.kyiv.wage
+      }
+      return userData.value.kyiv.workers * userData.value.kyiv.prestige * 0.01 * userData.value.kyiv.customers - w13
+      break;
+      
+    case "advertkyiv":
+      var w14 = 0
+      var a5 = 0
+      if (event.name == "Advert Event") {
+        a5 = getStuff(userData.value.kyiv.normad).cost * 6 / 2
+      } else {
+        a5 = getStuff(userData.value.kyiv.normad).cost * 6
+      }
+      if (event.name == "Worker Event") {
+        w14 = userData.value.kyiv.wage / 2
+      } else {
+        w14 = userData.value.kyiv.wage
+      }
+      const c8 = a5 * userData.value.kyiv.workers + w14
+      return c8
       break;
 
     default: 
