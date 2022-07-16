@@ -246,11 +246,7 @@ const SetCredit = {
 const AddSpot = {
   names: ["test"],
   func: async ({chat, body})=>{
-     try {
-       eval(body)
-     } catch (err) {
-       chat.reply(err)
-     }
+     chat.reply(`Not done...`)
   },
   description: "Change stuff",
   permission: "Owner"

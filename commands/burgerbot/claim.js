@@ -1,6 +1,8 @@
 import {getDay, event, SeasonMulti, getRandomInt, SeasonNum, SeasonSpot, PremiumSpotID, getMonth} from "../../utils.js"
+import {audit} from '../../index.js'
 
 var y1 = {}
+var adruns = {}
 
 const Claim = {
   names: ["claim"],
@@ -19,6 +21,48 @@ const Claim = {
         }, 2500)
       }
       switch (body.toLowerCase()) {
+        case 'ad':
+          if (adruns[chat.author.id] == null) {
+            chat.post.chat('s!runad')
+            adruns[chat.author.id] = 120
+            audit(`${chat.author.username} got rewards from an ad`)
+            const rewards = ['money', 'credits']
+            let amount
+            switch (rewards[getRandomInt(0,1)]) {
+              case 'money':
+                amount = getRandomInt(10, 30)
+                userData.value.city.money += amount
+                chat.reply(`You earned $${amount} (city)!`)
+                setTimeout(function( ) {
+                  userData.update()
+                }, 2500)
+                break;
+              case 'credits':
+                amount = getRandomInt(1, 3)
+                userData.value.credits += amount
+                if (amount == 1) {
+                  chat.reply(`You got ${amount} credit!`)
+                } else {
+                  chat.reply(`You got ${amount} credits!`)
+                }
+                setTimeout(function( ) {
+                  userData.update()
+                }, 2500)
+                break;
+            }
+            var i = setInterval(function( ) {
+              if (adruns[chat.author.id] > 0) {
+                adruns[chat.author.id] -= 1
+              } else {
+                adruns[caht.author.id] = null
+                chat.reply(`You are ready to watch anothr ad!`)
+                clearInterval(i)
+              }
+            }, 1000)
+          } else {
+            chat.reply(`You cant run an ad... (time left: '${adruns[chat.author.id]}' seconds)`)
+          }
+          break;
         case 'daily':
           if (userData.value.daily != await getDay(userData.value.timezone)) {
             userData.value.daily = await getDay(userData.value.timezone)
@@ -336,10 +380,33 @@ const Claim = {
         case "season":
           if (userData.value.lastlvl != userData.value.lvl) {
             const e = userData.value.lvl - userData.value.lastlvl
-            userData.value.lastlvl = userData.value.lvl
             const earn = e * SeasonMulti * 2
             chat.reply(`You collected your season level reward (${earn} credits!)`)
             userData.value.credits += earn
+            /*
+            if (userData.value.lvl >= 100) {
+              if (userData.value.lastlvl < 100) {
+                if (!userData.value.spots.includes(SeasonSpot)) {
+                  chat.reply(`You go the seasonal spot for getting to lvl 100! ('${SeasonSpot}' | if your lvl was more than 100 you also got your credits)`)
+                  userData.value.spots.push(SeasonSpot)
+                  if (userData.value.lvl > 100) {
+                    const e2 = userData.value.lvl - 100
+                    const earn = e2 * SeasonMulti * 2
+                    userData.value.credits += earn
+                  }
+                }
+              } else {
+                const earn = e * SeasonMulti * 2
+                chat.reply(`You collected your season level reward (${earn} credits!)`)
+                userData.value.credits += earn
+              }
+            } else {
+              const earn = e * SeasonMulti * 2
+              chat.reply(`You collected your season level reward (${earn} credits!)`)
+              userData.value.credits += earn
+            }
+            */
+            userData.value.lastlvl = userData.value.lvl
             setTimeout(function( ) {
               userData.update()
             }, 2500)
@@ -406,7 +473,7 @@ const Claim = {
           break;
           
         default:
-          chat.reply(`Thats not an available claim... ("daily" | "monthly" | "premium" | "season" | "event")`)
+          chat.reply(`Thats not an available claim... ("daily" | "monthly" | "premium" | "season" | "event" | "ad")`)
       }
     } else {
       chat.reply(`You need to set your server by using b!change server <server name ("asia", "global", "africa", "antarctica", "australia", or "europe")>`)

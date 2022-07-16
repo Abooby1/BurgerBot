@@ -8,7 +8,7 @@ const client = new Client({ username: "BurgerBot", password: process.env["Pass"]
 
 const noop = () => { };
 
-const VersionSay = `1. Grammar checked around 20 files for yall :c`
+const VersionSay = `1. Season 3 (Kyiv) is now out!\n2. Added new spot (kyiv | cost: 2.5k credits)\n3. New season multiplier (2)\n4. Added new claim (ad)`
 
 export async function audit (m) {
   const p = JSON.parse(await db2.get('audit'))
@@ -103,7 +103,7 @@ client.onPost = async (post) => {
             audit(`${post.author.username} connected a post`)
           } else {
             if (d1.value.rank != 'Banned' && !d2.includes(post.author.id)) {
-              post.chat(`Hey ${post.author.id}! Im connected to your post... Make sure to use "b!help" for help!`)
+              post.chat(`Hey ${post.author.username}! Im connected to your post... Make sure to use "b!help" for help!`)
               audit(`${post.author.username} connected a post`)
             } else {
               post.chat('Sorry... Youre banned from BurgerBot...')
@@ -114,7 +114,7 @@ client.onPost = async (post) => {
             if (d1.value.version != Version) {
               const v = d1.value.version
               switch (v) {
-                case 2://new season (version before the current version)
+                case 2://version 2 to 3
                   d1.value.exp = 0
                   d1.value.lvl = 1
                   d1.value.lastlvl = 0
@@ -129,6 +129,30 @@ client.onPost = async (post) => {
                       const get = parseFloat(getPoints(d1.value.arena.rank, 'points')) || 1500 / 8
                       d1.value.credits += get.toString().split('.')[0]
                     }
+                  }
+                  if (d1.value.spot == 'arena') {
+                    post.chat('You are back to the City spot! (Arena has refreshed | rewards have been added to your account!)')
+                    d1.value.spot = 'city'
+                  }
+                  setTimeout(function( ) {
+                    d1.update()
+                  }, 3000)
+                  break;
+                case 3://version 3 to 4
+                  d1.value.exp = 0
+                  d1.value.lvl = 1
+                  d1.value.lastlvl = 0
+                  d1.value.credits += 25
+                  d1.value.version = 4
+                  d1.value.net = 0
+                  post.chat(`Welcome to Season ${SeasonNum} (${SeasonName})! You earned 25 credits! (youre back to level 1!)`)
+                  if (d1.value.arena != undefined) {
+                    post.chat(`Your arena rewards have been added to your account!`)
+                    if (d1.value.arena.rank != 'Noobie') {
+                      const get = parseFloat(getPoints(d1.value.arena.rank, 'points')) || 1500 / 8
+                      d1.value.credits += get.toString().split('.')[0]
+                    }
+                    delete d1.value.arena
                   }
                   if (d1.value.spot == 'arena') {
                     post.chat('You are back to the City spot! (Arena has refreshed | rewards have been added to your account!)')
@@ -328,13 +352,13 @@ client.onPost = async (post) => {
         } else {
           const d = await JSON.stringify(defaultData)
           db.set(`v1/${post.author.id}`, d)
-          post.chat(`Welcome ${post.author.id} to BurgerBot Season ${SeasonNum} (${SeasonName})! Make sure to use "b!help" for some help! ("b!help tutorial" is a good command to use too!)`)
+          post.chat(`Welcome ${post.author.username} to BurgerBot Season ${SeasonNum} (${SeasonName})! Make sure to use "b!help" for some help! ("b!help tutorial" is a good command to use too!)`)
           audit(`${post.author.username} made an account`)
         }
       }, 2000)
     } else {
       const d11111111 = await getUserDataManager(post.author.id)
-      if (d11111111.value.rank != 'Owner' || d11111111.value.rank != 'Tester') {
+      if (d11111111.value.rank != 'Owner' && d11111111.value.rank != 'Tester') {
         post.chat(`BurgerBot is currently in downtime until ${DowntimeEnd}...`)
         post.disconnect()
       } else {

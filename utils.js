@@ -87,8 +87,8 @@ export async function getHour (tt) {
   }
 }
 
-export const VersionID = '2.34'
-export const Version = 3
+export const VersionID = '3.00'//3.00
+export const Version = 4
 
 export const downtime = false
 export const DowntimeEnd = 'July 16, 12pm EST'
@@ -100,11 +100,11 @@ export var Day = await getDay('global')
 export var event = {}
 export const d12d = false
 
-export const SeasonMulti = 3//2
-export const SeasonNum = 2
-export const SeasonEnd = "July 16"//august 20
-export const SeasonName = "Birmingham"//Kyiv
-export const SeasonSpot = 'birming'//kyiv
+export const SeasonMulti = 2
+export const SeasonNum = 3
+export const SeasonEnd = "August 20"
+export const SeasonName = "Kyiv"
+export const SeasonSpot = 'kyiv'
 
 export var QuestW = {}
 export var QuestS = {name: 'Work', desc: 'Work 500 times', max: 500}

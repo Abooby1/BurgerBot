@@ -13,7 +13,7 @@ const Help = {
       case "spot":
         chat.reply(`You can buy/switch spots in b!change spot <spot you want to buy>! Each spot costs more credits!`)
         setTimeout(function( ) {
-          chat.reply(`Spots: "city" (free starter) | "beach" (5k credits) | "dank" (25k credits) | "space" (50k credits) | "birming" (10k credits) | "****" (5k credits) | "summer" (FREE)`)
+          chat.reply(`Spots: "city" (free starter) | "beach" (5k credits) | "dank" (25k credits) | "space" (50k credits) | "kyiv" (5k credits) | "summer" (FREE)`)
           setTimeout(function( ) {
             const items = []
             const y = userData.value.spots.forEach(x => items.push(`"${x}"`))
@@ -91,7 +91,7 @@ const Help = {
         break;
       case "b!claim":
       case "claim":
-        chat.reply(`b!claim <item>: claim daily/monthly/premium/event/seasonal rewards!`)
+        chat.reply(`b!claim <item>: claim daily/monthly/premium/event/seasonal/ad rewards!`)
         break;
         //
       case "b!change":

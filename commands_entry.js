@@ -78,7 +78,13 @@ export async function onChat(client, chat) {
         }
 
         if (event.name == "Reward Event" || event.name == "User Milestone Event") {
-          if (getRandomInt(1, 50) <= 5) {
+          var num;
+          if (event.name == 'Reward Event') {
+            num = getRandomInt(1, 50)
+          } else if (event.name == 'User Milestone Event') {
+            num = getRandomInt(1, 25)
+          }
+          if (num == 1) {
             switch (event.earn[getRandomInt(0, event.earn.length)]) {
               case "credits":
                 const m1 = getRandomInt(10, 50)
@@ -86,7 +92,7 @@ export async function onChat(client, chat) {
                 setTimeout(function( ) {
                   context.userData.update()
                 }, 2500)
-                chat.reply(`You earned ${m1} credits from the Reward Event!`)
+                chat.reply(`You earned ${m1} credits from the ${event.name}!`)
                 break;
               case "customs":
                 const m2 = getRandomInt(2, 10)
@@ -94,7 +100,7 @@ export async function onChat(client, chat) {
                 setTimeout(function( ) {
                   context.userData.update()
                 }, 2500)
-                chat.reply(`You earned ${m2} customers from the Reward Event!`)
+                chat.reply(`You earned ${m2} customers from the ${event.name}!`)
                 break;
               case "worker":
                 const m3 = getRandomInt(1,2)
@@ -103,7 +109,7 @@ export async function onChat(client, chat) {
                 setTimeout(function( ) {
                   context.userData.update()
                 }, 2500)
-                chat.reply(`You earned ${m3} worker(s) from the Reward Event! (wage added: $${m3 * 5.12})`)
+                chat.reply(`You earned ${m3} worker(s) from the ${event.name}! (wage added: $${m3 * 5.12})`)
                 break;
               case "exp":
                 const m4 = getRandomInt(10, 25)
@@ -111,7 +117,7 @@ export async function onChat(client, chat) {
                 setTimeout(function( ) {
                   context.userData.update()
                 }, 2500)
-                chat.reply(`You earned ${m4} exp from the Reward Event!`)
+                chat.reply(`You earned ${m4} exp from the ${event.name}!`)
             }
           }
         }
